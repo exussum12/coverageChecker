@@ -1,0 +1,17 @@
+{
+    "name": "exussum12/coverage-checker",
+    "description": "Allows checking the code coverage of a single pull request",
+    "require": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Scott Dutton",
+            "email": "scott@exussum.co.uk"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"exussum12\\CoverageChecker\\": "src/"}
+    }
+}

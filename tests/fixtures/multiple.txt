@@ -1,0 +1,36 @@
+commit a62d9c3efb2451220a0972016bc4c7377a94dfea
+Author: Scott Dutton <scott@exussum.co.uk>
+Date:   Wed Jan 4 07:58:36 2017 +0000
+
+    Change File
+
+diff --git a/changedFile.php b/changedFile.php
+index 102e3a3..aed00ca 100644
+--- a/changedFile.php
++++ b/changedFile.php
+@@ -1,3 +1,3 @@
+ <?php
+ 
+-printf("Changed File");
++echo "Changed File";
+
+diff --git a/newFile.php b/newFile.php
+new file mode 100644
+index 0000000..102e3a3
+--- /dev/null
++++ b/newFile.php
+@@ -0,0 +1,3 @@
++<?php
++
++printf("Changed File");
+
+diff --git a/deletedFile.php b/deletedFile.php
+deleted file mode 100644
+index 3d55350..0000000
+--- a/deletedFile.php
++++ /dev/null
+@@ -1,3 +0,0 @@
+-<?php
+-
+-echo "Deleted File";
+

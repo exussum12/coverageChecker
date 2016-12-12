@@ -1,0 +1,16 @@
+commit 6924ef0f89ce69cfdbbd4965e669b3c587a81cbe
+Author: Scott Dutton <scott@exussum.co.uk>
+Date:   Wed Jan 4 07:58:36 2017 +0000
+
+    Remove File
+
+diff --git a/deletedFile.php b/deletedFile.php
+deleted file mode 100644
+index 3d55350..0000000
+--- a/deletedFile.php
++++ /dev/null
+@@ -1,3 +0,0 @@
+-<?php
+-
+-echo "Deleted File";
+
