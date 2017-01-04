@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+require_once __DIR__ . "/../vendor/autoload.php";
+
+if ($argv[1] == "-") {
+        $argv[1] = "php://stdin";
+}
+if ($argv[2] == "-") {
+        $argv[2] = "php://stdin";
+}
+
+$minimumPercentCovered = 100;
+if (isset($argv[3])) {
+    $minimumPercentCovered = $argv[3];
+}
+
+if (!isset($argv[1], $argv[2])) {
+    echo "Missing arguments, please call with diff and check file" . PHP_EOL;
+    exit(1);
+}
+
+$matcher = new exussum12\CoverageChecker\FileMatchers\EndsWith();
+$diff = new  exussum12\CoverageChecker\DiffFileLoader($argv[1]);
+$phpunit = new exussum12\CoverageChecker\XMLReport($argv[2]);
+$coverageCheck = new exussum12\CoverageChecker\CoverageCheck($diff, $phpunit, $matcher);
+
+$lines = $coverageCheck->getCoveredLines();
+
+$coveredLines = count($lines['coveredLines'], COUNT_RECURSIVE);
+$uncoveredLines = count($lines['uncoveredLines'], COUNT_RECURSIVE);
+
+if($coveredLines + $uncoveredLines == 0) {
+    exit(0);
+}
+
+$percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
+if ($percentCovered >= $minimumPercentCovered) {
+    exit(0);
+}
+
+echo "$percentCovered% Covered, Missed lines " . PHP_EOL;
+print_r($lines['uncoveredLines']);
+exit(2);

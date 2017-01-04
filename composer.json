@@ -13,5 +13,6 @@
     ],
     "autoload": {
         "psr-4": {"exussum12\\CoverageChecker\\": "src/"}
-    }
+    },
+    "bin": ["bin/FileCoverageCheck"]
 }

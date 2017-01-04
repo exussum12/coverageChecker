@@ -10,6 +10,7 @@ class CoverageCheck
     protected $matcher;
     protected $cache;
     protected $uncoveredLines = [];
+    protected $coveredLines = [];
 
     public function __construct(
         DiffFileLoader $diff,
@@ -22,7 +23,7 @@ class CoverageCheck
         $this->cache = new stdClass;
     }
 
-    public function getUncoveredLines()
+    public function getCoveredLines()
     {
         if (empty($this->cache->diff)) {
             $this->cache->diff = $this->diff->getChangedLines();
@@ -33,6 +34,7 @@ class CoverageCheck
         }
 
         $this->uncoveredLines = [];
+        $this->coveredLines = [];
 
         $diffFiles = array_keys($this->cache->diff);
         $coveredFiles = array_keys($this->cache->coveredLines);
@@ -49,7 +51,10 @@ class CoverageCheck
             );
         }
 
-        return $this->uncoveredLines;
+        return [
+            'uncoveredLines' => $this->uncoveredLines,
+            'coveredLines' => $this->coveredLines,
+        ];
     }
 
     protected function addUnCoveredLine($file, $line)
@@ -61,11 +66,23 @@ class CoverageCheck
         $this->uncoveredLines[$file][] = $line;
     }
 
+    protected function addCoveredLine($file, $line)
+    {
+        if (!isset($this->coveredLines[$file])) {
+            $this->coveredLines[$file] = [];
+        }
+
+        $this->coveredLines[$file][] = $line;
+    }
+
     protected function matchLines($fileName, $unitTestFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
-            if ($unitTestFile[$line] == 0) {
+            if (isset($unitTestFile[$line]) && $unitTestFile[$line] == 0) {
                 $this->addUnCoveredLine($fileName, $line);
+            }
+            if (isset($unitTestFile[$line]) && $unitTestFile[$line] > 0) {
+                $this->addCoveredLine($fileName, $line);
             }
         }
     }

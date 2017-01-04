@@ -30,10 +30,19 @@ class CoverageCheckTest extends TestCase
 
         $matcher = new FileMatchers\EndsWith;
         $coverageCheck = new CoverageCheck($diffFileState, $xmlReport, $matcher);
-        $lines = $coverageCheck->getUncoveredLines();
-        $expected = [
+        $lines = $coverageCheck->getCoveredLines();
+        $uncoveredLines = [
             'testFile1.php' => [2],
             'testFile2.php' => [4]
+        ];
+        $coveredLines = [
+            'testFile1.php' => [1,3,4],
+            'testFile2.php' => [3],
+        ];
+
+        $expected = [
+            'coveredLines' => $coveredLines,
+            'uncoveredLines' => $uncoveredLines,
         ];
 
         $this->assertEquals($expected, $lines);
@@ -45,7 +54,7 @@ class CoverageCheckTest extends TestCase
         $diffFileState->method('getChangedLines')
             ->willReturn([
                 'testFile1.php' => [1,2,3,4],
-                'testFile2.php' => [3,4]
+                'testFile2.php' => [3,4],
 
             ]);
 
@@ -58,9 +67,18 @@ class CoverageCheckTest extends TestCase
 
         $matcher = new FileMatchers\EndsWith;
         $coverageCheck = new CoverageCheck($diffFileState, $xmlReport, $matcher);
-        $lines = $coverageCheck->getUncoveredLines();
-        $expected = [
+        $lines = $coverageCheck->getCoveredLines();
+
+        $uncoveredLines = [
             'testFile1.php' => [2],
+        ];
+        $coveredLines = [
+            'testFile1.php' => [1,3,4],
+        ];
+
+        $expected = [
+            'coveredLines' => $coveredLines,
+            'uncoveredLines' => $uncoveredLines,
         ];
 
         $this->assertEquals($expected, $lines);

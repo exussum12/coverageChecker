@@ -1,7 +1,8 @@
 <?php
 namespace exussum12\CoverageChecker;
 
-abstract class DiffLineHandle {
+abstract class DiffLineHandle
+{
     protected $diffFileState = null;
 
     public function __construct(diffFileState $diff)
@@ -9,7 +10,7 @@ abstract class DiffLineHandle {
         $this->diffFileState = $diff;
     }
 
-    public abstract function handle($line);
+    abstract public function handle($line);
 
-    public abstract static function isValid($line);
+    abstract public static function isValid($line);
 }

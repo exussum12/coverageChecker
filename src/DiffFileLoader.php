@@ -51,7 +51,7 @@ class DiffFileLoader
             }
         }
         //not found, Class it as context
-        return $this->getClass(diffLineHandle\contextLine::class);
+        return $this->getClass(DiffLineHandle\ContextLine::class);
     }
 
     private function getClass($className)
