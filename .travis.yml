@@ -15,6 +15,9 @@ matrix:
     - php: 5.6
   fast_finish: true
 before_script:
+  - composer require satooshi/php-coveralls:dev-master
   - composer install --dev
 script:
   - vendor/bin/phpunit
+after_script:
+  - php vendor/bin/coveralls -v
