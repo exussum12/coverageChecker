@@ -6,7 +6,7 @@ use stdClass;
 class CoverageCheck
 {
     protected $diff;
-    protected $xmlReport;
+    protected $fileChecker;
     protected $matcher;
     protected $cache;
     protected $uncoveredLines = [];
@@ -14,11 +14,11 @@ class CoverageCheck
 
     public function __construct(
         DiffFileLoader $diff,
-        XMLReport $xmlReport,
+        FileChecker $fileChecker,
         FileMatcher $matcher
     ) {
         $this->diff = $diff;
-        $this->xmlReport = $xmlReport;
+        $this->fileChecker = $fileChecker;
         $this->matcher = $matcher;
         $this->cache = new stdClass;
     }
@@ -30,7 +30,7 @@ class CoverageCheck
         }
 
         if (empty($this->cache->coveredLines)) {
-            $this->cache->coveredLines = $this->xmlReport->getCoveredLines();
+            $this->cache->coveredLines = $this->fileChecker->getLines();
         }
 
         $this->uncoveredLines = [];
@@ -45,10 +45,7 @@ class CoverageCheck
                 continue;
             }
 
-            $this->matchLines(
-                $file,
-                $this->cache->coveredLines[$matchedFile]
-            );
+            $this->matchLines($file, $matchedFile);
         }
 
         return [
@@ -75,15 +72,14 @@ class CoverageCheck
         $this->coveredLines[$file][] = $line;
     }
 
-    protected function matchLines($fileName, $unitTestFile)
+    protected function matchLines($fileName, $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
-            if (isset($unitTestFile[$line]) && $unitTestFile[$line] == 0) {
-                $this->addUnCoveredLine($fileName, $line);
-            }
-            if (isset($unitTestFile[$line]) && $unitTestFile[$line] > 0) {
+            if ($this->fileChecker->isValidLine($matchedFile, $line)) {
                 $this->addCoveredLine($fileName, $line);
+                continue;
             }
+            $this->addUnCoveredLine($fileName, $line);
         }
     }
 }

@@ -5,7 +5,7 @@
       <file name="/path/to/file/changedFile.php">
         <line num="10" type="stmt" count="4"/>
         <line num="11" type="stmt" count="4"/>
-        <line num="14" type="stmt" count="3"/>
+        <line num="14" type="stmt" count="0"/>
         <line num="15" type="stmt" count="3"/>
         <line num="17" type="method" name="randomMethod" visibility="public" complexity="2" crap="2" count="3"/>
         <line num="18" type="stmt" count="3"/>

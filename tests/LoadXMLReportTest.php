@@ -9,13 +9,13 @@ class LoadXMLReportTest extends TestCase
 {
     public function testLoadXML()
     {
-        $fileLoader = new XMLReport(__DIR__ . '/fixtures/coverage.xml');
-        $coveredLines = $fileLoader->getCoveredLines();
+        $xmlReport = new XMLReport(__DIR__ . '/fixtures/coverage.xml');
+        $coveredLines = $xmlReport->getLines();
         $expected = [
             '/path/to/file/changedFile.php' => [
                 10 => 4,
                 11 => 4,
-                14 => 3,
+                14 => 0,
                 15 => 3,
                 18 => 3,
                 19 => 3,
@@ -27,5 +27,7 @@ class LoadXMLReportTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $coveredLines);
+        $this->assertFalse($xmlReport->isValidLine('/path/to/file/changedFile.php', 14));
+        $this->assertTrue($xmlReport->isValidLine('/path/to/file/changedFile.php', 10));
     }
 }
