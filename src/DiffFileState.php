@@ -7,12 +7,12 @@ class DiffFileState
     private $currentFile;
     private $changeLines = [];
     
-    public function setCurrentPosition(int $position)
+    public function setCurrentPosition($position)
     {
         $this->currentPosition = $position;
     }
 
-    public function setCurrentFile(string $currentFile)
+    public function setCurrentFile($currentFile)
     {
         $this->currentFile = $currentFile;
     }

@@ -17,7 +17,7 @@ class DiffFileLoader
     protected $handles = [];
     protected $diff;
 
-    public function __construct(string $fileName)
+    public function __construct($fileName)
     {
         $this->fileLocation = $fileName;
         $this->diff = new DiffFileState();
