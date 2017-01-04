@@ -12,5 +12,5 @@ matrix:
     - php: hhvm
     - php: nightly
   fast_finish: true
-  before_script:
-      - composer install --dev
+before_script:
+  - composer install --dev
