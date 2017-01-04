@@ -9,6 +9,11 @@ foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.p
     }
 }
 
+if (!isset($argv[1], $argv[2])) {
+    echo "Missing arguments, please call with diff and check file" . PHP_EOL;
+    exit(1);
+}
+
 if ($argv[1] == "-") {
         $argv[1] = "php://stdin";
 }
@@ -18,13 +23,9 @@ if ($argv[2] == "-") {
 
 $minimumPercentCovered = 100;
 if (isset($argv[3])) {
-    $minimumPercentCovered = $argv[3];
+    $minimumPercentCovered = min($minimumPercentCovered, max(0, $argv[3]));
 }
 
-if (!isset($argv[1], $argv[2])) {
-    echo "Missing arguments, please call with diff and check file" . PHP_EOL;
-    exit(1);
-}
 
 $matcher = new exussum12\CoverageChecker\FileMatchers\EndsWith();
 $diff = new  exussum12\CoverageChecker\DiffFileLoader($argv[1]);

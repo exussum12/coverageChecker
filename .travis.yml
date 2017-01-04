@@ -12,6 +12,3 @@ matrix:
     - php: hhvm
     - php: nightly
   fast_finish: true
-
-script:
-  - sh -c "vendor/bin/phpunit"
