@@ -51,8 +51,8 @@ class CoverageCheckTest extends TestCase
         $coverageCheck = new CoverageCheck($diffFileState, $xmlReport, $matcher);
         $lines = $coverageCheck->getCoveredLines();
         $uncoveredLines = [
-            'testFile1.php' => [2],
-            'testFile2.php' => [4]
+            'testFile1.php' => [2 => 0],
+            'testFile2.php' => [4 => 0],
         ];
         $coveredLines = [
             'testFile1.php' => [1,3,4],
@@ -105,7 +105,7 @@ class CoverageCheckTest extends TestCase
         $lines = $coverageCheck->getCoveredLines();
 
         $uncoveredLines = [
-            'testFile1.php' => [2],
+            'testFile1.php' => [2 => 0],
         ];
         $coveredLines = [
             'testFile1.php' => [1,3,4],

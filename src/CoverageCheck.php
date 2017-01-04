@@ -54,13 +54,13 @@ class CoverageCheck
         ];
     }
 
-    protected function addUnCoveredLine($file, $line)
+    protected function addUnCoveredLine($file, $line, $message = false)
     {
         if (!isset($this->uncoveredLines[$file])) {
             $this->uncoveredLines[$file] = [];
         }
 
-        $this->uncoveredLines[$file][] = $line;
+        $this->uncoveredLines[$file][$line] = $message;
     }
 
     protected function addCoveredLine($file, $line)
@@ -79,7 +79,11 @@ class CoverageCheck
                 $this->addCoveredLine($fileName, $line);
                 continue;
             }
-            $this->addUnCoveredLine($fileName, $line);
+            $this->addUnCoveredLine(
+                $fileName,
+                $line,
+                $this->cache->coveredLines[$matchedFile][$line]
+            );
         }
     }
 }
