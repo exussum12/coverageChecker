@@ -3,7 +3,7 @@ namespace exussum12\CoverageChecker;
 
 abstract class DiffLineHandle
 {
-    protected $diffFileState = null;
+    protected $diffFileState;
 
     public function __construct(diffFileState $diff)
     {
