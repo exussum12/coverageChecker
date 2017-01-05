@@ -7,9 +7,9 @@ Allows tools to conditionally allow standards to new code
 
 Coverage checker allows new standards to be implemented incrementally, by only enforcing them on new / edited code.
 
-Tools like phpcs and phpmd are an all or nothing approach, coverage checker allows this to work with the diff enforce all of the pull request / change request.
+Tools like phpcs and phpmd are an all or nothing approach, coverage checker allows this to work with the diff i.e. enforce all of the pull request / change request.
 
-Also working with PHPunit to allow, for example 90% of new/edited code to be covered. which will increased the overall coverage over time.
+Also working with PHPunit to allow, for example 90% of new/edited code to be covered. which will increase the overall coverage over time.
 
 #Usage
 
@@ -21,7 +21,7 @@ With composer simply
 then call the script you need
 
 ##Manually
-Clone this repository somewhere your your build plan can be accessed, composer install (requred for the class loader only)
+Clone this repository somewhere your your build plan can be accessed, composer install (required for the class loader only)
 Then call the script you need
 
 
