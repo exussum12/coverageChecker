@@ -54,7 +54,7 @@ class CoverageCheck
         ];
     }
 
-    protected function addUnCoveredLine($file, $line, $message = false)
+    protected function addUnCoveredLine($file, $line, $message)
     {
         if (!isset($this->uncoveredLines[$file])) {
             $this->uncoveredLines[$file] = [];

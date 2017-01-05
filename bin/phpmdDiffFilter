@@ -1,0 +1,38 @@
+#!/usr/bin/env php
+<?php
+
+foreach (array(__DIR__ . '/../../autoload.php', __DIR__ . '/../vendor/autoload.php', __DIR__ . '/vendor/autoload.php') as $file) {
+    if (file_exists($file)) {
+        require_once($file);
+
+        break;
+    }
+}
+
+if (!isset($argv[1], $argv[2])) {
+    echo "Missing arguments, please call with diff and check file" . PHP_EOL;
+    exit(1);
+}
+
+if ($argv[1] == "-") {
+        $argv[1] = "php://stdin";
+}
+if ($argv[2] == "-") {
+        $argv[2] = "php://stdin";
+}
+
+$matcher = new exussum12\CoverageChecker\FileMatchers\EndsWith();
+$diff = new  exussum12\CoverageChecker\DiffFileLoader($argv[1]);
+$phpunit = new exussum12\CoverageChecker\PhpMdCLoader($argv[2]);
+$coverageCheck = new exussum12\CoverageChecker\CoverageCheck($diff, $phpunit, $matcher);
+
+$lines = $coverageCheck->getCoveredLines();
+
+$uncoveredLines = count($lines['uncoveredLines'], COUNT_RECURSIVE);
+
+if (empty($uncoveredLines)) {
+    exit(0);
+}
+
+print_r($lines['uncoveredLines']);
+exit(2);
