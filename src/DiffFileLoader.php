@@ -26,7 +26,10 @@ class DiffFileLoader
 
     public function getChangedLines()
     {
-        if (!is_readable($this->fileLocation)) {
+        if ((
+            !is_readable($this->fileLocation) &&
+            $this->fileLocation !== "php://stdin"
+        )) {
             throw new InvalidArgumentException("Can't read file");
         }
 
