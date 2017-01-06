@@ -21,7 +21,7 @@ With composer simply
 then call the script you need
 
 ##Manually
-Clone this repository somewhere your your build plan can be accessed, composer install (required for the class loader only)
+Clone this repository somewhere your your build plan can be accessed, composer install is prefered but there is a non composer class loader which will be used if composer is not installed.
 Then call the script you need
 
 
@@ -40,7 +40,7 @@ exit code 0 and no output indicates success
 
     php vendor/bin/phpunitDiffFilter /tmp/diff.txt report/coverage.xml  90
     
-Will fail (exit status 1) if less than 90% of the code committed is covered by a test.
+Will fail (exit status 2) if less than 90% of the code committed is covered by a test.
 This requires phpunit to be run on the branch first!
 
 ##phpcs
@@ -51,7 +51,7 @@ All of the commands can read from stdin with placeholder `-`
     
 phpcs can be run with any options you normally have for example `--standard=PSR2`
 
-This will exit with code 1 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
+This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
 
 
 ##phpmd
@@ -62,4 +62,4 @@ All of the commands can read from stdin with placeholder `-`
     
 phpcs can be run with any options you normally have for example `cleancode,codesize,controversial`
 
-This will exit with code 1 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
+This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.

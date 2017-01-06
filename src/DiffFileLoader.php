@@ -21,15 +21,16 @@ class DiffFileLoader
     {
         $this->fileLocation = $fileName;
         $this->diff = new DiffFileState();
+
     }
 
     public function getChangedLines()
     {
-        $handle = @fopen($this->fileLocation, "r");
-
-        if (!$handle) {
+        if (!is_readable($this->fileLocation)) {
             throw new InvalidArgumentException("Can't read file");
         }
+
+        $handle = fopen($this->fileLocation, 'r');
 
         while (($line = fgets($handle)) !== false) {
             // process the line read.

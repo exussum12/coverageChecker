@@ -27,26 +27,26 @@ class DiffFileLoaderTest extends TestCase
     {
         return [
             'newFile' => [
-                __DIR__ . "/fixtures/newFile.txt",
+                __DIR__ . '/fixtures/newFile.txt',
                 [
                     'changedFile.php' => [1,2,3]
                 ]
             ],
             'lineChange' => [
-                __DIR__ . "/fixtures/change.txt",
+                __DIR__ . '/fixtures/change.txt',
                 [
                     'changedFile.php' => [3]
                 ]
             ],
             'multipleFiles' => [
-                __DIR__ . "/fixtures/multiple.txt",
+                __DIR__ . '/fixtures/multiple.txt',
                 [
                     'changedFile.php' => [3],
                     'newFile.php' => [1,2,3]
                 ]
             ],
             'removeFile' => [
-                __DIR__ . "/fixtures/removeFile.txt",
+                __DIR__ . '/fixtures/removeFile.txt',
                 []
             ],
         ];
