@@ -3,15 +3,48 @@ namespace exussum12\CoverageChecker;
 
 use stdClass;
 
+/**
+ * Class CoverageCheck
+ * @package exussum12\CoverageChecker
+ */
 class CoverageCheck
 {
+    /**
+     * @var DiffFileLoader
+     */
     protected $diff;
+    /**
+     * @var FileChecker
+     */
     protected $fileChecker;
+    /**
+     * @var FileMatcher
+     */
     protected $matcher;
+    /**
+     * @var stdClass
+     */
     protected $cache;
+    /**
+     * @var array
+     */
     protected $uncoveredLines = [];
+    /**
+     * @var array
+     */
     protected $coveredLines = [];
 
+    /**
+     * CoverageCheck constructor.
+     * This class is used for filtering the "checker" by the diff
+     * For example if the checker is phpunit, this class filters the phpunit
+     * output by the diff of the pull request. giving only the common lines in
+     * each
+     *
+     * @param DiffFileLoader $diff
+     * @param FileChecker $fileChecker
+     * @param FileMatcher $matcher
+     */
     public function __construct(
         DiffFileLoader $diff,
         FileChecker $fileChecker,
@@ -23,6 +56,10 @@ class CoverageCheck
         $this->cache = new stdClass;
     }
 
+    /**
+     * array of uncoveredLines and coveredLines
+     * @return array
+     */
     public function getCoveredLines()
     {
         if (empty($this->cache->diff)) {
@@ -54,6 +91,11 @@ class CoverageCheck
         ];
     }
 
+    /**
+     * @param string $file the filename containing the uncovered line
+     * @param int $line the number of the uncovered line
+     * @param string $message the message showing why its uncovered
+     */
     protected function addUnCoveredLine($file, $line, $message)
     {
         if (!isset($this->uncoveredLines[$file])) {
@@ -63,6 +105,10 @@ class CoverageCheck
         $this->uncoveredLines[$file][$line] = $message;
     }
 
+    /**
+     * @param string $file the filename containing the covered line
+     * @param int $line the number of the covered line
+     */
     protected function addCoveredLine($file, $line)
     {
         if (!isset($this->coveredLines[$file])) {
@@ -72,6 +118,10 @@ class CoverageCheck
         $this->coveredLines[$file][] = $line;
     }
 
+    /**
+     * @param string $fileName the file name in the diff
+     * @param string $matchedFile the file name of the matched file
+     */
     protected function matchLines($fileName, $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
