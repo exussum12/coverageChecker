@@ -3,14 +3,34 @@ namespace exussum12\CoverageChecker;
 
 use XMLReader;
 
+/**
+ * Class XMLReport
+ * Used for reading in a phpunit clover XML file
+ * @package exussum12\CoverageChecker
+ */
 class XMLReport implements FileChecker
 {
+    /**
+     * @var string
+     */
     protected $file;
+    /**
+     * @var array
+     */
     protected $coveredLines;
+
+    /**
+     * XMLReport constructor.
+     * @param string $file the path the to phpunit clover file
+     */
     public function __construct($file)
     {
         $this->file = $file;
     }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getLines()
     {
         $this->coveredLines = [];
@@ -39,6 +59,9 @@ class XMLReport implements FileChecker
         return $this->coveredLines;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isValidLine($file, $line)
     {
         return

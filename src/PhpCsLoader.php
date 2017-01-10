@@ -3,10 +3,26 @@ namespace exussum12\CoverageChecker;
 
 use InvalidArgumentException;
 
+/**
+ * Class PhpCsLoader
+ * Used for reading json output from phpcs
+ * @package exussum12\CoverageChecker
+ */
 class PhpCsLoader implements FileChecker
 {
+    /**
+     * @var string
+     */
     protected $json;
+    /**
+     * @var array
+     */
     protected $invalidLines;
+
+    /**
+     * PhpCsLoader constructor.
+     * @param $filePath the file path to the json output from phpcs
+     */
     public function __construct($filePath)
     {
         $this->json = json_decode(file_get_contents($filePath));
@@ -15,6 +31,9 @@ class PhpCsLoader implements FileChecker
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getLines()
     {
         $this->invalidLines = [];
@@ -27,11 +46,19 @@ class PhpCsLoader implements FileChecker
         return $this->invalidLines;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isValidLine($file, $lineNumber)
     {
         return empty($this->invalidLines[$file][$lineNumber]);
     }
 
+    /**
+     * @param string $file
+     * @param int $line
+     * @param string $error
+     */
     protected function addInvalidLine($file, $line, $error)
     {
         if (!isset($this->invalidLines[$file][$line])) {
