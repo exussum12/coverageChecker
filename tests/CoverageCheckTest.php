@@ -2,7 +2,6 @@
 namespace exussum12\CoverageChecker\tests;
 
 use PHPUnit\Framework\TestCase;
-
 use exussum12\CoverageChecker\CoverageCheck;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
