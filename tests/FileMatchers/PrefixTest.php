@@ -21,4 +21,16 @@ class PrefixTest extends TestCase
             $prefixMatcher->match($needle, $haystack)
         );
     }
+
+    /**
+     * @expectedException exussum12\CoverageChecker\Exceptions\FileNotFound
+     */
+    public function testDoesNotExist()
+    {
+        $prefixMatcher = new Prefix('/full/path/to/');
+        $needle = "fileDoesNotExist.php";
+        $haystack = [];
+
+        $prefixMatcher->match($needle, $haystack);
+    }
 }
