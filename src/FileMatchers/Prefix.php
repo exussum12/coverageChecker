@@ -25,10 +25,7 @@ class Prefix implements FileMatcher
     }
 
     /**
-     * @param string $needle
-     * @param array $haystack
-     * @return mixed
-     * @throws FileNotFound
+     * {@inheritdoc}
      */
     public function match($needle, array $haystack)
     {

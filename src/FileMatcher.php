@@ -8,6 +8,7 @@ interface FileMatcher
      * @param string[] $haystack list of potential file matches
      *
      * @return string the matched file
+     * @throws FileNotFound
      */
     public function match($needle, array $haystack);
 }

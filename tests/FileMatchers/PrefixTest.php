@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker\tests\FileMatchers;
 
 use PHPUnit\Framework\TestCase;
+use exussum12\CoverageChecker\Exceptions\FileNotFound;
 use exussum12\CoverageChecker\FileMatchers\Prefix;
 
 class PrefixTest extends TestCase
@@ -22,11 +23,9 @@ class PrefixTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException exussum12\CoverageChecker\Exceptions\FileNotFound
-     */
     public function testDoesNotExist()
     {
+        $this->expectException(FileNotFound::class);
         $prefixMatcher = new Prefix('/full/path/to/');
         $needle = "fileDoesNotExist.php";
         $haystack = [];
