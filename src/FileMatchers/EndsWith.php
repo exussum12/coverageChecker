@@ -26,7 +26,7 @@ class EndsWith implements FileMatcher
     }
 
     /**
-     * Month for finding if two strings end in the same way
+     * Find if two strings end in the same way
      * @param $haystack
      * @param $needle
      * @return bool

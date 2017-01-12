@@ -1,56 +1,17 @@
 #!/usr/bin/env php
 <?php
-$locations = [
-    __DIR__ . '/../vendor/autoload.php',
-    __DIR__ . '/vendor/autoload.php',
-    __DIR__ . '/../autoload.php'
-];
+namespace exussum12\CoverageChecker;
 
-$found = false;
+include (__DIR__ . "/../functions.php");
 
-foreach ($locations as $file) {
-    if (file_exists($file)) {
-        require_once($file);
-        $found = true;
-        break;
-    }
-}
+setUp();
+$minimumPercentCovered = getMinPercent();
 
-if (!$found) {
-    error_log(
-        "Can't find the autoload file," .
-        "please make sure 'composer install' has been run"
-    );
-
-    exit(1);
-}
-
-if (!isset($argv[1], $argv[2])) {
-    error_log(
-        "Missing arguments, please call with diff and check file"
-    );
-    exit(1);
-}
-
-if ($argv[1] == "-") {
-        $argv[1] = "php://stdin";
-}
-if ($argv[2] == "-") {
-        $argv[2] = "php://stdin";
-}
-
-$matcher = new exussum12\CoverageChecker\FileMatchers\EndsWith();
-$diff = new  exussum12\CoverageChecker\DiffFileLoader($argv[1]);
-$phpunit = new exussum12\CoverageChecker\PhpMdLoader($argv[2]);
-$coverageCheck = new exussum12\CoverageChecker\CoverageCheck($diff, $phpunit, $matcher);
+$matcher = new FileMatchers\EndsWith();
+$diff = new  DiffFileLoader($argv[1]);
+$phpunit = new PhpMdLoader($argv[2]);
+$coverageCheck = new CoverageCheck($diff, $phpunit, $matcher);
 
 $lines = $coverageCheck->getCoveredLines();
 
-$uncoveredLines = count($lines['uncoveredLines'], COUNT_RECURSIVE);
-
-if (empty($uncoveredLines)) {
-    exit(0);
-}
-
-print_r($lines['uncoveredLines']);
-exit(2);
+handleOutput($lines, $minimumPercentCovered);
