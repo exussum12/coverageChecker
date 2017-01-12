@@ -41,7 +41,7 @@ if ($argv[2] == "-") {
 
 $matcher = new exussum12\CoverageChecker\FileMatchers\EndsWith();
 $diff = new  exussum12\CoverageChecker\DiffFileLoader($argv[1]);
-$phpunit = new exussum12\CoverageChecker\PhpMdCLoader($argv[2]);
+$phpunit = new exussum12\CoverageChecker\PhpMdLoader($argv[2]);
 $coverageCheck = new exussum12\CoverageChecker\CoverageCheck($diff, $phpunit, $matcher);
 
 $lines = $coverageCheck->getCoveredLines();
