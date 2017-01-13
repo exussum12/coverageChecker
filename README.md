@@ -29,7 +29,12 @@ Then call the script you need
 
 First of all a diff is needed
 
-    git diff branch...master > /tmp/diff.txt
+    git diff master...branch > /tmp/diff.txt
+or 
+
+    git diff master...HJEAD > /tmp/diff.txt
+assuming your on the branch 
+
 This diff will be used in all of the examples
 
 the 3 dots between gets all changes on branch (ie from the branch point) and not from the current master.
