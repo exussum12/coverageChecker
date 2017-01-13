@@ -32,8 +32,8 @@ First of all a diff is needed
     git diff master...branch > /tmp/diff.txt
 or 
 
-    git diff master...HJEAD > /tmp/diff.txt
-assuming your on the branch 
+    git diff master...HEAD > /tmp/diff.txt
+assuming your on the branch currently
 
 This diff will be used in all of the examples
 
