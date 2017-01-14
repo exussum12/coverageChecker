@@ -129,10 +129,16 @@ class CoverageCheck
                 $this->addCoveredLine($fileName, $line);
                 continue;
             }
+
+            $message = isset($this->cache->coveredLines[$matchedFile][$line])
+                ? $this->cache->coveredLines[$matchedFile][$line] :
+                "No cover"
+            ;
+
             $this->addUnCoveredLine(
                 $fileName,
                 $line,
-                $this->cache->coveredLines[$matchedFile][$line]
+                $message
             );
         }
     }

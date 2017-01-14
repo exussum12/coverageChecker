@@ -65,7 +65,7 @@ class XMLReport implements FileChecker
     public function isValidLine($file, $line)
     {
         return
-            isset($this->coveredLines[$file][$line]) &&
+            !isset($this->coveredLines[$file][$line]) ||
             $this->coveredLines[$file][$line] > 0;
     }
 }
