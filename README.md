@@ -35,6 +35,12 @@ or
     git diff master...HEAD > /tmp/diff.txt
 assuming your on the branch currently
 
+or
+
+    git diff $(git merge-base origin/master HEAD) > /tmp/diff.txt
+    
+Assuming your on a branch with local changes    
+
 This diff will be used in all of the examples
 
 the 3 dots between gets all changes on branch (ie from the branch point) and not from the current master.
