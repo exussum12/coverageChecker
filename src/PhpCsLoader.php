@@ -66,4 +66,12 @@ class PhpCsLoader implements FileChecker
         }
         $this->invalidLines[$file][$line][] = $error;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handleNotFoundFile()
+    {
+        return true;
+    }
 }

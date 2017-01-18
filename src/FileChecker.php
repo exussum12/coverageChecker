@@ -19,4 +19,13 @@ interface FileChecker
      * @return bool
      */
     public function isValidLine($file, $lineNumber);
+
+    /**
+     * Method to determine what happens to unfound files
+     * true adds as covered
+     * false adds as uncovered
+     * null does not include the file in the stats
+     * @return bool|null
+     */
+    public function handleNotFoundFile();
 }

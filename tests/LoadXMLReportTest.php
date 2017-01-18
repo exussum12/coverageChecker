@@ -32,4 +32,11 @@ class LoadXMLReportTest extends TestCase
         //True as the report doesnt contain the file
         $this->assertTrue($xmlReport->isValidLine('/path/to/file/NonExistantFile.php', 6));
     }
+
+    public function testCorrectMissingFile()
+    {
+        $xmlReport = new XMLReport(__DIR__ . '/fixtures/coverage.xml');
+
+        $this->assertNull($xmlReport->handleNotFoundFile());
+    }
 }

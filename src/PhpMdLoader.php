@@ -30,6 +30,7 @@ class PhpMdLoader implements FileChecker
     public function getLines()
     {
         $this->errors = [];
+        $this->errorRanges = [];
         $reader = new XMLReader;
         $reader->open($this->file);
         $currentFile = "";
@@ -46,7 +47,19 @@ class PhpMdLoader implements FileChecker
      */
     public function isValidLine($file, $lineNumber)
     {
-        return empty($this->errors[$file][$lineNumber]);
+        $valid = true;
+        foreach($this->errorRanges[$file] as $number => $errors) {
+            if (
+                $errors['start'] >= $lineNumber &&
+                $errors['end'] <= $lineNumber
+            ) {
+                //unset this error
+                unset($this->errorRanges[$file][$number]);
+                $valid = false;
+            }
+        }
+
+        return $valid;
     }
 
     /**
@@ -62,6 +75,12 @@ class PhpMdLoader implements FileChecker
             $error = trim($reader->readString());
             $start = $reader->getAttribute('beginline');
             $end = $reader->getAttribute('endline');
+            $this->errorRanges[$currentFile][] = [
+                'start' => $start,
+                'end' => $end,
+                'error' => $error,
+            ];
+
             for ($i = $start; $i <= $end; $i++) {
                 $this->errors[$currentFile][$i][] = $error;
             }
@@ -85,5 +104,13 @@ class PhpMdLoader implements FileChecker
             return $currentFile;
         }
         return $currentFile;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handleNotFoundFile()
+    {
+        return true;
     }
 }

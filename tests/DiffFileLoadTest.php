@@ -3,6 +3,8 @@ namespace exussum12\CoverageChecker\tests;
 
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoader;
+use exussum12\CoverageChecker\DiffFileState;
+use exussum12\CoverageChecker\DiffLineHandle\ContextLine;
 
 class DiffFileLoaderTest extends TestCase
 {
@@ -53,6 +55,12 @@ class DiffFileLoaderTest extends TestCase
 
     }
 
+    public function testEnsureContextLineIsValid()
+    {
+        $diff = new DiffFileState();
+        $contextLine = new ContextLine($diff);
+        $this->assertTrue($contextLine->isValid("anything"));
+    }
 
     private function getChangedLines($file)
     {

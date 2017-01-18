@@ -22,6 +22,15 @@ class LoadPhpMdReportTest extends TestCase
         ];
         $this->assertEquals($expected, $lines);
         $this->assertFalse($phpmd->isValidLine($file, 57));
+        //second should respond true as its already been reported
+        $this->assertTrue($phpmd->isValidLine($file, 57));
         $this->assertTrue($phpmd->isValidLine($file, 10));
+    }
+
+    public function testCorrectMissingFile()
+    {
+        $phpmd = new PhpMdLoader(__DIR__ . '/fixtures/phpmd.xml');
+
+        $this->assertTrue($phpmd->handleNotFoundFile());
     }
 }

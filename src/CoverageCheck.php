@@ -79,6 +79,16 @@ class CoverageCheck
             try {
                 $matchedFile = $this->matcher->match($file, $coveredFiles);
             } catch (Exceptions\FileNotFound $e) {
+                $unMatchedFile = $this->fileChecker->handleNotFoundFile();
+
+                if ($unMatchedFile === true) {
+                    $this->addCoveredFile($file);
+                }
+
+                if ($unMatchedFile === false) {
+                    $this->addUnCoveredFile($file);
+                }
+
                 continue;
             }
 
@@ -140,6 +150,20 @@ class CoverageCheck
                 $line,
                 $message
             );
+        }
+    }
+
+    protected function addCoveredFile($file)
+    {
+        foreach ($this->cache->diff[$file] as $line) {
+            $this->addCoveredLine($file, $line);
+        }
+    }
+
+    protected function addUnCoveredFile($file)
+    {
+        foreach ($this->cache->diff[$file] as $line) {
+            $this->addUnCoveredLine($file, $line, 0);
         }
     }
 }

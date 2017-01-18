@@ -21,7 +21,6 @@ class DiffFileLoader
     {
         $this->fileLocation = $fileName;
         $this->diff = new DiffFileState();
-
     }
 
     public function getChangedLines()

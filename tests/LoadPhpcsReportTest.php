@@ -29,4 +29,11 @@ class LoadPhpcsReportTest extends TestCase
     {
         $phpcs = new PhpCsLoader(__DIR__ . '/fixtures/change.txt');
     }
+
+    public function testCorrectMissingFile()
+    {
+        $phpcs = new PhpCsLoader(__DIR__ . '/fixtures/phpcs.json');
+
+        $this->assertTrue($phpcs->handleNotFoundFile());
+    }
 }

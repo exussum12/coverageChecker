@@ -68,4 +68,12 @@ class XMLReport implements FileChecker
             !isset($this->coveredLines[$file][$line]) ||
             $this->coveredLines[$file][$line] > 0;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function handleNotFoundFile()
+    {
+        return null;
+    }
 }
