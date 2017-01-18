@@ -1,13 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker;
 
-function setUp()
-{
-    findAutoLoader();
-    checkCallIsCorrect();
-    adjustForStdIn();
-}
-
 function findAutoLoader()
 {
     $locations = [
@@ -35,10 +28,9 @@ function findAutoLoader()
     }
 }
 
-function checkCallIsCorrect()
+function checkCallIsCorrect(ArgParser $args)
 {
-    global $argv;
-    if (!isset($argv[1], $argv[2])) {
+    if (false === $args->getArg(1) || false === $args->getArg(2)) {
         error_log(
             "Missing arguments, please call with diff and check file"
         );
@@ -46,24 +38,26 @@ function checkCallIsCorrect()
     }
 }
 
-function adjustForStdIn()
+function adjustForStdIn($argument)
 {
-    global $argv;
-    foreach ([1, 2] as $arg) {
-        if ($argv[$arg] == "-") {
-            $argv[$arg] = "php://stdin";
-        }
+    if ($argument == "-") {
+        return "php://stdin";
     }
+
+    return $argument;
 }
 
-function getMinPercent()
+function getMinPercent($percent)
 {
-    global $argv;
     $minimumPercentCovered = 100;
-    if (isset($argv[3])) {
-        $minimumPercentCovered = min($minimumPercentCovered, max(0, $argv[3]));
-        return $minimumPercentCovered;
+
+    if (is_numeric($percent)) {
+        $minimumPercentCovered = min(
+            $minimumPercentCovered,
+            max(0, $percent)
+        );
     }
+
     return $minimumPercentCovered;
 }
 
