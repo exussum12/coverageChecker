@@ -49,8 +49,9 @@ class DiffFileLoader
     private function getLineHandle($line)
     {
         foreach ($this->diffLines as $lineType) {
-            if ($lineType::isValid($line)) {
-                return $this->getClass($lineType);
+	    $lineType = $this->getClass($lineType);
+            if ($lineType->isValid($line)) {
+                return $lineType;
             }
         }
         //not found, Class it as context
