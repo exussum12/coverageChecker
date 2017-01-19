@@ -11,7 +11,7 @@ class ContextLine extends DiffLineHandle
         //no need to do anything, Its just context
     }
 
-    public static function isValid($line)
+    public function isValid($line)
     {
          return true;
     }

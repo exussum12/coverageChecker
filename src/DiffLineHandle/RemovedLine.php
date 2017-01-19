@@ -11,7 +11,7 @@ class RemovedLine extends DiffLineHandle
         $this->diffFileState->decrementCurrentPosition();
     }
 
-    public static function isValid($line)
+    public function isValid($line)
     {
         return $line[0] == '-';
     }

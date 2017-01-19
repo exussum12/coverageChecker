@@ -14,7 +14,7 @@ class NewFile extends DiffLineHandle
         }
     }
 
-    public static function isValid($line)
+    public function isValid($line)
     {
         return $line[0] == '+' && $line[1] == '+';
     }

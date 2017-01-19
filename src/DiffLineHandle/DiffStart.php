@@ -20,7 +20,7 @@ class DiffStart extends DiffLineHandle
         $this->diffFileState->setCurrentPosition($newFrom -1);
     }
 
-    public static function isValid($line)
+    public function isValid($line)
     {
         return $line[0] == '@' && $line[1] == '@';
     }

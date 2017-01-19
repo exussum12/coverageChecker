@@ -12,5 +12,5 @@ abstract class DiffLineHandle
 
     abstract public function handle($line);
 
-    abstract public static function isValid($line);
+    abstract public function isValid($line);
 }
