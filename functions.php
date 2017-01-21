@@ -67,6 +67,7 @@ function handleOutput($lines, $minimumPercentCovered)
     $uncoveredLines = count($lines['uncoveredLines'], COUNT_RECURSIVE);
 
     if ($coveredLines + $uncoveredLines == 0) {
+        echo "No lines found!";
         exit(0);
     }
 
