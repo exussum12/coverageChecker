@@ -29,10 +29,10 @@ Then call the script you need
 
 First of all a diff is needed
 
-    git diff master...branch > /tmp/diff.txt
+    git diff origin/master...branch > /tmp/diff.txt
 or 
 
-    git diff master...HEAD > /tmp/diff.txt
+    git diff origin/master...HEAD > /tmp/diff.txt
 assuming your on the branch currently
 
 or
