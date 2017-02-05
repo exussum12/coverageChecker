@@ -45,6 +45,27 @@ This diff will be used in all of the examples
 
 the 3 dots between gets all changes on branch (ie from the branch point) and not from the current master.
 
+From the git diff manual 
+
+       --ignore-space-at-eol
+           Ignore changes in whitespace at EOL.
+
+       -b, --ignore-space-change
+           Ignore changes in amount of whitespace. This ignores whitespace at
+           line end, and considers all other sequences of one or more
+           whitespace characters to be equivalent.
+
+       -w, --ignore-all-space
+           Ignore whitespace when comparing lines. This ignores differences
+           even if one line has whitespace where the other line has none.
+
+       --ignore-blank-lines
+           Ignore changes whose lines are all blank.
+
+These options can be useful to not force indented lines to be re written (which can be more risky!)
+Using these whitespace options with phpcs can lead to errors being introduced as whitespace can cause phpcs errors.
+Use with caution!
+
 exit code 0 and no output indicates success
 
 ##phpunit
