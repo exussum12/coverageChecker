@@ -73,8 +73,16 @@ function handleOutput($lines, $minimumPercentCovered)
 
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
     
-    echo "$percentCovered% Covered, Missed lines " . PHP_EOL;
-    print_r($lines['uncoveredLines']);
+    $extra = PHP_EOL;
+
+    if ($lines['uncoveredLines']) {
+        $extra = ', Missed lines '.
+            $extra .
+            print_r($lines['uncoveredLines'], true)
+        ;
+    }
+
+    printf('%.2f% Covered%s', $percentCovered, $extra);
     
     if ($percentCovered >= $minimumPercentCovered) {
         exit(0);
