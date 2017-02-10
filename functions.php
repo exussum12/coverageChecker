@@ -82,7 +82,7 @@ function handleOutput($lines, $minimumPercentCovered)
         ;
     }
 
-    printf('%.2f% Covered%s', $percentCovered, $extra);
+    printf('%.2f%% Covered%s', $percentCovered, $extra);
     
     if ($percentCovered >= $minimumPercentCovered) {
         exit(0);
