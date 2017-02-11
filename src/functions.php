@@ -1,11 +1,13 @@
 <?php
 namespace exussum12\CoverageChecker;
 
+use Exception;
+
 function findAutoLoader()
 {
     $locations = [
-        __DIR__ . '/vendor/autoload.php',
-        __DIR__ . '/autoload.php'
+        __DIR__ . '/../vendor/autoload.php',
+        __DIR__ . '/../autoload.php'
     ];
 
     $found = false;
@@ -17,7 +19,7 @@ function findAutoLoader()
             break;
         }
     }
-
+    // @codeCoverageIgnoreStart
     if (!$found) {
         error_log(
             "Can't find the autoload file," .
@@ -25,19 +27,23 @@ function findAutoLoader()
         );
 
         exit(1);
+    // @codeCoverageIgnoreEnd
     }
 }
 
 function checkCallIsCorrect(ArgParser $args)
 {
-    if (false === $args->getArg(1) || false === $args->getArg(2)) {
-        error_log(
-            "Missing arguments, please call with diff and check file"
+    if (!$args->getArg(1) || !$args->getArg(2)) {
+        throw new Exception(
+            "Missing arguments, please call with diff and check file",
+            1
         );
-        exit(1);
     }
 }
 
+/**
+ * @codeCoverageIgnore
+ */
 function adjustForStdIn($argument)
 {
     if ($argument == "-") {
@@ -63,14 +69,14 @@ function getMinPercent($percent)
 
 function handleOutput($lines, $minimumPercentCovered)
 {
-    $coveredLines = count($lines['coveredLines'], COUNT_RECURSIVE);
-    $uncoveredLines = count($lines['uncoveredLines'], COUNT_RECURSIVE);
+    $coveredLines = calculateLines($lines['coveredLines']);
+    $uncoveredLines = calculateLines($lines['uncoveredLines']);
+
 
     if ($coveredLines + $uncoveredLines == 0) {
         echo "No lines found!";
-        exit(0);
+        return;
     }
-
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
     
     $extra = PHP_EOL;
@@ -85,8 +91,28 @@ function handleOutput($lines, $minimumPercentCovered)
     printf('%.2f%% Covered%s', $percentCovered, $extra);
     
     if ($percentCovered >= $minimumPercentCovered) {
-        exit(0);
+        return;
     }
 
-    exit(2);
+    throw new Exception(
+        "Failing due to coverage being lower than threshold",
+        2
+    );
+}
+
+function calculateLines($lines)
+{
+    return count($lines, COUNT_RECURSIVE) - count($lines);
+}
+
+function addExceptionHandler()
+{
+    set_exception_handler(
+        function (Exception $exception) {
+            // @codeCoverageIgnoreStart
+            error_log($exception->getMessage());
+            exit($exception->getCode());
+            // @codeCoverageIgnoreEnd
+        }
+    );
 }

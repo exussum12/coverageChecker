@@ -27,7 +27,7 @@ class LoadPhpcsReportTest extends TestCase
      */
     public function testRejectsInvalidData()
     {
-        $phpcs = new PhpCsLoader(__DIR__ . '/fixtures/change.txt');
+        new PhpCsLoader(__DIR__ . '/fixtures/change.txt');
     }
 
     public function testCorrectMissingFile()

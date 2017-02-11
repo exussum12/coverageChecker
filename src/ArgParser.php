@@ -21,7 +21,7 @@ class ArgParser
 
     protected function numericArg($position)
     {
-        foreach($this->args as $arg) {
+        foreach ($this->args as $arg) {
             if ($arg{0} != '-' && $position-- == 0) {
                 return $arg;
             }
@@ -35,8 +35,7 @@ class ArgParser
         $name = strlen($name) == 1 ?
             "-" . $name :
             "--" . $name;
-
-        foreach($this->args as $arg) {
+        foreach ($this->args as $arg) {
             if ($arg{0} == '-' && $name == $arg) {
                 return true;
             }

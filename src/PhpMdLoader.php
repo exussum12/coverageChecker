@@ -48,11 +48,11 @@ class PhpMdLoader implements FileChecker
     public function isValidLine($file, $lineNumber)
     {
         $valid = true;
-        foreach($this->errorRanges[$file] as $number => $errors) {
-            if (
+        foreach ($this->errorRanges[$file] as $number => $errors) {
+            if ((
                 $errors['start'] >= $lineNumber &&
                 $errors['end'] <= $lineNumber
-            ) {
+            )) {
                 //unset this error
                 unset($this->errorRanges[$file][$number]);
                 $valid = false;

@@ -22,7 +22,7 @@ class DiffFileLoaderTest extends TestCase
      */
     public function testNonExistantFile()
     {
-        $changed = $this->getChangedLines('ufhbubfusdf');
+        $this->getChangedLines('ufhbubfusdf');
     }
 
     public function getResults()

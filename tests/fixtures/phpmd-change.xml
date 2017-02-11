@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pmd version="@project.version@" timestamp="2017-01-04T18:31:17+00:00">
+  <file name="/full/path/to/file/src/changedFile.php">
+    <violation beginline="3" endline="3" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addUnCoveredLine has a boolean flag argument $message, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
+  </file>
+</pmd>

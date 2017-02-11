@@ -49,7 +49,7 @@ class DiffFileLoader
     private function getLineHandle($line)
     {
         foreach ($this->diffLines as $lineType) {
-	    $lineType = $this->getClass($lineType);
+            $lineType = $this->getClass($lineType);
             if ($lineType->isValid($line)) {
                 return $lineType;
             }
