@@ -100,3 +100,11 @@ phpmd also has a stict mode `--strict` which reports an error multiple times for
 The normal mode reports the error once, eg a class has too many functions, strict mode reports this violation on each line. This makes old non conforming files easier to deal with as refactoring can be risky also.
 
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
+
+
+#Running in information mode
+Simply pass the 3rd argument in as 0, this will give output showing failed lines but will not fail the build
+
+
+#Why not run the auto fixers
+Auto fixers do exist for some of these tools, but on larger code bases there are many instances where these can not be auto fixed. CoverageChecker allows to go to these new standards in the most used parts of the code by enfocing all changes to comply to the new standards
