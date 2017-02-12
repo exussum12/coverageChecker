@@ -13,7 +13,17 @@ class LoadPhpMdReportTest extends TestCase
         $file = '/full/path/to/file/src/CoverageCheck.php';
         $expected = [
            $file => [
+                56 => [
+                    'The method addUnCoveredLine has a boolean flag argument ' .
+                    '$message, which is a certain sign of a ' .
+                    'Single Responsibility Principle violation.'
+                ],
                 57 => [
+                    'The method addUnCoveredLine has a boolean flag argument ' .
+                    '$message, which is a certain sign of a ' .
+                    'Single Responsibility Principle violation.'
+                ],
+                58 => [
                     'The method addUnCoveredLine has a boolean flag argument ' .
                     '$message, which is a certain sign of a ' .
                     'Single Responsibility Principle violation.'

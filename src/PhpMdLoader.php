@@ -82,7 +82,12 @@ class PhpMdLoader implements FileChecker
             ];
 
             for ($i = $start; $i <= $end; $i++) {
-                $this->errors[$currentFile][$i][] = $error;
+                if ((
+                    !isset($this->errors[$currentFile][$i]) ||
+                    !in_array($error, $this->errors[$currentFile][$i])
+                )) {
+                    $this->errors[$currentFile][$i][] = $error;
+                }
             }
         }
     }

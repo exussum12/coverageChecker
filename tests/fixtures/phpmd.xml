@@ -4,5 +4,8 @@
     <violation beginline="57" endline="57" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
       The method addUnCoveredLine has a boolean flag argument $message, which is a certain sign of a Single Responsibility Principle violation.
     </violation>
+    <violation beginline="56" endline="58" rule="BooleanArgumentFlag" ruleset="Clean Code Rules" externalInfoUrl="http://phpmd.org/rules/cleancode.html#booleanargumentflag" priority="1">
+      The method addUnCoveredLine has a boolean flag argument $message, which is a certain sign of a Single Responsibility Principle violation.
+    </violation>
   </file>
 </pmd>
