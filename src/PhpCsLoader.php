@@ -27,7 +27,9 @@ class PhpCsLoader implements FileChecker
     {
         $this->json = json_decode(file_get_contents($filePath));
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new InvalidArgumentException();
+            throw new InvalidArgumentException(
+                "Can't Parse phpcs json - " . json_last_error_msg()
+            );
         }
     }
 

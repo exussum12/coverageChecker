@@ -110,6 +110,7 @@ function addExceptionHandler()
     set_exception_handler(
         function (Exception $exception) {
             // @codeCoverageIgnoreStart
+            error_log(get_class($exception));
             error_log($exception->getMessage());
             exit($exception->getCode());
             // @codeCoverageIgnoreEnd
