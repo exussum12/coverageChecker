@@ -15,7 +15,7 @@ class DiffStart extends DiffLineHandle
 
         $newFrom = $foundVariables[2];
 
-        $this->diffFileState->setCurrentPosition($newFrom -1);
+        $this->diffFileState->setCurrentPosition($newFrom - 1);
     }
 
     public function isValid($line)
