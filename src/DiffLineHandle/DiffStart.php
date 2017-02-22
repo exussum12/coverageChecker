@@ -8,14 +8,12 @@ class DiffStart extends DiffLineHandle
 
     public function handle($line)
     {
-        sscanf(
+        $foundVariables = sscanf(
             $line,
-            '@@ -%d,%d +%d,%d @@',
-            $oldFrom,
-            $oldTo,
-            $newFrom,
-            $newTo
+            '@@ -%d,%d +%d,%d @@'
         );
+
+        $newFrom = $foundVariables[2];
 
         $this->diffFileState->setCurrentPosition($newFrom -1);
     }
