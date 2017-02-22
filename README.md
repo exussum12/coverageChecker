@@ -3,7 +3,7 @@ Allows tools to conditionally allow standards to new code
 
 [![Build Status](https://travis-ci.org/exussum12/coverageChecker.svg?branch=master)](https://travis-ci.org/exussum12/coverageChecker)
 [![Coverage Status](https://coveralls.io/repos/github/exussum12/coverageChecker/badge.svg?branch=master)](https://coveralls.io/github/exussum12/coverageChecker?branch=master)
-
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/exussum12/coverageChecker/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/exussum12/coverageChecker/?branch=master)
 
 Coverage checker allows new standards to be implemented incrementally, by only enforcing them on new / edited code.
 
