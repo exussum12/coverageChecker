@@ -17,7 +17,7 @@ class EndsWith implements FileMatcher
     public function match($needle, array $haystack)
     {
         foreach ($haystack as $file) {
-            if ($this->endsWith($file, $needle)) {
+            if ($this->fileEndsWith($file, $needle)) {
                 return $file;
             }
         }
@@ -31,7 +31,7 @@ class EndsWith implements FileMatcher
      * @param $needle
      * @return bool
      */
-    protected function endsWith($haystack, $needle)
+    protected function fileEndsWith($haystack, $needle)
     {
         $length = strlen($needle);
 

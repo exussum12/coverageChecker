@@ -8,7 +8,8 @@ class NewFile extends DiffLineHandle
 
     public function handle($line)
     {
-        sscanf($line, '+++ %1s/%s', $prefix, $currentFileName);
+        $parsedLine = sscanf($line, '+++ %1s/%s');
+        $currentFileName = $parsedLine[1];
         if ($currentFileName) {
             $this->diffFileState->setCurrentFile($currentFileName);
         }

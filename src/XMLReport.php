@@ -36,6 +36,7 @@ class XMLReport implements FileChecker
         $this->coveredLines = [];
         $reader = new XMLReader;
         $reader->open($this->file);
+        $currentFile = '';
         while ($reader->read()) {
             if ((
                 $reader->name === "file" &&

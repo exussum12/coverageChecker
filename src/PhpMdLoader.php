@@ -16,6 +16,16 @@ class PhpMdLoader implements FileChecker
     protected $file;
 
     /**
+     * @var array
+     */
+    protected $errors = [];
+
+    /**
+     * @var array
+     */
+    protected $errorRanges = [];
+
+    /**
      * PhpMdLoader constructor.
      * @param string $file the path to the phpmd xml file
      */
