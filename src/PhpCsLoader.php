@@ -24,7 +24,7 @@ class PhpCsLoader implements FileChecker
      */
 
     protected $failOnTypes = [
-       'ERROR',
+        'ERROR',
     ];
 
     /**
