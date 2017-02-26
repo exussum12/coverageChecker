@@ -76,8 +76,9 @@ class PhpCsLoader implements FileChecker
         $line = $message->line;
 
         if (!isset($this->invalidLines[$file][$line])) {
-             $this->invalidLines[$file][$line] = [];
+            $this->invalidLines[$file][$line] = [];
         }
+
         $this->invalidLines[$file][$line][] = $message->message;
     }
 
