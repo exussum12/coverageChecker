@@ -20,6 +20,14 @@ class PhpCsLoader implements FileChecker
     protected $invalidLines;
 
     /**
+     * @var array
+     */
+
+     protected $failOnTypes = [
+        'ERROR',
+     ];
+
+    /**
      * PhpCsLoader constructor.
      * @param $filePath the file path to the json output from phpcs
      */
@@ -41,7 +49,7 @@ class PhpCsLoader implements FileChecker
         $this->invalidLines = [];
         foreach ($this->json->files as $fileName => $file) {
             foreach ($file->messages as $message) {
-                $this->addInvalidLine($fileName, $message->line, $message->message);
+                $this->addInvalidLine($fileName, $message);
             }
         }
 
@@ -58,15 +66,19 @@ class PhpCsLoader implements FileChecker
 
     /**
      * @param string $file
-     * @param int $line
-     * @param string $error
+     * @param stdClass $message
      */
-    protected function addInvalidLine($file, $line, $error)
+    protected function addInvalidLine($file, $message)
     {
+        if (!in_array($message->type, $this->failOnTypes)) {
+            return;
+        }
+        $line = $message->line;
+
         if (!isset($this->invalidLines[$file][$line])) {
              $this->invalidLines[$file][$line] = [];
         }
-        $this->invalidLines[$file][$line][] = $error;
+        $this->invalidLines[$file][$line][] = $message->message;
     }
 
     /**

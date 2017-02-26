@@ -87,6 +87,8 @@ phpcs can be run with any options you normally have for example `--standard=PSR2
 
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
 
+Strict mode turns warning to errors
+
 
 ##phpmd
 
