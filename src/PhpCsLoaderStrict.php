@@ -10,8 +10,8 @@ use InvalidArgumentException;
  */
 class PhpCsLoaderStrict extends PhpCsLoader
 {
-     protected $failOnTypes = [
-        'ERROR',
-        'WARNING',
-     ];
+    protected $failOnTypes = [
+       'ERROR',
+       'WARNING',
+    ];
 }
