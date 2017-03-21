@@ -11,21 +11,21 @@ Tools like phpcs and phpmd are an all or nothing approach, coverage checker allo
 
 Also working with PHPunit to allow, for example 90% of new/edited code to be covered. which will increase the overall coverage over time.
 
-#Usage
+# Usage
 
-##Composer
+## Composer
 With composer simply
 
     composer require exussum12/coverage-checker
     
 then call the script you need
 
-##Manually
+## Manually
 Clone this repository somewhere your your build plan can be accessed, composer install is prefered but there is a non composer class loader which will be used if composer is not installed.
 Then call the script you need
 
 
-#Scripts
+# Scripts
 
 First of all a diff is needed
 
@@ -68,7 +68,7 @@ Use with caution!
 
 exit code 0 and no output indicates success
 
-##phpunit
+## phpunit
 
     php vendor/bin/phpunitDiffFilter /tmp/diff.txt report/coverage.xml  90
     
@@ -77,7 +77,7 @@ This requires phpunit to be run on the branch first!
 
 Note: This works for all clover output!
 
-##phpcs
+## phpcs
 
 All of the commands can read from stdin with placeholder `-`
 
@@ -90,7 +90,7 @@ This will exit with code 2 if any of the new/edited code fails the code standard
 Strict mode turns warning to errors
 
 
-##phpmd
+## phpmd
 
 All of the commands can read from stdin with placeholder `-`
 
@@ -104,9 +104,9 @@ The normal mode reports the error once, eg a class has too many functions, stric
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
 
 
-#Running in information mode
+# Running in information mode
 Simply pass the 3rd argument in as 0, this will give output showing failed lines but will not fail the build
 
 
-#Why not run the auto fixers
+# Why not run the auto fixers
 Auto fixers do exist for some of these tools, but on larger code bases there are many instances where these can not be auto fixed. CoverageChecker allows to go to these new standards in the most used parts of the code by enfocing all changes to comply to the new standards
