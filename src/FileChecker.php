@@ -14,9 +14,10 @@ interface FileChecker
 
     /**
      * Method to determine if the line is valid in the context
+     * null does not include the line in the stats
      * @param $file
      * @param $lineNumber
-     * @return bool
+     * @return bool|null
      */
     public function isValidLine($file, $lineNumber);
 

@@ -26,7 +26,7 @@ class PhpunitDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertContains('No lines found', $output);
     }
 
     public function testFailingBuild()

@@ -135,7 +135,13 @@ class CoverageCheck
     protected function matchLines($fileName, $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
-            if ($this->fileChecker->isValidLine($matchedFile, $line)) {
+            $validLine = $this->fileChecker->isValidLine($matchedFile, $line);
+
+            if (is_null($validLine)) {
+                continue;
+            }
+
+            if ($validLine) {
                 $this->addCoveredLine($fileName, $line);
                 continue;
             }
