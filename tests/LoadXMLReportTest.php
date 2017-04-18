@@ -30,7 +30,7 @@ class LoadXMLReportTest extends TestCase
         $this->assertFalse($xmlReport->isValidLine('/path/to/file/changedFile.php', 14));
         $this->assertTrue($xmlReport->isValidLine('/path/to/file/changedFile.php', 10));
         //True as the report doesnt contain the file
-        $this->assertTrue($xmlReport->isValidLine('/path/to/file/NonExistantFile.php', 6));
+        $this->assertNull($xmlReport->isValidLine('/path/to/file/NonExistantFile.php', 6));
     }
 
     public function testCorrectMissingFile()
