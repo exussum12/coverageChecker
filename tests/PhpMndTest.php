@@ -6,18 +6,16 @@ use exussum12\CoverageChecker\PhpMndLoader;
 
 class PhpMndTest extends TestCase
 {
-    public function testLoadClass()
+    public function setUp()
     {
         $file = __DIR__ . "/fixtures/phpmnd.txt";
-        $mnd = new PhpMndLoader($file);
+        $this->mnd = new PhpMndLoader($file);
 
-        $this->assertInstanceOf(PhpMndLoader::class, $mnd);
+        $this->assertInstanceOf(PhpMndLoader::class, $this->mnd);
     }
 
     public function testGetOutput()
     {
-        $file = __DIR__ . "/fixtures/phpmnd.txt";
-        $mnd = new PhpMndLoader($file);
         $expected = [
             'test.php' => [
                 3 => 'Magic number: 7',
@@ -29,6 +27,30 @@ class PhpMndTest extends TestCase
             ],
         ];
 
-        $this->assertSame($expected, $mnd->getLines());
+        $this->assertSame($expected, $this->mnd->getLines());
+    }
+
+    /**
+     * @dataProvider fileInputs
+     */
+    public function testLinesReturnCorrect($filename, $lineNo, $expected)
+    {
+        $this->mnd->getLines();
+
+        $this->assertSame($expected, $this->mnd->isValidLine($filename, $lineNo));
+    }
+
+    public function testInvalidFile()
+    {
+        $this->assertTrue($this->mnd->handleNotFoundFile());
+    }
+
+    public function fileInputs()
+    {
+        return [
+            'found file, valid line' => ['test.php', 2, true],
+            'found file, invalid line' => ['test.php', 3, false],
+            'file not found' => ['otherFile.php', 2, true],
+        ];
     }
 }

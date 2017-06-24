@@ -37,7 +37,6 @@ class PhpmdDiffFilterTest extends TestCase
             return;
         }
         $this->fail("no exception thrown");
-
     }
 
     public function testNoValidLinesStrict()

@@ -42,7 +42,11 @@ class PhpMndLoader implements FileChecker
         return empty($this->invalidLines[$file][$lineNumber]);
     }
 
-    public function handleNotFoundFile() {
+    /**
+     * return as true to include files, phpmnd only shows files with errors
+     */
+    public function handleNotFoundFile()
+    {
         return true;
     }
 }
