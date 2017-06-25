@@ -22,7 +22,7 @@ class GenericDiffFilterTest extends TestCase
 
     public function testMissingHandler()
     {
-        $this->setExpectedException("Exception");
+        $this->expectException("Exception");
 
         $GLOBALS['argv'] = [
             'diffFilter',
