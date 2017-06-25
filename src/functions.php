@@ -117,3 +117,15 @@ function addExceptionHandler()
         }
     );
 }
+
+function getFileChecker(ArgParser $args, array $argMappper, $filename)
+{
+    foreach ($argMappper as $arg => $class) {
+        if ($args->getArg($arg)) {
+            $class = __NAMESPACE__ . '\\' . $class;
+            return new $class($filename);
+        }
+    }
+
+    throw new Exception("Can not find file handler");
+}

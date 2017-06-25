@@ -70,7 +70,7 @@ exit code 0 and no output indicates success
 
 ## phpunit
 
-    php vendor/bin/phpunitDiffFilter /tmp/diff.txt report/coverage.xml  90
+    php vendor/bin/diffFilter --phpunit /tmp/diff.txt report/coverage.xml  90
     
 Will fail (exit status 2) if less than 90% of the code committed is covered by a test.
 This requires phpunit to be run on the branch first!
@@ -81,7 +81,7 @@ Note: This works for all clover output!
 
 All of the commands can read from stdin with placeholder `-`
 
-    phpcs --report=json | php vendor/bin/phpcsDiffFilter /tmp/diff.txt -
+    phpcs --report=json | php vendor/bin/diffFilter --phpcs /tmp/diff.txt -
     
 phpcs can be run with any options you normally have for example `--standard=PSR2`
 
@@ -94,11 +94,11 @@ Strict mode turns warning to errors
 
 All of the commands can read from stdin with placeholder `-`
 
-    phpmd src/ xml cleancode | php vendor/bin/phpmdDiffFilter /tmp/diff.txt -
+    phpmd src/ xml cleancode | php vendor/bin/diffFilter --phpmd /tmp/diff.txt -
     
 phpmd can be run with any options you normally have for example `cleancode,codesize,controversial`
 
-phpmd also has a strict mode `--strict` which reports an error multiple times for each line which is not standard.
+phpmd also has a strict mode `--phpmdstrict` instead of `--phpmd` which reports an error multiple times for each line which is not standard.
 The normal mode reports the error once, eg a class has too many functions, strict mode reports this violation on each line. This makes old non conforming files easier to deal with as refactoring can be risky also.
 
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.

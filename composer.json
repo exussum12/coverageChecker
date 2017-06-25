@@ -14,5 +14,5 @@
     "autoload": {
         "psr-4": {"exussum12\\CoverageChecker\\": "src/"}
     },
-    "bin": ["bin/phpunitDiffFilter","bin/phpcsDiffFilter", "bin/phpmdDiffFilter"]
+    "bin": ["bin/phpunitDiffFilter","bin/phpcsDiffFilter", "bin/phpmdDiffFilter", "bin/diffFilter"]
 }

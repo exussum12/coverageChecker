@@ -1,3 +1,5 @@
 #!/usr/bin/env php
 <?php
+echo "This method is calling phpmd diff filter is deplicated\n";
+echo "and will be removed soon, please use diffFilter --phpmd instead\n";
 require __DIR__ . '/../src/runners/phpmdDiffFilter.php';
