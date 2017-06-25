@@ -1,5 +1,5 @@
 <?php
-namespace exussum12\CoverageChecker;
+namespace exussum12\CoverageChecker\Runners;
 
 global $argv;
 

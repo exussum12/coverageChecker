@@ -14,7 +14,7 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcs.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/runners/phpcsDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpcsDiffFilter.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }
@@ -27,7 +27,7 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcsstrict.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/runners/phpcsDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpcsDiffFilter.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }

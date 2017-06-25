@@ -13,7 +13,7 @@ class PhpunitDiffFilterTest extends TestCase
     public function testWrongArgs()
     {
         $GLOBALS['argv'] = [];
-        require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
     }
 
     public function testWorkingCorrectly()
@@ -24,7 +24,7 @@ class PhpunitDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/coverage.xml'
         ];
         ob_start();
-        require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
         $output = ob_get_clean();
         $this->assertContains('No lines found', $output);
     }
@@ -39,7 +39,7 @@ class PhpunitDiffFilterTest extends TestCase
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
+            require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
@@ -60,7 +60,7 @@ class PhpunitDiffFilterTest extends TestCase
         ];
 
         ob_start();
-        require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
         $output = ob_get_clean();
         $this->assertContains('66.67%', $output);
     }
@@ -74,7 +74,7 @@ class PhpunitDiffFilterTest extends TestCase
         ];
 
         ob_start();
-        require(__DIR__ . "/../src/runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
         $output = ob_get_clean();
         $this->assertContains('No lines found', $output);
     }

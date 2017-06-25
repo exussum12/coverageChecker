@@ -15,7 +15,7 @@ class GenericDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcs.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/runners/generic.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }
@@ -29,6 +29,6 @@ class GenericDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpcs.json'
         ];
-        require(__DIR__ . "/../src/runners/generic.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
     }
 }
