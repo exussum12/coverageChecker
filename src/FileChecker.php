@@ -22,7 +22,7 @@ interface FileChecker
     public function isValidLine($file, $lineNumber);
 
     /**
-     * Method to determine what happens to unfound files
+     * Method to determine what happens to files which have not been found
      * true adds as covered
      * false adds as uncovered
      * null does not include the file in the stats

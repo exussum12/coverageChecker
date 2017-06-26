@@ -29,7 +29,7 @@ class PhpCsLoader implements FileChecker
 
     /**
      * PhpCsLoader constructor.
-     * @param $filePath the file path to the json output from phpcs
+     * @param string $filePath the file path to the json output from phpcs
      */
     public function __construct($filePath)
     {

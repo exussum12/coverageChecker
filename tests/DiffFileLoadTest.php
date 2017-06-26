@@ -52,7 +52,6 @@ class DiffFileLoaderTest extends TestCase
                 []
             ],
         ];
-
     }
 
     public function testEnsureContextLineIsValid()

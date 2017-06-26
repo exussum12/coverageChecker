@@ -1,0 +1,23 @@
+phpmnd 1.1.1 by Povilas Susinskas
+
+
+--------------------------------------------------------------------------------
+
+test.php:3. Magic number: 7
+  > 3| if ($length < 7) {
+
+test.php:4. Magic number: 12
+  > 4|     return 12;
+
+--------------------------------------------------------------------------------
+
+test2.php:3. Magic number: 7
+  > 3| if ($length < 7) {
+
+test2.php:4. Magic number: 12
+  > 4|     return 12;
+
+--------------------------------------------------------------------------------
+
+Total of Magic Numbers: 4
+Time: 33 ms, Memory: 6.00MB
