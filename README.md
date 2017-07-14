@@ -109,4 +109,19 @@ Simply pass the 3rd argument in as 0, this will give output showing failed lines
 
 
 # Why not run the auto fixers
-Auto fixers do exist for some of these tools, but on larger code bases there are many instances where these can not be auto fixed. CoverageChecker allows to go to these new standards in the most used parts of the code by enfocing all changes to comply to the new standards
+Auto fixers do exist for some of these tools, but on larger code bases there are many instances where these can not be auto fixed. CoverageChecker allows to go to these new standards in the most used parts of the code by enforcing all changes to comply to the new standards
+
+# Running PHPUnit diff filtered tests
+
+Adding the following code to your phpunit.xml, and adding a diff and the phpunit coverage output in php format (`--coverage-php`) will run only the tests necessary for the change 
+
+
+    <listeners>
+      <listener class="exussum12\CoverageChecker\DiffFilter" >
+          <arguments>
+              <string>php.php</string>
+              <string>diff.txt</string>
+          </arguments>
+      </listener>
+    </listeners>
+
