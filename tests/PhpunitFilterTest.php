@@ -1,7 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
-use exussum12\coverageChecker\PhpunitFilter;
+use exussum12\CoverageChecker\PhpunitFilter;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
