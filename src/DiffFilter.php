@@ -8,9 +8,13 @@ use PHPUnit_Framework_TestCase as TestCase;
 use PHPUnit_Framework_TestListener as TestListener;
 use PHPUnit_Framework_TestSuite as TestSuite;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DiffFilter implements TestListener
 {
     protected $modifiedTests = null;
+    protected $modifiedSuites = null;
     public function __construct($old, $diff)
     {
         try {
@@ -18,6 +22,7 @@ class DiffFilter implements TestListener
             $matcher = new FileMatchers\EndsWith();
             $coverage = new PhpunitFilter($diff, $matcher, $old);
             $this->modifiedTests = $coverage->getTestsForRunning();
+            $this->modifiedSuites = array_keys($this->modifiedTests);
             unset($coverage);
         } catch (Exception $e) {
             //Something has gone wrong, Don't filter
@@ -39,13 +44,28 @@ class DiffFilter implements TestListener
         if (!is_array($this->modifiedTests)) {
             return;
         }
-        $tests = $suite->tests();
+
         $runTests = [];
-        foreach ($tests as $test) {
-            if ($test instanceof TestCase && !$this->hasTestChanged($test)) {
-                continue;
+        $suiteName = $suite->getName();
+        if (empty($suiteName)) {
+            return ;
+        }
+
+        foreach ($this->modifiedSuites as $modifiedSuite) {
+            if (stripos($suite->getName(), $modifiedSuite) !== false) {
+                $tests = $suite->tests();
+                foreach ($tests as $test) {
+                    $skipTest = !$this->hasTestChanged(
+                        $test,
+                        $this->modifiedTests[$modifiedSuite]
+                    );
+
+                    if ($skipTest) {
+                        continue;
+                    }
+                    $runTests[]= $test;
+                }
             }
-            $runTests[]= $test;
         }
 
         $suite->setTests($runTests);
@@ -80,24 +100,22 @@ class DiffFilter implements TestListener
 
     protected function shouldRunTest($modifiedTest, $currentTest)
     {
-        $testName = explode("::", $currentTest)[0];
-
         return
-            $this->startsWith($modifiedTest, $currentTest) ||
-            strpos($currentTest, $modifiedTest . '::') > 0 ||
-            strpos($modifiedTest, $testName)> 0
+            empty($modifiedTest) ||
+            $this->startsWith($modifiedTest, $currentTest)
+
         ;
     }
 
-    private function hasTestChanged(TestCase $test)
+    private function hasTestChanged(TestCase $test, $modifiedTests)
     {
-        foreach ($this->modifiedTests as $modifiedTest) {
-            $currentTest = get_class($test) . '::' . $test->getName();
-            if (!$this->shouldRunTest($modifiedTest, $currentTest)) {
-                return false;
+        foreach ($modifiedTests as $modifiedTest) {
+            $currentTest = $test->getName();
+            if ($this->shouldRunTest($modifiedTest, $currentTest)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

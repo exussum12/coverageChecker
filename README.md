@@ -119,7 +119,7 @@ Adding the following code to your phpunit.xml, and adding a diff and the phpunit
     <listeners>
       <listener class="exussum12\CoverageChecker\DiffFilter" >
           <arguments>
-              <string>php.php</string>
+              <string>php-coverage.php</string>
               <string>diff.txt</string>
           </arguments>
       </listener>

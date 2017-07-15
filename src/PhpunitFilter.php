@@ -41,25 +41,35 @@ class PhpunitFilter {
                 if ($this->endsWith($file, ".php")) {
                     $runTests[] = $this->stripFileExtension($file);
                 }
-                continue;
             }
         }
-        return $runTests;
+        return $this->groupTestsBySuite($runTests);
     }
 
     protected function endsWith($haystack, $needle)
     {
         $length = strlen($needle);
-        if ($length == 0) {
-            return true;
-        }
-
         return (substr($haystack, -$length) === $needle);
     }
 
-    private function stripFileExtension($file)
+    protected function stripFileExtension($file)
     {
         $ext = ".php";
         return str_replace('/', '\\', substr($file, 0, -strlen($ext)));
+    }
+
+    protected function groupTestsBySuite($tests)
+    {
+        $groupedTests = [];
+        foreach($tests as $test) {
+            $suite = $test;
+            $testName = '';
+
+            if (strpos($test, '::') > 0) {
+                list ($suite, $testName) = explode('::', $test);
+            }
+            $groupedTests[$suite][] = $testName;
+        }
+        return $groupedTests;
     }
 }
