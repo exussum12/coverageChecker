@@ -47,18 +47,20 @@ class DiffFilter implements TestListener
 
         $runTests = [];
         $suiteName = $suite->getName();
-        if (empty($suiteName)) {
+
+        if (strpos($suiteName, '\\') === false) {
             return ;
         }
 
         foreach ($this->modifiedSuites as $modifiedSuite) {
-            if (stripos($suite->getName(), $modifiedSuite) !== false) {
+            if (stripos($modifiedSuite, $suite->getName()) !== false) {
                 $tests = $suite->tests();
                 foreach ($tests as $test) {
-                    $skipTest = !$this->hasTestChanged(
-                        $test,
-                        $this->modifiedTests[$modifiedSuite]
-                    );
+                    $skipTest = $test instanceof TestCase &&
+                        !$this->hasTestChanged(
+                            $test,
+                            $this->modifiedTests[$modifiedSuite]
+                        );
 
                     if ($skipTest) {
                         continue;
