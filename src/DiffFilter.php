@@ -45,29 +45,25 @@ class DiffFilter implements TestListener
             return;
         }
 
-        $runTests = [];
         $suiteName = $suite->getName();
-
-        if (strpos($suiteName, '\\') === false) {
+        $runTests = [];
+        if (empty($suiteName)) {
             return ;
         }
 
-        foreach ($this->modifiedSuites as $modifiedSuite) {
-            if (stripos($modifiedSuite, $suite->getName()) !== false) {
-                $tests = $suite->tests();
-                foreach ($tests as $test) {
-                    $skipTest = $test instanceof TestCase &&
-                        !$this->hasTestChanged(
-                            $test,
-                            $this->modifiedTests[$modifiedSuite]
-                        );
+        $tests = $suite->tests();
+                         
+        foreach ($tests as $test) {
+            $skipTest = 
+                $test instanceof TestCase &&
+                !$this->hasTestChanged(
+                    $test
+                );
 
-                    if ($skipTest) {
-                        continue;
-                    }
-                    $runTests[]= $test;
-                }
+            if ($skipTest) {
+                continue;
             }
+            $runTests[]= $test;
         }
 
         $suite->setTests($runTests);
@@ -102,16 +98,18 @@ class DiffFilter implements TestListener
 
     protected function shouldRunTest($modifiedTest, $currentTest)
     {
-        return
-            empty($modifiedTest) ||
-            $this->startsWith($modifiedTest, $currentTest)
-
-        ;
+        foreach ($modifiedTest as $test) {
+            var_dump($currentTest);
+            if (empty($test) || $this->startsWith($test, $currentTest)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    private function hasTestChanged(TestCase $test, $modifiedTests)
+    private function hasTestChanged(TestCase $test)
     {
-        foreach ($modifiedTests as $modifiedTest) {
+        foreach ($this->modifiedTests as $modifiedTest) {
             $currentTest = $test->getName();
             if ($this->shouldRunTest($modifiedTest, $currentTest)) {
                 return true;
