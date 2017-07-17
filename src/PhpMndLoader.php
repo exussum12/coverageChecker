@@ -1,8 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker;
 
-use XMLReader;
-
 class PhpMndLoader implements FileChecker
 {
     private $invalidLines = [];

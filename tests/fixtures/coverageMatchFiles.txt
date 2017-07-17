@@ -1,0 +1,13 @@
+diff --git a/tests/ArgParserTest.php b/tests/ArgParserTest.php
+index 7636392..5988a57 100644
+--- a/src/ArgParser.php
++++ b/src/ArgParser.php
+@@ -21,7 +21,7 @@ class ArgParserTest extends TestCase
+         ];
+ 
+         $argParser = new ArgParser($args);
+-        $this->assertSame("file", $argParser->getArg(1));
++            $this->assertSame("file", $argParser->getArg(1));
+         $this->assertSame("file2", $argParser->getArg(2));
+         $this->assertNull($argParser->getArg(3));
+     }
