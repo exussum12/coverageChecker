@@ -96,11 +96,11 @@ class DiffFilter implements TestListener
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    protected function shouldRunTest($modifiedTest, $currentTest)
+    protected function shouldRunTest($modifiedTest, $currentTest, $class)
     {
         foreach ($modifiedTest as $test) {
-            var_dump($currentTest);
-            if (empty($test) || $this->startsWith($test, $currentTest)) {
+            $testName = $currentTest->getName();
+            if (strpos($class, get_class($currentTest)) !== false && (empty($test) || strpos($test, $testName) !== false)) {
                 return true;
             }
         }
@@ -109,9 +109,8 @@ class DiffFilter implements TestListener
 
     private function hasTestChanged(TestCase $test)
     {
-        foreach ($this->modifiedTests as $modifiedTest) {
-            $currentTest = $test->getName();
-            if ($this->shouldRunTest($modifiedTest, $currentTest)) {
+        foreach ($this->modifiedTests as $class => $modifiedTest) {
+            if ($this->shouldRunTest($modifiedTest, $test, $class)) {
                 return true;
             }
         }
