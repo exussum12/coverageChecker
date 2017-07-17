@@ -24,19 +24,19 @@ class DiffFilter implements TestListener
             $this->modifiedTests = $coverage->getTestsForRunning();
             $this->modifiedSuites = array_keys($this->modifiedTests);
             unset($coverage);
-        } catch (Exception $e) {
+        } catch (Exception $exception) {
             //Something has gone wrong, Don't filter
             echo "Missing required diff / php coverage, Running all tests\n";
         }
     }
 
-    public function addError(Test $test, Exception $e, $time)
+    public function addError(Test $test, Exception $exception, $time)
     {
     }
-    public function addFailure(Test $test, AssertionFailedError $e, $time)
+    public function addFailure(Test $test, AssertionFailedError $exception, $time)
     {
     }
-    public function addRiskyTest(Test $test, Exception $e, $time)
+    public function addRiskyTest(Test $test, Exception $exception, $time)
     {
     }
     public function startTestSuite(TestSuite $suite)
@@ -48,13 +48,13 @@ class DiffFilter implements TestListener
         $suiteName = $suite->getName();
         $runTests = [];
         if (empty($suiteName)) {
-            return ;
+            return;
         }
 
         $tests = $suite->tests();
                          
         foreach ($tests as $test) {
-            $skipTest = 
+            $skipTest =
                 $test instanceof TestCase &&
                 !$this->hasTestChanged(
                     $test
@@ -100,7 +100,14 @@ class DiffFilter implements TestListener
     {
         foreach ($modifiedTest as $test) {
             $testName = $currentTest->getName();
-            if (strpos($class, get_class($currentTest)) !== false && (empty($test) || strpos($test, $testName) !== false)) {
+            $testMatches =
+                strpos($class, get_class($currentTest)) !== false &&
+                (
+                    empty($test) ||
+                    strpos($test, $testName) !== false
+                )
+            ;
+            if ($testMatches) {
                 return true;
             }
         }

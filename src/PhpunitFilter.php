@@ -3,7 +3,8 @@ namespace exussum12\coverageChecker;
 
 use Exception;
 
-class PhpunitFilter {
+class PhpunitFilter
+{
     protected $diff;
     protected $matcher;
     protected $coverage;
@@ -12,7 +13,7 @@ class PhpunitFilter {
         if (!is_readable(($coveragePhp))) {
             throw new Exception("Coverage File not found");
         }
-        $this->coverage = include ($coveragePhp);
+        $this->coverage = include($coveragePhp);
         $this->diff = $diff;
         $this->matcher = $matcher;
     }
@@ -26,7 +27,7 @@ class PhpunitFilter {
         foreach ($changes as $file => $lines) {
             try {
                 if ($found = $this->matcher->match($file, $fileNames)) {
-                    foreach($lines as $line) {
+                    foreach ($lines as $line) {
                         if (isset($testData[$found][$line])) {
                             $runTests = array_unique(
                                 array_merge(
@@ -61,7 +62,7 @@ class PhpunitFilter {
     protected function groupTestsBySuite($tests)
     {
         $groupedTests = [];
-        foreach($tests as $test) {
+        foreach ($tests as $test) {
             $suite = $test;
             $testName = '';
 

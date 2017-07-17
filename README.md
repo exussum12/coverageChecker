@@ -111,6 +111,18 @@ Simply pass the 3rd argument in as 0, this will give output showing failed lines
 # Why not run the auto fixers
 Auto fixers do exist for some of these tools, but on larger code bases there are many instances where these can not be auto fixed. CoverageChecker allows to go to these new standards in the most used parts of the code by enforcing all changes to comply to the new standards
 
+# What is a diff filtered test
+
+A diff filtered test is a test where the execution and diffence (diff) is used from a known point.
+This information can be used to only run the tests which have been changed. Saving in many cases minutes running tests.
+
+A good workflow is to branch, run the tests with `--coverage-php=php-coverage.php`  and then when running your tests run `git diff origin/master... > diff.txt && ./composer/bin/phpunit`
+
+This saves the coverage information in the first step which the diff then filters to runnable tests.
+
+This one time effort saves running unnecessary tests on each run, tests for which the code has not changed.
+
+
 # Running PHPUnit diff filtered tests
 
 Adding the following code to your phpunit.xml, and adding a diff and the phpunit coverage output in php format (`--coverage-php`) will run only the tests necessary for the change 

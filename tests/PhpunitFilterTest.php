@@ -7,7 +7,7 @@ use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
 use Exception;
 
-class PhpunitFilterTest extends  TestCase
+class PhpunitFilterTest extends TestCase
 {
     protected $coverage;
     protected $diff;
@@ -66,8 +66,5 @@ class PhpunitFilterTest extends  TestCase
             'tests\Unknown' => [''],
         ];
         $this->assertEquals($expected, $coverage->getTestsForRunning());
-
     }
-
-
 }
