@@ -1,5 +1,5 @@
 <?php
-namespace exussum12\CoverageChecker\DiffLineHandle;
+namespace exussum12\CoverageChecker\DiffLineHandle\NewVersion;
 
 use exussum12\CoverageChecker\DiffLineHandle;
 

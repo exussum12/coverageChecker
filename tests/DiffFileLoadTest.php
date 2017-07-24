@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\DiffFileState;
@@ -17,11 +18,10 @@ class DiffFileLoaderTest extends TestCase
 
         $this->assertEquals($changed, $expected);
     }
-    /**
-     * @expectedException InvalidArgumentException
-     */
+
     public function testNonExistantFile()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getChangedLines('ufhbubfusdf');
     }
 

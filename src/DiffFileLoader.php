@@ -1,7 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker;
 
-use exussum12\CoverageChecker\DiffLineHandle;
 use InvalidArgumentException;
 
 class DiffFileLoader
@@ -9,10 +8,10 @@ class DiffFileLoader
     protected $fileLocation;
 
     protected $diffLines = [
-        DiffLineHandle\NewFile::class,
-        DiffLineHandle\AddedLine::class,
-        DiffLineHandle\RemovedLine::class,
-        DiffLineHandle\DiffStart::class,
+        DiffLineHandle\NewVersion\NewFile::class,
+        DiffLineHandle\NewVersion\AddedLine::class,
+        DiffLineHandle\NewVersion\RemovedLine::class,
+        DiffLineHandle\NewVersion\DiffStart::class,
     ];
     protected $handles = [];
     protected $diff;
