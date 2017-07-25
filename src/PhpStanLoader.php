@@ -9,20 +9,13 @@ namespace exussum12\CoverageChecker;
 class PhpStanLoader implements FileChecker
 {
     protected $lineRegex = '/^\s+(?<lineNumber>[0-9]+)/';
-    /**
-     * @var string
-     */
+
     protected $file;
 
     /**
      * @var array
      */
-    protected $errors = [];
-
-    /**
-     * @var array
-     */
-    protected $errorRanges = [];
+    protected $invalidLines = [];
 
     /**
      * @param string $filename the path to the phpstan.txt file
@@ -55,7 +48,7 @@ class PhpStanLoader implements FileChecker
      */
     public function isValidLine($file, $lineNumber)
     {
-        return empty($this->isValidLines[$file][$lineNumber]);
+        return empty($this->invalidLines[$file][$lineNumber]);
     }
 
 
