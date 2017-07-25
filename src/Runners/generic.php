@@ -24,6 +24,7 @@ $checkerArray = [
     'phpmdStrict' => 'PhpMdLoaderStrict',
     'phpmnd' => 'PhpMndLoader',
     'phpunit' => 'XMLReport',
+    'phpstan' => 'PhpStanLoader',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(

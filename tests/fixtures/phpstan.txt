@@ -1,0 +1,21 @@
+
+
+ ------ --------------------------------------------------------- 
+  Line   src/PhpStanLoader.php                                    
+ ------ --------------------------------------------------------- 
+  45     Access to an undefined property                          
+         exussum12\CoverageChecker\PhpStanLoader::$invalidLines.  
+  51     Access to an undefined property                          
+         exussum12\CoverageChecker\PhpStanLoader::$invalidLines.  
+ ------ --------------------------------------------------------- 
+
+ ------ ------------------------------------------------------------------------------ 
+  Line   src/PhpCsLoader.php                                                           
+ ------ ------------------------------------------------------------------------------ 
+  71     Parameter $message of method                                                  
+         exussum12\CoverageChecker\PhpCsLoader::addInvalidLine() has invalid typehint  
+         type exussum12\CoverageChecker\stdClass.                                      
+ ------ ------------------------------------------------------------------------------ 
+
+ [ERROR] Found 3 errors
+

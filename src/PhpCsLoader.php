@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker;
 
 use InvalidArgumentException;
+use stdClass;
 
 /**
  * Class PhpCsLoader
