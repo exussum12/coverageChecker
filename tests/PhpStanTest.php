@@ -38,6 +38,6 @@ class PhpStanTest extends TestCase
 
     public function testNotFoundFile()
     {
-        $this->assertNull($this->stan->handleNotFoundFile());
+        $this->assertTrue($this->stan->handleNotFoundFile());
     }
 }

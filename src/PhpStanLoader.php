@@ -57,7 +57,7 @@ class PhpStanLoader implements FileChecker
      */
     public function handleNotFoundFile()
     {
-        return null;
+        return true;
     }
 
     /**
