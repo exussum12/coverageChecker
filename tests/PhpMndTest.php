@@ -8,7 +8,7 @@ class PhpMndTest extends TestCase
 {
     public function setUp()
     {
-        $file = __DIR__ . "/fixtures/phpmnd.txt";
+            $file = __DIR__ . "/fixtures/phpmnd.txt";
         $this->mnd = new PhpMndLoader($file);
 
         $this->assertInstanceOf(PhpMndLoader::class, $this->mnd);
