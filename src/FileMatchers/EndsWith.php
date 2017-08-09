@@ -34,6 +34,9 @@ class EndsWith implements FileMatcher
     protected function fileEndsWith($haystack, $needle)
     {
         $length = strlen($needle);
+        if (strlen($haystack) < $length) {
+            return $this->fileEndsWith($needle, $haystack);
+        }
 
         return (substr($haystack, -$length) === $needle);
     }
