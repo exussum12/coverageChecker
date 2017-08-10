@@ -39,9 +39,8 @@ class PhpStanLoader implements FileChecker
                     $this->invalidLines[$filename][$lineNumber] = '';
                 }
 
-                $this->invalidLines
-                [$filename]
-                [$lineNumber] .= $this->getMessage($line) . ' ';
+                $error = $this->getMessage($line);
+                $this->invalidLines[$filename][$lineNumber] .= $error . ' ';
             }
         }
 
