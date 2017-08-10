@@ -31,14 +31,21 @@ class PhpStanLoader implements FileChecker
     public function getLines()
     {
         $filename = '';
+        $lineNumber = 0;
         while (($line = fgets($this->file)) !== false) {
             $filename = $this->checkForFileName($line, $filename);
-            if ($lineNumber = $this->getLineNumber($line)) {
+            if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
+                if (!isset($this->invalidLines[$filename][$lineNumber])) {
+                    $this->invalidLines[$filename][$lineNumber] = '';
+                }
+
                 $this->invalidLines
                 [$filename]
-                [$lineNumber] = $this->getMessage($line);
+                [$lineNumber] .= $this->getMessage($line) . ' ';
             }
         }
+
+        $this->trimLines();
 
         return $this->invalidLines;
     }
@@ -73,10 +80,14 @@ class PhpStanLoader implements FileChecker
         return $currentFile;
     }
 
-    protected function getLineNumber($line)
+    protected function getLineNumber($line, $currentLineNumber)
     {
        $matches = [];
-       if (!preg_match('' . $this->lineRegex, $line, $matches)) {
+       if (!preg_match($this->lineRegex, $line, $matches)) {
+           if (preg_match('#^\s{3,}#', $line)) {
+                return $currentLineNumber;
+           }
+
            return false;
        }
 
@@ -86,5 +97,14 @@ class PhpStanLoader implements FileChecker
     protected function getMessage($line)
     {
         return trim(preg_replace($this->lineRegex, "", $line));
+    }
+
+    protected function trimLines()
+    {
+        array_walk_recursive($this->invalidLines, function (&$item) {
+            if (is_string($item)) {
+                $item = trim($item);
+            }
+        });
     }
 }

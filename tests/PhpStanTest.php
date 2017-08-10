@@ -18,11 +18,15 @@ class PhpStanTest extends TestCase
     {
         $expected = [
             'src/PhpStanLoader.php' => [
-                45 => 'Access to an undefined property',
-                51 => 'Access to an undefined property',
+                45 => 'Access to an undefined property ' .
+                    'exussum12\CoverageChecker\PhpStanLoader::$invalidLines.',
+                51 => 'Access to an undefined property ' .
+                    'exussum12\CoverageChecker\PhpStanLoader::$invalidLines.',
             ],
             'src/PhpCsLoader.php' => [
-                71 => 'Parameter $message of method',
+                71 => 'Parameter $message of method ' .
+                    'exussum12\CoverageChecker\PhpCsLoader::addInvalidLine() has '.
+                    'invalid typehint type exussum12\CoverageChecker\stdClass.',
             ],
         ];
 
