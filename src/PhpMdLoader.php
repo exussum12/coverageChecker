@@ -60,8 +60,8 @@ class PhpMdLoader implements FileChecker
         $valid = true;
         foreach ($this->errorRanges[$file] as $number => $errors) {
             if ((
-                $errors['start'] >= $lineNumber &&
-                $errors['end'] <= $lineNumber
+                $errors['start'] <= $lineNumber &&
+                $errors['end'] >= $lineNumber
             )) {
                 //unset this error
                 unset($this->errorRanges[$file][$number]);
