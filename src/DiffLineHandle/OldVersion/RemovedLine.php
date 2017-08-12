@@ -1,9 +1,9 @@
 <?php
-namespace exussum12\CoverageChecker\DiffLineHandle;
+namespace exussum12\CoverageChecker\DiffLineHandle\OldVersion;
 
 use exussum12\CoverageChecker\DiffLineHandle;
 
-class AddedLine extends DiffLineHandle
+class RemovedLine extends DiffLineHandle
 {
 
     public function handle($line)
@@ -13,6 +13,6 @@ class AddedLine extends DiffLineHandle
 
     public function isValid($line)
     {
-        return $line[0] == '+';
+        return $line[0] == '-';
     }
 }
