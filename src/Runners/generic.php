@@ -20,7 +20,7 @@ $diff = new CoverageChecker\DiffFileLoader(
 
 $checkerArray = [
     'phpcs' => 'PhpCsLoader',
-    'phpcsStrict' => 'PhpCsLoader',
+    'phpcsStrict' => 'PhpCsLoaderStrict',
     'phpmd' => 'PhpMdLoader',
     'phpmdStrict' => 'PhpMdLoaderStrict',
     'phpmnd' => 'PhpMndLoader',
