@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class GenericDiffFilterTest extends TestCase
@@ -22,13 +23,20 @@ class GenericDiffFilterTest extends TestCase
 
     public function testMissingHandler()
     {
-        $this->expectException("Exception");
-
         $GLOBALS['argv'] = [
             'diffFilter',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpcs.json'
         ];
-        require(__DIR__ . "/../src/Runners/generic.php");
+        try {
+            ob_start();
+            require(__DIR__ . "/../src/Runners/generic.php");
+        } catch (Exception $exception) {
+            $output = ob_get_clean();
+            $this->assertContains('--phpcs', $output);
+            return true;
+        }
+
+        $this->fail('Exception not thrown when Expected');
     }
 }

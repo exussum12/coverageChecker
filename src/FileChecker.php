@@ -29,4 +29,11 @@ interface FileChecker
      * @return bool|null
      */
     public function handleNotFoundFile();
+
+    /**
+     * Shows the description of the class, used for explaining why
+     * this checker would be used
+     * @return string
+     */
+    public static function getDescription();
 }

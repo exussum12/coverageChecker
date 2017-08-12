@@ -35,7 +35,8 @@ function checkCallIsCorrect(ArgParser $args)
 {
     if (!$args->getArg(1) || !$args->getArg(2)) {
         throw new Exception(
-            "Missing arguments, please call with diff and check file",
+            "Missing arguments, please call with diff and check file\n" .
+            "e.g. vendor/bin/diffFilter --phpcs diff.txt phpcs.json",
             1
         );
     }
@@ -78,7 +79,7 @@ function handleOutput($lines, $minimumPercentCovered)
         return;
     }
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
-    
+
     $extra = PHP_EOL;
 
     if ($lines['uncoveredLines']) {
@@ -89,7 +90,7 @@ function handleOutput($lines, $minimumPercentCovered)
     }
 
     printf('%.2f%% Covered%s', $percentCovered, $extra);
-    
+
     if ($percentCovered >= $minimumPercentCovered) {
         return;
     }
@@ -110,7 +111,6 @@ function addExceptionHandler()
     set_exception_handler(
         function (Exception $exception) {
             // @codeCoverageIgnoreStart
-            error_log(get_class($exception));
             error_log($exception->getMessage());
             exit($exception->getCode());
             // @codeCoverageIgnoreEnd
@@ -126,6 +126,34 @@ function getFileChecker(ArgParser $args, array $argMappper, $filename)
             return new $class($filename);
         }
     }
-
+    printOptions($argMappper);
     throw new Exception("Can not find file handler");
+}
+
+function printOptions(array $arguments)
+{
+    $tabWidth = 8;
+    $defaultWidth = 80;
+
+    $width = (`tput cols` ?: $defaultWidth);
+    $width -= 2 * $tabWidth;
+    foreach($arguments as $argument => $class) {
+        $class = __NAMESPACE__ . '\\' . $class;
+
+        $argument = '--' . $argument;
+        if (strlen($argument) < $tabWidth) {
+            $argument .= "\t";
+        }
+
+        printf(
+            "%s\t%s\n",
+            $argument,
+            wordwrap(
+                $class::getDescription(),
+                $width,
+                "\n\t\t",
+                true
+            )
+        );
+    }
 }

@@ -106,4 +106,12 @@ class PhpStanLoader implements FileChecker
             }
         });
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the text output of phpstan';
+    }
 }

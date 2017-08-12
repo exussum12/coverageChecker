@@ -79,4 +79,13 @@ class XMLReport implements FileChecker
     {
         return null;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses text output in clover (xml) format designed for ' .
+            'phpunit but any tool which outputs in this format should work';
+    }
 }

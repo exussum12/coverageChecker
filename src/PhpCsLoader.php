@@ -90,4 +90,13 @@ class PhpCsLoader implements FileChecker
     {
         return true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the json report format of phpcs, this mode ' .
+            'only reports errors as violations';
+    }
 }
