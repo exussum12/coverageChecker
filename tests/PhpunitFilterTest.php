@@ -7,6 +7,9 @@ use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
 use Exception;
 
+/**
+ * @requires extension xdebug
+ */
 class PhpunitFilterTest extends TestCase
 {
     protected $coverage;
