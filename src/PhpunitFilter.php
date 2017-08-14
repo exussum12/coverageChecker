@@ -67,7 +67,7 @@ class PhpunitFilter
         return $groupedTests;
     }
 
-    public function matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests): array
+    public function matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests)
     {
         $i = -$fuzziness;
         do {
