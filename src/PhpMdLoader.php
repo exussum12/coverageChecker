@@ -128,4 +128,14 @@ class PhpMdLoader implements FileChecker
     {
         return true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the xml report format of phpmd, this mode ' .
+            'reports multi line violations once per diff, instead ' .
+            'of on each line the violation occurs';
+    }
 }

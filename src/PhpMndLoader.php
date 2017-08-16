@@ -47,4 +47,12 @@ class PhpMndLoader implements FileChecker
     {
         return true;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the text output of phpmnd';
+    }
 }

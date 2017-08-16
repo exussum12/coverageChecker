@@ -19,4 +19,13 @@ class PhpMdLoaderStrict extends PhpMdLoader
     {
         return empty($this->errors[$file][$lineNumber]);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the xml report format of phpmd, this mode ' .
+            'reports multi line violations once per line they occur ';
+    }
 }

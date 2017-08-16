@@ -14,4 +14,13 @@ class PhpCsLoaderStrict extends PhpCsLoader
         'ERROR',
         'WARNING',
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getDescription()
+    {
+        return 'Parses the json report format of phpcs, this mode ' .
+            'only reporst errors and warnings as violations';
+    }
 }
