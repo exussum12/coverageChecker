@@ -11,9 +11,6 @@ matrix:
     - php: hhvm
   allow_failures:
     - php: hhvm
-    - php: nightly
-    - php: 7.1
-    - php: 7.2
   fast_finish: true
 before_script:
   - composer require satooshi/php-coveralls:dev-master

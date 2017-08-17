@@ -135,7 +135,7 @@ function printOptions(array $arguments)
     $tabWidth = 8;
     $defaultWidth = 80;
 
-    $width = (`tput cols` ?: $defaultWidth);
+    $width = (int) (`tput cols` ?: $defaultWidth);
     $width -= 2 * $tabWidth;
     foreach ($arguments as $argument => $class) {
         $class = __NAMESPACE__ . '\\' . $class;
