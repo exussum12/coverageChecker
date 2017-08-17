@@ -1,5 +1,5 @@
 # coverageChecker
-Allows tools to conditionally allow standards to new code
+Allows old code to use new standards
 
 [![Build Status](https://travis-ci.org/exussum12/coverageChecker.svg?branch=master)](https://travis-ci.org/exussum12/coverageChecker)
 [![Coverage Status](https://coveralls.io/repos/github/exussum12/coverageChecker/badge.svg?branch=master)](https://coveralls.io/github/exussum12/coverageChecker?branch=master)
@@ -32,8 +32,8 @@ First of all a diff is needed
     git diff origin/master...branch > /tmp/diff.txt
 or 
 
-    git diff origin/master...HEAD > /tmp/diff.txt
-assuming your on the branch currently
+    git diff origin/master... > /tmp/diff.txt
+assuming your on the branch currently and all changed are checked in
 
 or
 
@@ -75,7 +75,7 @@ exit code 0 and no output indicates success
 Will fail (exit status 2) if less than 90% of the code committed is covered by a test.
 This requires phpunit to be run on the branch first!
 
-Note: This works for all clover output!
+Note: This works for all clover output! so any project using clover can use this regardless of the language it was written for
 
 ## phpcs
 
