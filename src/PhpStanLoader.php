@@ -74,23 +74,23 @@ class PhpStanLoader implements FileChecker
     protected function checkForFilename($line, $currentFile)
     {
         if (strpos($line, " Line ")) {
-            return trim(str_replace('Line', '',$line));
+            return trim(str_replace('Line', '', $line));
         }
         return $currentFile;
     }
 
     protected function getLineNumber($line, $currentLineNumber)
     {
-       $matches = [];
-       if (!preg_match($this->lineRegex, $line, $matches)) {
-           if (preg_match('#^\s{3,}#', $line)) {
-                return $currentLineNumber;
-           }
+        $matches = [];
+        if (!preg_match($this->lineRegex, $line, $matches)) {
+            if (preg_match('#^\s{3,}#', $line)) {
+                 return $currentLineNumber;
+            }
 
-           return false;
-       }
+            return false;
+        }
 
-       return $matches['lineNumber'];
+        return $matches['lineNumber'];
     }
 
     protected function getMessage($line)

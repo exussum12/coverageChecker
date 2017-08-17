@@ -16,7 +16,7 @@ Also working with PHPunit to allow, for example 90% of new/edited code to be cov
 ## Composer
 With composer simply
 
-    composer require exussum12/coverage-checker
+    composer require --dev exussum12/coverage-checker
     
 then call the script you need
 
@@ -39,7 +39,7 @@ or
 
     git diff $(git merge-base origin/master...HEAD) > /tmp/diff.txt
     
-Assuming your on a branch with no local changes (ie all changes are committed) 
+Assuming your on a branch with local changes
 
 This diff will be used in all of the examples
 

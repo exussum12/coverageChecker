@@ -1,0 +1,9 @@
+phpcpd 3.0.0 by Sebastian Bergmann.
+
+Found 16 clones with 949 duplicated lines in 30 files:
+
+  - /home/user/code/coverageChecker/vendor/symfony/console/Tests/Helper/SymfonyQuestionHelperTest.php:45-47
+    /home/user/code/coverageChecker/vendor/symfony/console/Tests/Helper/QuestionHelperTest.php:58-60
+
+  - /home/user/code/coverageChecker/vendor/symfony/console/Tests/Tester/ApplicationTesterTest.php:45-69
+    /home/user/code/coverageChecker/vendor/symfony/console/Tests/Tester/CommandTesterTest.php:48-72

@@ -19,13 +19,14 @@ $diff = new CoverageChecker\DiffFileLoader(
 );
 
 $checkerArray = [
+    'phpcpd' => 'Phpcpd',
     'phpcs' => 'PhpCsLoader',
     'phpcsStrict' => 'PhpCsLoaderStrict',
     'phpmd' => 'PhpMdLoader',
     'phpmdStrict' => 'PhpMdLoaderStrict',
     'phpmnd' => 'PhpMndLoader',
-    'phpunit' => 'XMLReport',
     'phpstan' => 'PhpStanLoader',
+    'phpunit' => 'XMLReport',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(
