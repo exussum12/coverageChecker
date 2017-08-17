@@ -15,13 +15,13 @@ class DiffFilter implements TestListener
 {
     protected $modifiedTests = null;
     protected $modifiedSuites = null;
-    public function __construct($old, $diff)
+    public function __construct($old, $diff, $fuzziness = 0)
     {
         try {
-            $diff = new DiffFileLoader($diff);
+            $diff = new DiffFileLoaderOldVersion($diff);
             $matcher = new FileMatchers\EndsWith();
             $coverage = new PhpunitFilter($diff, $matcher, $old);
-            $this->modifiedTests = $coverage->getTestsForRunning();
+            $this->modifiedTests = $coverage->getTestsForRunning($fuzziness);
             $this->modifiedSuites = array_keys($this->modifiedTests);
             unset($coverage);
         } catch (Exception $exception) {

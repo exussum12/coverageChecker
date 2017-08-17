@@ -1,5 +1,5 @@
 <?php
-namespace exussum12\CoverageChecker\DiffLineHandle;
+namespace exussum12\CoverageChecker\DiffLineHandle\OldVersion;
 
 use exussum12\CoverageChecker\DiffLineHandle;
 
@@ -13,9 +13,9 @@ class DiffStart extends DiffLineHandle
             '@@ -%d,%d +%d,%d @@'
         );
 
-        $newFrom = $foundVariables[2];
+        $oldFrom = $foundVariables[0];
 
-        $this->diffFileState->setCurrentPosition($newFrom - 1);
+        $this->diffFileState->setCurrentPosition($oldFrom - 1);
     }
 
     public function isValid($line)

@@ -18,7 +18,7 @@ class PhpunitFilter
         $this->matcher = $matcher;
     }
 
-    public function getTestsForRunning()
+    public function getTestsForRunning($fuzziness = 0)
     {
         $changes = $this->diff->getChangedLines();
         $testData = $this->coverage->getData();
@@ -28,14 +28,7 @@ class PhpunitFilter
             try {
                 if ($found = $this->matcher->match($file, $fileNames)) {
                     foreach ($lines as $line) {
-                        if (isset($testData[$found][$line])) {
-                            $runTests = array_unique(
-                                array_merge(
-                                    $runTests,
-                                    $testData[$found][$line]
-                                )
-                            );
-                        }
+                        $runTests = $this->matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests);
                     }
                 }
             } catch (Exception $e) {
@@ -72,5 +65,22 @@ class PhpunitFilter
             $groupedTests[$suite][] = $testName;
         }
         return $groupedTests;
+    }
+
+    public function matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests)
+    {
+        $i = -$fuzziness;
+        do {
+            if (isset($testData[$found][$line + $i])) {
+                $runTests = array_unique(
+                    array_merge(
+                        $runTests,
+                        $testData[$found][$line]
+                    )
+                );
+            }
+        } while (++$i < $fuzziness);
+
+        return $runTests;
     }
 }

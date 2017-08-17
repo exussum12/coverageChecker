@@ -3,7 +3,7 @@ namespace exussum12\CoverageChecker;
 
 class DiffFileState
 {
-    private $currentPosition;
+    private $currentPosition = 0;
     private $currentFile;
     private $changeLines = [];
     
@@ -22,7 +22,6 @@ class DiffFileState
         if (!isset($this->changeLines[$this->currentFile])) {
             $this->changeLines[$this->currentFile] = [];
         }
-
         $this->changeLines[$this->currentFile][] = $this->currentPosition;
     }
 
@@ -38,6 +37,6 @@ class DiffFileState
 
     public function getChangedLines()
     {
-        return $this->changeLines;
+        return array_map('array_unique', $this->changeLines);
     }
 }
