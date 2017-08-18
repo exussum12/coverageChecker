@@ -19,6 +19,7 @@ $diff = new CoverageChecker\DiffFileLoader(
 );
 
 $checkerArray = [
+    'jacoco' => 'JacocoReport',
     'phpcpd' => 'Phpcpd',
     'phpcs' => 'PhpCsLoader',
     'phpcsStrict' => 'PhpCsLoaderStrict',

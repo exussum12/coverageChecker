@@ -6,6 +6,8 @@ use exussum12\CoverageChecker\PhpMndLoader;
 
 class PhpMndTest extends TestCase
 {
+    private $mnd;
+
     public function setUp()
     {
         $file = __DIR__ . "/fixtures/phpmnd.txt";
