@@ -104,6 +104,24 @@ The normal mode reports the error once, eg a class has too many functions, stric
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
 
 
+# Full list of available diff filters
+
+Below is a list of all tools and a breif description
+
+```
+--jacoco	Parses xml coverage report produced by Jacoco
+--phpcpd	Parses the text output from phpcpd (Copy Paste Detect)
+--phpcs		Parses the json report format of phpcs, this mode only reports errors as violations
+--phpcsStrict	Parses the json report format of phpcs, this mode only reporst errors and warnings as violations
+--phpmd		Parses the xml report format of phpmd, this mode reports multi line violations once per diff, instead of on each line
+		the violation occurs
+--phpmdStrict	Parses the xml report format of phpmd, this mode reports multi line violations once per line they occur 
+--phpmnd	Parses the text output of phpmnd
+--phpstan	Parses the text output of phpstan
+--phpunit	Parses text output in clover (xml) format designed for phpunit but any tool which outputs in this format should work
+```
+
+
 # Running in information mode
 Simply pass the 3rd argument in as 0, this will give output showing failed lines but will not fail the build
 
