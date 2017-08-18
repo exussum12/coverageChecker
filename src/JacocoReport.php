@@ -53,7 +53,7 @@ class JacocoReport extends XMLReport
         }
     }
 
-    protected function findFile($reader, $currentNamespace, $currentFile): string
+    protected function findFile($reader, $currentNamespace, $currentFile)
     {
         if ((
             $reader->name === "sourcefile" &&
