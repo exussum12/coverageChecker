@@ -85,7 +85,7 @@ function handleOutput($lines, $minimumPercentCovered)
     if ($lines['uncoveredLines']) {
         $extra = ', Missed lines '.
             $extra .
-            print_r($lines['uncoveredLines'], true)
+            generateOutput($lines['uncoveredLines']) .  "\n"
         ;
     }
 
@@ -118,15 +118,15 @@ function addExceptionHandler()
     );
 }
 
-function getFileChecker(ArgParser $args, array $argMappper, $filename)
+function getFileChecker(ArgParser $args, array $argMapper, $filename)
 {
-    foreach ($argMappper as $arg => $class) {
+    foreach ($argMapper as $arg => $class) {
         if ($args->getArg($arg)) {
             $class = __NAMESPACE__ . '\\' . $class;
             return new $class($filename);
         }
     }
-    printOptions($argMappper);
+    printOptions($argMapper);
     throw new Exception("Can not find file handler");
 }
 
@@ -156,4 +156,20 @@ function printOptions(array $arguments)
             )
         );
     }
+}
+function generateOutput($coverage)
+{
+    $output = '';
+    foreach ($coverage as $filename => $lines) {
+        $output .= "\n\n'$filename' has no coverage for the following lines:\n";
+        foreach ($lines as $line => $message) {
+           $output .= "\t $line";
+           if (!empty($message)) {
+               $output .= " $message";
+           }
+           $output .= ",\n";
+        }
+    }
+
+    return trim($output);
 }
