@@ -170,7 +170,7 @@ function generateOutput($coverage)
     return trim($output);
 }
 
-function generateOutputLine($line, $message): string
+function generateOutputLine($line, $message)
 {
     $output = "Line $line:\n";
     if (!empty($message)) {
@@ -178,5 +178,6 @@ function generateOutputLine($line, $message): string
             $output .= "\t$part\n";
         }
     }
+
     return $output . "\n";
 }
