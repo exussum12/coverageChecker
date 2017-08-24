@@ -163,15 +163,20 @@ function generateOutput($coverage)
     foreach ($coverage as $filename => $lines) {
         $output .= "\n\n'$filename' has no coverage for the following lines:\n";
         foreach ($lines as $line => $message) {
-            $output .= "Line $line:\n";
-           if (!empty($message)) {
-               foreach ((array) $message as $part) {
-                   $output .= "\t$part\n";
-               }
-           }
-           $output .= "\n";
+            $output .= generateOutputLine($line, $message);
         }
     }
 
     return trim($output);
+}
+
+function generateOutputLine($line, $message): string
+{
+    $output = "Line $line:\n";
+    if (!empty($message)) {
+        foreach ((array)$message as $part) {
+            $output .= "\t$part\n";
+        }
+    }
+    return $output . "\n";
 }
