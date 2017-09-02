@@ -1,0 +1,7 @@
+./src/ArgParser.php:35 PhanTypeMismatchArgumentInternal Argument 1 (string) is int but \strlen() takes string
+./src/CoverageCheck.php:172 PhanTypeMismatchArgument Argument 3 (message) is int but \exussum12\CoverageChecker\CoverageCheck::addUnCoveredLine() takes string defined at ./src/CoverageCheck.php:109
+./src/JacocoReport.php:60 PhanUndeclaredProperty Reference to undeclared property \XMLReader->nodeType
+./src/JacocoReport.php:73 PhanUndeclaredProperty Reference to undeclared property \XMLReader->nodeType
+./src/PhpMdLoader.php:83 PhanUndeclaredProperty Reference to undeclared property \XMLReader->nodeType
+./src/PhpMdLoader.php:114 PhanUndeclaredProperty Reference to undeclared property \XMLReader->nodeType
+./src/XMLReport.php:43 PhanUndeclaredProperty Reference to undeclared property \XMLReader->nodeType
