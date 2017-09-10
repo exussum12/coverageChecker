@@ -12,7 +12,7 @@ $minimumPercentCovered = getMinPercent($args->getArg(3));
 
 $matcher = new FileMatchers\EndsWith();
 $diff = new  DiffFileLoader($args->getArg(1));
-$phpunit = new XMLReport($args->getArg(2));
+$phpunit = new CloverLoader($args->getArg(2));
 $coverageCheck = new CoverageCheck($diff, $phpunit, $matcher);
 
 $lines = $coverageCheck->getCoveredLines();

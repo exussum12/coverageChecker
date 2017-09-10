@@ -8,7 +8,7 @@ use XMLReader;
  * Used for reading in a phpunit clover XML file
  * @package exussum12\CoverageChecker
  */
-class XMLReport implements FileChecker
+class CloverLoader implements FileChecker
 {
     /**
      * @var string

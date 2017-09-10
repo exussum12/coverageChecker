@@ -3,13 +3,13 @@ namespace exussum12\CoverageChecker\tests;
 
 use PHPUnit\Framework\TestCase;
 
-use exussum12\CoverageChecker\XMLReport;
+use exussum12\CoverageChecker\CloverLoader;
 
-class LoadXMLReportTest extends TestCase
+class LoadCloverReportTest extends TestCase
 {
     public function testLoadXML()
     {
-        $xmlReport = new XMLReport(__DIR__ . '/fixtures/coverage.xml');
+        $xmlReport = new CloverLoader(__DIR__ . '/fixtures/coverage.xml');
         $coveredLines = $xmlReport->getLines();
         $expected = [
             '/path/to/file/changedFile.php' => [
@@ -35,7 +35,7 @@ class LoadXMLReportTest extends TestCase
 
     public function testCorrectMissingFile()
     {
-        $xmlReport = new XMLReport(__DIR__ . '/fixtures/coverage.xml');
+        $xmlReport = new CloverLoader(__DIR__ . '/fixtures/coverage.xml');
 
         $this->assertNull($xmlReport->handleNotFoundFile());
     }

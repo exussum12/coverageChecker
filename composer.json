@@ -12,7 +12,10 @@
         }
     ],
     "autoload": {
-        "psr-4": {"exussum12\\CoverageChecker\\": "src/"}
+        "psr-4": {
+            "exussum12\\CoverageChecker\\": "src/",
+            "exussum12\\CoverageChecker\\tests\\": "tests/"
+        }
     },
     "bin": ["bin/phpunitDiffFilter","bin/phpcsDiffFilter", "bin/phpmdDiffFilter", "bin/diffFilter"]
 }
