@@ -24,7 +24,7 @@ $checkerArray = [
     'codeclimate' => 'CodeClimateLoader',
     'jacoco' => 'JacocoReport',
     'phan' => 'PhanTextLoader',
-    'phan-json' => 'PhanJsonLoader',
+    'phanJson' => 'PhanJsonLoader',
     'phpcpd' => 'Phpcpd',
     'phpcs' => 'PhpCsLoader',
     'phpcsStrict' => 'PhpCsLoaderStrict',
@@ -33,6 +33,7 @@ $checkerArray = [
     'phpmnd' => 'PhpMndLoader',
     'phpstan' => 'PhpStanLoader',
     'phpunit' => 'PhpUnitLoader',
+    'pylint' => 'PylintLoader',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(

@@ -24,12 +24,8 @@ class CodeClimateLoader implements FileChecker
      */
     public function __construct($file)
     {
-        $json = file_get_contents($file);
+        $json = $this->convertToJson(file_get_contents($file));
         $this->file = json_decode($json);
-        if (json_last_error() == JSON_ERROR_SYNTAX) {
-            //try again with array syntax ...
-           $this->file = json_decode('[' . $json . ']');
-        }
     }
 
     /**
@@ -79,5 +75,12 @@ class CodeClimateLoader implements FileChecker
         for($lineNumber = $start; $lineNumber <= $end; $lineNumber++) {
             $this->errors[$fileName][$lineNumber] = $message;
         }
+    }
+
+    private function convertToJson($codeClimateFormat)
+    {
+        $codeClimateFormat = str_replace("\0", ',', $codeClimateFormat);
+
+        return $codeClimateFormat;
     }
 }
