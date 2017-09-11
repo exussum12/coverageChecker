@@ -1,0 +1,2 @@
+./src/ArgParser.php:35: [W10004] PhanTypeMismatchArgumentInternal: Argument 1 (string) is int but \strlen() takes string
+./src/CoverageCheck.php:172: [W10003] PhanTypeMismatchArgument: Argument 3 (message) is int but \exussum12\CoverageChecker\CoverageCheck::addUnCoveredLine() takes string defined at ./src/CoverageCheck.php:109

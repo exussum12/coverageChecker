@@ -53,6 +53,6 @@ class PhpMndLoader implements FileChecker
      */
     public static function getDescription()
     {
-        return 'Parses the text output of phpmnd';
+        return 'Parses the text output of phpmnd (Magic Number Detection)';
     }
 }

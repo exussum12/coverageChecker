@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-15"?>
+<checkstyle version="6.5">
+  <file name="./src/ArgParser.php">
+    <error line="35" severity="warning" message="Argument 1 (string) is int but \strlen() takes string" source="PhanTypeMismatchArgumentInternal"/>
+  </file>
+  <file name="./src/CoverageCheck.php">
+    <error line="172" severity="warning" message="Argument 3 (message) is int but \exussum12\CoverageChecker\CoverageCheck::addUnCoveredLine() takes string defined at ./src/CoverageCheck.php:109" source="PhanTypeMismatchArgument"/>
+  </file>
+</checkstyle>

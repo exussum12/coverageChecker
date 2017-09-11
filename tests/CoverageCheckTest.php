@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\CoverageCheck;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
-use exussum12\CoverageChecker\XMLReport;
+use exussum12\CoverageChecker\CloverLoader;
 
 class CoverageCheckTest extends TestCase
 {
@@ -19,7 +19,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(XMLReport::class);
+        $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
                 '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
@@ -76,7 +76,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(XMLReport::class);
+        $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
                 '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
@@ -131,7 +131,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(XMLReport::class);
+        $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
                 '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
@@ -187,7 +187,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(XMLReport::class);
+        $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
                 '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
@@ -242,7 +242,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(XMLReport::class);
+        $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
                 '/full/path/to/testFile1.php' => [1 => 1,4 => 1],

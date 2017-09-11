@@ -19,7 +19,12 @@ $diff = new CoverageChecker\DiffFileLoader(
 );
 
 $checkerArray = [
+    'checkstyle' => 'CheckstyleLoader',
+    'clover' => 'CloverLoader',
+    'codeclimate' => 'CodeClimateLoader',
     'jacoco' => 'JacocoReport',
+    'phan' => 'PhanTextLoader',
+    'phanJson' => 'PhanJsonLoader',
     'phpcpd' => 'Phpcpd',
     'phpcs' => 'PhpCsLoader',
     'phpcsStrict' => 'PhpCsLoaderStrict',
@@ -27,7 +32,8 @@ $checkerArray = [
     'phpmdStrict' => 'PhpMdLoaderStrict',
     'phpmnd' => 'PhpMndLoader',
     'phpstan' => 'PhpStanLoader',
-    'phpunit' => 'XMLReport',
+    'phpunit' => 'PhpUnitLoader',
+    'pylint' => 'PylintLoader',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(

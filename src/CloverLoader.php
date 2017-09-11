@@ -8,7 +8,7 @@ use XMLReader;
  * Used for reading in a phpunit clover XML file
  * @package exussum12\CoverageChecker
  */
-class XMLReport implements FileChecker
+class CloverLoader implements FileChecker
 {
     /**
      * @var string
@@ -66,7 +66,7 @@ class XMLReport implements FileChecker
     public function isValidLine($file, $line)
     {
         if (!isset($this->coveredLines[$file][$line])) {
-            return;
+            return null;
         }
 
         return $this->coveredLines[$file][$line] > 0;
@@ -85,7 +85,6 @@ class XMLReport implements FileChecker
      */
     public static function getDescription()
     {
-        return 'Parses text output in clover (xml) format designed for ' .
-            'phpunit but any tool which outputs in this format should work';
+        return 'Parses text output in clover (xml) format';
     }
 }

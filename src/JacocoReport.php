@@ -8,7 +8,7 @@ use XMLReader;
  * Used for reading in a Jacoco coverage report
  * @package exussum12\CoverageChecker
  */
-class JacocoReport extends XMLReport
+class JacocoReport extends CloverLoader
 {
     /**
      * {@inheritdoc}
