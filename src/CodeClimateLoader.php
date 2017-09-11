@@ -19,8 +19,7 @@ class CodeClimateLoader implements FileChecker
     protected $errors = [];
 
     /**
-     * PhpMdLoader constructor.
-     * @param string $file the path to the phan json file
+     * @param string $file the path to the codeclimate file
      */
     public function __construct($file)
     {
@@ -81,6 +80,6 @@ class CodeClimateLoader implements FileChecker
     {
         $codeClimateFormat = str_replace("\0", ',', $codeClimateFormat);
 
-        return $codeClimateFormat;
+        return '[' . $codeClimateFormat . ']';
     }
 }
