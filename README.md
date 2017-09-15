@@ -109,16 +109,22 @@ This will exit with code 2 if any of the new/edited code fails the code standard
 Below is a list of all tools and a breif description
 
 ```
---jacoco	Parses xml coverage report produced by Jacoco
---phpcpd	Parses the text output from phpcpd (Copy Paste Detect)
---phpcs		Parses the json report format of phpcs, this mode only reports errors as violations
---phpcsStrict	Parses the json report format of phpcs, this mode only reporst errors and warnings as violations
---phpmd		Parses the xml report format of phpmd, this mode reports multi line violations once per diff, instead of on each line
-		the violation occurs
---phpmdStrict	Parses the xml report format of phpmd, this mode reports multi line violations once per line they occur 
---phpmnd	Parses the text output of phpmnd
---phpstan	Parses the text output of phpstan
---phpunit	Parses text output in clover (xml) format designed for phpunit but any tool which outputs in this format should work
+--checkstyle    Parses a report in checkstyle format
+--clover        Parses text output in clover (xml) format
+--codeclimate   Parse codeclimate output
+--jacoco        Parses xml coverage report produced by Jacoco
+--phan          Parse the default phan(static analysis) output
+--phanJson      Parses phan (static analysis) in json format
+--phpcpd        Parses the text output from phpcpd (Copy Paste Detect)
+--phpcs         Parses the json report format of phpcs, this mode only reports errors as violations
+--phpcsStrict   Parses the json report format of phpcs, this mode only reporst errors and warnings as violations
+--phpmd         Parses the xml report format of phpmd, this mode reports multi line violations once per diff, instead of on each line the violation occurs
+--phpmdStrict   Parses the xml report format of phpmd, this mode reports multi line violations once per line they occur 
+--phpmnd        Parses the text output of phpmnd (Magic Number Detection)
+--phpstan       Parses the text output of phpstan
+--phpunit       Parses text output in clover (xml) format generated with coverage-clover=file.xml
+--pylint        Parses PyLint output
+
 ```
 
 
