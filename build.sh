@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 [ -z "$UPDATE_COVERAGE" ] || composer require satooshi/php-coveralls:dev-master
 
