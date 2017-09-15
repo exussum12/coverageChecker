@@ -33,8 +33,8 @@ class ArgParser
     protected function letterArg($name)
     {
         $name = strlen($name) == 1 ?
-            "-" . $name :
-            "--" . $name;
+            '-' . $name :
+            '--' . $name;
         foreach ($this->args as $arg) {
             if ($arg{0} == '-' && $name == $arg) {
                 return true;

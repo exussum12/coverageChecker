@@ -31,7 +31,7 @@ class DiffFileLoaderTest extends TestCase
             'newFile' => [
                 __DIR__ . '/fixtures/newFile.txt',
                 [
-                    'changedFile.php' => [1,2,3]
+                    'changedFile.php' => [1, 2, 3]
                 ]
             ],
             'lineChange' => [
@@ -44,7 +44,7 @@ class DiffFileLoaderTest extends TestCase
                 __DIR__ . '/fixtures/multiple.txt',
                 [
                     'changedFile.php' => [3],
-                    'newFile.php' => [1,2,3]
+                    'newFile.php' => [1, 2, 3]
                 ]
             ],
             'removeFile' => [

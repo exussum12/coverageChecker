@@ -84,7 +84,7 @@ class PhpStanLoader implements FileChecker
         $matches = [];
         if (!preg_match($this->lineRegex, $line, $matches)) {
             if (preg_match('#^\s{3,}#', $line)) {
-                 return $currentLineNumber;
+                return $currentLineNumber;
             }
 
             return false;

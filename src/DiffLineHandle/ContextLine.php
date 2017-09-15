@@ -13,6 +13,6 @@ class ContextLine extends DiffLineHandle
 
     public function isValid($line)
     {
-         return true;
+        return true;
     }
 }

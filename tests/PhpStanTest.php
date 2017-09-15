@@ -25,7 +25,7 @@ class PhpStanTest extends TestCase
             ],
             'src/PhpCsLoader.php' => [
                 71 => 'Parameter $message of method ' .
-                    'exussum12\CoverageChecker\PhpCsLoader::addInvalidLine() has '.
+                    'exussum12\CoverageChecker\PhpCsLoader::addInvalidLine() has ' .
                     'invalid typehint type exussum12\CoverageChecker\stdClass.',
             ],
         ];

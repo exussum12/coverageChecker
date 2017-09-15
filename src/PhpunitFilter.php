@@ -69,9 +69,9 @@ class PhpunitFilter
 
     public function matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests)
     {
-        $i = -$fuzziness;
+        $index = -$fuzziness;
         do {
-            if (isset($testData[$found][$line + $i])) {
+            if (isset($testData[$found][$line + $index])) {
                 $runTests = array_unique(
                     array_merge(
                         $runTests,
@@ -79,7 +79,7 @@ class PhpunitFilter
                     )
                 );
             }
-        } while (++$i < $fuzziness);
+        } while (++$index < $fuzziness);
 
         return $runTests;
     }

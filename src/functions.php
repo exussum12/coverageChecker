@@ -51,6 +51,12 @@ function adjustForStdIn($argument)
         return "php://stdin";
     }
 
+    // @codeCoverageIgnoreStart
+    if (strpos($argument, '/dev/fd') === 0) {
+        return str_replace('/dev/fd', 'php://fd', $argument);
+    }
+    // @codeCoverageIgnoreEnd
+
     return $argument;
 }
 
@@ -83,9 +89,9 @@ function handleOutput($lines, $minimumPercentCovered)
     $extra = PHP_EOL;
 
     if ($lines['uncoveredLines']) {
-        $extra = ', Missed lines '.
+        $extra = ', Missed lines ' .
             $extra .
-            generateOutput($lines['uncoveredLines']) .  "\n"
+            generateOutput($lines['uncoveredLines']) . "\n"
         ;
     }
 
@@ -109,7 +115,7 @@ function calculateLines($lines)
 function addExceptionHandler()
 {
     set_exception_handler(
-        function (Exception $exception) {
+        function($exception) {
             // @codeCoverageIgnoreStart
             error_log($exception->getMessage());
             exit($exception->getCode());
@@ -174,7 +180,7 @@ function generateOutputLine($line, $message)
 {
     $output = "Line $line:\n";
     if (!empty($message)) {
-        foreach ((array)$message as $part) {
+        foreach ((array) $message as $part) {
             $output .= "\t$part\n";
         }
     }
