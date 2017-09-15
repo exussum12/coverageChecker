@@ -98,7 +98,7 @@ All of the commands can read from stdin with placeholder `-`
     
 phpmd can be run with any options you normally have for example `cleancode,codesize,controversial`
 
-phpmd also has a strict mode `--phpmdstrict` instead of `--phpmd` which reports an error multiple times for each line which is not standard.
+phpmd also has a strict mode `--phpmdStrict` instead of `--phpmd` which reports an error multiple times for each line which is not standard.
 The normal mode reports the error once, eg a class has too many functions, strict mode reports this violation on each line. This makes old non conforming files easier to deal with as refactoring can be risky also.
 
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
