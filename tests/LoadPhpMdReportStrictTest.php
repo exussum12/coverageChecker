@@ -12,7 +12,7 @@ class LoadPhpMdReportStrictTest extends TestCase
         $lines = $phpmd->getLines();
         $file = '/full/path/to/file/src/CoverageCheck.php';
         $expected = [
-           $file => [
+            $file => [
                 56 => [
                     'The method addUnCoveredLine has a boolean flag argument ' .
                     '$message, which is a certain sign of a ' .

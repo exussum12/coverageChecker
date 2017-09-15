@@ -1,6 +1,6 @@
 <?php
 
-spl_autoload_register(function ($className) {
+spl_autoload_register(function($className) {
     $classPrefix = 'exussum12\CoverageChecker';
     if (strpos($className, $classPrefix) === 0) {
         $classPrefix = str_replace("\\", "\\\\", $classPrefix);

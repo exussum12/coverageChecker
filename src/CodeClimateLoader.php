@@ -71,7 +71,7 @@ class CodeClimateLoader implements FileChecker
         $end = $line->location->lines->end;
         $message = $line->description;
 
-        for($lineNumber = $start; $lineNumber <= $end; $lineNumber++) {
+        for ($lineNumber = $start; $lineNumber <= $end; $lineNumber++) {
             $this->errors[$fileName][$lineNumber] = $message;
         }
     }

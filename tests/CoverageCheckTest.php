@@ -14,23 +14,23 @@ class CoverageCheckTest extends TestCase
         $diffFileState = $this->createMock(DiffFileLoader::class);
         $diffFileState->method('getChangedLines')
             ->willReturn([
-                'testFile1.php' => [1,2,3,4],
-                'testFile2.php' => [3,4]
+                'testFile1.php' => [1, 2, 3, 4],
+                'testFile2.php' => [3, 4]
 
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
-                '/full/path/to/testFile2.php' => [3 => 1,4 => 0]
+                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
+                '/full/path/to/testFile2.php' => [3 => 1, 4 => 0]
 
             ]);
 
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function () {
+                    function() {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -54,7 +54,7 @@ class CoverageCheckTest extends TestCase
             'testFile2.php' => [4 => 0],
         ];
         $coveredLines = [
-            'testFile1.php' => [1,3,4],
+            'testFile1.php' => [1, 3, 4],
             'testFile2.php' => [3],
         ];
 
@@ -71,15 +71,15 @@ class CoverageCheckTest extends TestCase
         $diffFileState = $this->createMock(DiffFileLoader::class);
         $diffFileState->method('getChangedLines')
             ->willReturn([
-                'testFile1.php' => [1,2,3,4],
-                'testFile2.php' => [3,4],
+                'testFile1.php' => [1, 2, 3, 4],
+                'testFile2.php' => [3, 4],
 
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
+                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
 
             ]);
 
@@ -89,7 +89,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function () {
+                    function() {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -110,7 +110,7 @@ class CoverageCheckTest extends TestCase
             'testFile1.php' => [2 => 0],
         ];
         $coveredLines = [
-            'testFile1.php' => [1,3,4],
+            'testFile1.php' => [1, 3, 4],
         ];
 
         $expected = [
@@ -126,15 +126,15 @@ class CoverageCheckTest extends TestCase
         $diffFileState = $this->createMock(DiffFileLoader::class);
         $diffFileState->method('getChangedLines')
             ->willReturn([
-                'testFile1.php' => [1,2,3,4],
-                'testFile2.php' => [3,4],
+                'testFile1.php' => [1, 2, 3, 4],
+                'testFile2.php' => [3, 4],
 
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
+                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
 
             ]);
 
@@ -144,7 +144,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function () {
+                    function() {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -165,8 +165,8 @@ class CoverageCheckTest extends TestCase
             'testFile1.php' => [2 => 0],
         ];
         $coveredLines = [
-            'testFile1.php' => [1,3,4],
-            'testFile2.php' => [3,4],
+            'testFile1.php' => [1, 3, 4],
+            'testFile2.php' => [3, 4],
         ];
 
         $expected = [
@@ -182,15 +182,15 @@ class CoverageCheckTest extends TestCase
         $diffFileState = $this->createMock(DiffFileLoader::class);
         $diffFileState->method('getChangedLines')
             ->willReturn([
-                'testFile1.php' => [1,2,3,4],
-                'testFile2.php' => [3,4],
+                'testFile1.php' => [1, 2, 3, 4],
+                'testFile2.php' => [3, 4],
 
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1,2 => 0,3 => 1,4 => 1],
+                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
 
             ]);
 
@@ -200,7 +200,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function () {
+                    function() {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -222,7 +222,7 @@ class CoverageCheckTest extends TestCase
             'testFile2.php' => [3 => 0, 4 => 0],
         ];
         $coveredLines = [
-            'testFile1.php' => [1,3,4],
+            'testFile1.php' => [1, 3, 4],
         ];
 
         $expected = [
@@ -238,14 +238,14 @@ class CoverageCheckTest extends TestCase
         $diffFileState = $this->createMock(DiffFileLoader::class);
         $diffFileState->method('getChangedLines')
             ->willReturn([
-                'testFile1.php' => [1,2,4],
+                'testFile1.php' => [1, 2, 4],
 
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
         $xmlReport->method('getLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1,4 => 1],
+                '/full/path/to/testFile1.php' => [1 => 1, 4 => 1],
 
             ]);
 
@@ -255,7 +255,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function () {
+                    function() {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -273,7 +273,7 @@ class CoverageCheckTest extends TestCase
         $lines = $coverageCheck->getCoveredLines();
 
         $coveredLines = [
-            'testFile1.php' => [1,4],
+            'testFile1.php' => [1, 4],
         ];
 
         $expected = [

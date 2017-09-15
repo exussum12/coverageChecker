@@ -63,7 +63,7 @@ class DiffFilter implements TestListener
             if ($skipTest) {
                 continue;
             }
-            $runTests[]= $test;
+            $runTests[] = $test;
         }
 
         $suite->setTests($runTests);

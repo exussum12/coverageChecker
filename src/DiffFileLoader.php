@@ -26,7 +26,7 @@ class DiffFileLoader
     {
         if ((
             !is_readable($this->fileLocation) &&
-            $this->fileLocation !== "php://stdin"
+            strpos($this->fileLocation, "php://") !== 0
         )) {
             throw new InvalidArgumentException("Can't read file");
         }
