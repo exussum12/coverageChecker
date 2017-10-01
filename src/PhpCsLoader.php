@@ -29,6 +29,20 @@ class PhpCsLoader implements FileChecker
     ];
 
     /**
+     * @var array
+     */
+    protected $wholeFileErrors = [
+        'PSR1.Files.SideEffects.FoundWithSymbols',
+        'Generic.Files.LineEndings.InvalidEOLChar',
+    ];
+
+
+    /**
+     * @var array
+     */
+    protected $invalidFiles = [];
+
+    /**
      * PhpCsLoader constructor.
      * @param string $filePath the file path to the json output from phpcs
      */
@@ -62,6 +76,10 @@ class PhpCsLoader implements FileChecker
      */
     public function isValidLine($file, $lineNumber)
     {
+        if (!empty($this->invalidFiles[$file])) {
+            return false;
+        }
+
         return empty($this->invalidLines[$file][$lineNumber]);
     }
 
@@ -81,6 +99,10 @@ class PhpCsLoader implements FileChecker
         }
 
         $this->invalidLines[$file][$line][] = $message->message;
+
+        if (in_array($message->source, $this->wholeFileErrors)) {
+            $this->invalidFiles[$file] = $message->message;
+        }
     }
 
     /**

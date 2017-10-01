@@ -53,4 +53,12 @@ class LoadPhpcsReportTest extends TestCase
         $this->assertFalse($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 11));
         $this->assertTrue($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 10));
     }
+
+    public function testWholeFileError()
+    {
+        $phpcs = new PhpCsLoaderStrict(__DIR__ . '/fixtures/wholeFileErrorPhpcs.json');
+        $phpcs->getLines();
+
+        $this->assertFalse($phpcs->isValidLine('/tmp/test/test.php', 100));
+    }
 }
