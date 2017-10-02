@@ -8,15 +8,23 @@ class PhpStanRelatedTest extends TestCase
 {
     public function testRelatedMethods()
     {
-        $this->expectException(Exception::class);
         $GLOBALS['argv'] = [
             'diffFilter',
             '--phpstan',
             '--autoload=' . __DIR__ . '/fixtures/phpstanTypeError.php',
-            __DIR__ . '/fixtures/change.txt',
+            __DIR__ . '/fixtures/addTypeError.txt',
             __DIR__ . '/fixtures/phpstanTypeError.txt'
         ];
 
-        require(__DIR__ . "/../src/Runners/generic.php");
+        try {
+            ob_start();
+            require(__DIR__ . "/../src/Runners/generic.php");
+        } catch (Exception $exception) {
+            $output = ob_get_clean();
+            $this->assertContains('used test.php', $output);
+            return true;
+        }
+
+        $this->fail('Exception not thrown when Expected');
     }
 }
