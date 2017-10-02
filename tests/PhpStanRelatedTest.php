@@ -14,7 +14,7 @@ class PhpStanRelatedTest extends TestCase
             '--phpstan',
             '--autoload=' . __DIR__ . 'fixtures/phpstanTypeError.php',
             __DIR__ . '/fixtures/change.txt',
-            __DIR__ . '/fixtures/phpstandTypeError.txt'
+            __DIR__ . '/fixtures/phpstanTypeError.txt'
         ];
 
         require(__DIR__ . "/../src/Runners/generic.php");
