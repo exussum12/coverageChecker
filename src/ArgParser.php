@@ -36,8 +36,13 @@ class ArgParser
             '-' . $name :
             '--' . $name;
         foreach ($this->args as $arg) {
+            $value = true;
+            if (strpos($arg, '=')) {
+                list($arg, $value) = explode('=', $arg, 2);
+            }
+
             if ($arg{0} == '-' && $name == $arg) {
-                return true;
+                return $value;
             }
         }
 

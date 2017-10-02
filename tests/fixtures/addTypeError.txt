@@ -1,0 +1,16 @@
+commit a62d9c3efb2451220a0972016bc4c7377a94dfea
+Author: Scott Dutton <scott@exussum.co.uk>
+Date:   Wed Jan 4 07:58:36 2017 +0000
+
+    add Type Error
+
+diff --git a/phpstanTypeError.php b/phpstanTypeError.php
+index 102e3a3..aed00ca 100644
+--- a/phpstanTypeError.php
++++ b/phpstanTypeError.php
+@@ -4,3 +4,3 @@
+ <?php
+ 
+-printf("Changed File");
++echo "Changed File";
+

@@ -115,7 +115,7 @@ function calculateLines($lines)
 function addExceptionHandler()
 {
     set_exception_handler(
-        function($exception) {
+        function ($exception) {
             // @codeCoverageIgnoreStart
             error_log($exception->getMessage());
             exit($exception->getCode());

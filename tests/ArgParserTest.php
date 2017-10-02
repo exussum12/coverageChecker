@@ -37,4 +37,14 @@ class ArgParserTest extends TestCase
         $this->assertTrue($argParser->getArg('some-opt'));
         $this->assertFalse($argParser->getArg('non-existant'));
     }
+
+    public function testArgumentsWithValues()
+    {
+        $args = [
+            '--some-opt=some-val',
+        ];
+
+        $argParser = new ArgParser($args);
+        $this->assertEquals('some-val', $argParser->getArg('some-opt'));
+    }
 }

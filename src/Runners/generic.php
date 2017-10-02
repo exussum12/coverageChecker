@@ -18,6 +18,12 @@ $diff = new CoverageChecker\DiffFileLoader(
     CoverageChecker\adjustForStdIn($args->getArg(1))
 );
 
+if ($autoload = $args->getArg('autoload')) {
+    if (file_exists(($autoload))) {
+        require_once $autoload;
+    }
+}
+
 $checkerArray = [
     'checkstyle' => 'CheckstyleLoader',
     'clover' => 'CloverLoader',
