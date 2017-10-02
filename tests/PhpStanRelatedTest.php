@@ -12,7 +12,7 @@ class PhpStanRelatedTest extends TestCase
         $GLOBALS['argv'] = [
             'diffFilter',
             '--phpstan',
-            '--autoload=' . __DIR__ . 'fixtures/phpstanTypeError.php',
+            '--autoload=' . __DIR__ . '/fixtures/phpstanTypeError.php',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpstanTypeError.txt'
         ];
