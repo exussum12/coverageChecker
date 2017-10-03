@@ -84,6 +84,7 @@ function handleOutput($lines, $minimumPercentCovered)
         echo "No lines found!";
         return;
     }
+
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
 
     $extra = PHP_EOL;
@@ -162,28 +163,4 @@ function printOptions(array $arguments)
             )
         );
     }
-}
-function generateOutput($coverage)
-{
-    $output = '';
-    foreach ($coverage as $filename => $lines) {
-        $output .= "\n\n'$filename' has no coverage for the following lines:\n";
-        foreach ($lines as $line => $message) {
-            $output .= generateOutputLine($line, $message);
-        }
-    }
-
-    return trim($output);
-}
-
-function generateOutputLine($line, $message)
-{
-    $output = "Line $line:\n";
-    if (!empty($message)) {
-        foreach ((array) $message as $part) {
-            $output .= "\t$part\n";
-        }
-    }
-
-    return $output . "\n";
 }
