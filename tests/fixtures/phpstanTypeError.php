@@ -12,4 +12,12 @@ class A {
 
 $a = new A;
 $a->B("C");
+
+function testing (int $a) {
+}
+
+if (false) {
+    testing("hello");
+}
+
 // @codingStandardsIgnoreEnd

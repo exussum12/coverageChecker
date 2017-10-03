@@ -2,4 +2,5 @@
 <?php
 echo "This method is calling phpcs diff filter is deprecated\n";
 echo "and will be removed soon, please use diffFilter --phpcs instead\n";
-require __DIR__ . '/../src/Runners/phpcsDiffFilter.php';
+$argv[] = '--phpcs';
+require __DIR__ . '/../src/Runners/generic.php';

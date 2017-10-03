@@ -14,3 +14,10 @@ index 102e3a3..aed00ca 100644
 -printf("Changed File");
 +echo "Changed File";
 
+--- a/phpstanTypeError.php
++++ b/phpstanTypeError.php
+@@ -14,3 +14,3 @@
+ <?php
+
+-printf("Changed File");
++echo "Changed File";

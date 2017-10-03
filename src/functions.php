@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker;
 
 use Exception;
+use exussum12\CoverageChecker\Outputs\Text;
 
 function findAutoLoader()
 {
@@ -74,29 +75,24 @@ function getMinPercent($percent)
     return $minimumPercentCovered;
 }
 
-function handleOutput($lines, $minimumPercentCovered)
+function handleOutput($lines, $minimumPercentCovered, Output $output)
 {
     $coveredLines = calculateLines($lines['coveredLines']);
     $uncoveredLines = calculateLines($lines['uncoveredLines']);
 
 
     if ($coveredLines + $uncoveredLines == 0) {
-        echo "No lines found!";
+        error_log('No lines found!');
         return;
     }
 
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
 
-    $extra = PHP_EOL;
-
-    if ($lines['uncoveredLines']) {
-        $extra = ', Missed lines ' .
-            $extra .
-            generateOutput($lines['uncoveredLines']) . "\n"
-        ;
-    }
-
-    printf('%.2f%% Covered%s', $percentCovered, $extra);
+    $output->output(
+        $lines['uncoveredLines'],
+        $percentCovered,
+        $minimumPercentCovered
+    );
 
     if ($percentCovered >= $minimumPercentCovered) {
         return;
@@ -152,7 +148,7 @@ function printOptions(array $arguments)
             $argument .= "\t";
         }
 
-        printf(
+        error_log(sprintf(
             "%s\t%s\n",
             $argument,
             wordwrap(
@@ -161,6 +157,6 @@ function printOptions(array $arguments)
                 "\n\t\t",
                 true
             )
-        );
+        ));
     }
 }

@@ -2,4 +2,5 @@
   Line   test.php
  ------ -------------------------------------------------------------
   13     Parameter #1 $c of method A::B() expects int, string given.
+  20     Parameter #1 $a of function testing expects int, string given.
  ------ -------------------------------------------------------------

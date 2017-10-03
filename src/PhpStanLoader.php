@@ -15,7 +15,7 @@ class PhpStanLoader implements FileChecker
     protected $lineRegex = '/^\s+(?<lineNumber>[0-9]+)/';
 
     protected $file;
-    protected $relatedRegex = '#method (?:(?P<class>.*?)::)?(?P<function>.*?)\(\)#';
+    protected $relatedRegex = '#(function|method) (?:(?P<class>.*?)::)?(?P<function>.*?)[ \(]#';
 
     /**
      * @var array
@@ -98,7 +98,7 @@ class PhpStanLoader implements FileChecker
 
     protected function getMessage($line)
     {
-        return trim(preg_replace($this->lineRegex, "", $line));
+        return trim(preg_replace($this->lineRegex, '', $line));
     }
 
     protected function trimLines()

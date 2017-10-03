@@ -5,9 +5,13 @@ use exussum12\CoverageChecker\Output;
 
 class Text implements Output
 {
-
-    public function output($coverage)
+    public function output($coverage, $percent, $minimumPercent)
     {
+
+        printf("%.2f%% Covered\n", $percent);
+        if ($percent > $minimumPercent) {
+            return;
+        }
         $output = '';
         foreach ($coverage as $filename => $lines) {
             $output .= "\n\n'$filename' has no coverage for the following lines:\n";
@@ -16,7 +20,7 @@ class Text implements Output
             }
         }
 
-        return trim($output);
+        echo trim($output);
     }
 
     private function generateOutputLine($line, $message)
