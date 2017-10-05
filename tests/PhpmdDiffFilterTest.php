@@ -12,13 +12,15 @@ class PhpmdDiffFilterTest extends TestCase
         $GLOBALS['argv'] = [
             'diffFilter',
             '--phpmd',
+            '--report=json',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpmd.xml'
         ];
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertContains('100.00', $output);
+        $this->assertContains('Passed', $output);
     }
 
     public function testNoValidLines()

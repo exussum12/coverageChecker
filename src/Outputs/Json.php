@@ -19,7 +19,7 @@ class Json implements Output
         }
         $output = (object) [
             'coverage' => number_format($percent, 2),
-            'status' => $percent > $minimumPercent ?
+            'status' => $percent >= $minimumPercent ?
                 'Passed':
                 'Failed',
             'violations' => $violations

@@ -59,7 +59,6 @@ class PhpunitDiffFilterTest extends TestCase
         $GLOBALS['argv'] = [
             'diffFilter',
             '--phpunit',
-            '--report=json',
             __DIR__ . '/fixtures/newFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
             60
@@ -68,8 +67,7 @@ class PhpunitDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertContains('66.67', $output);
-        $this->assertContains('Passed', $output);
+        $this->assertContains('66.67%', $output);
     }
 
     public function testNoCoveredLines()
