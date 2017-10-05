@@ -13,18 +13,19 @@ class PhpunitDiffFilterTest extends TestCase
     public function testWrongArgs()
     {
         $GLOBALS['argv'] = [];
-        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
     }
 
     public function testWorkingCorrectly()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpunit',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/coverage.xml'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('No lines found', $output);
     }
@@ -32,18 +33,21 @@ class PhpunitDiffFilterTest extends TestCase
     public function testFailingBuild()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpunit',
+            '--report=json',
             __DIR__ . '/fixtures/newFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
             70
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
+            require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertContains('66.67%', $output);
+            $this->assertContains('66.67', $output);
+            $this->assertContains('Failed', $output);
             return;
         }
 
@@ -53,14 +57,15 @@ class PhpunitDiffFilterTest extends TestCase
     public function testPassingLowPercentage()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpunit',
             __DIR__ . '/fixtures/newFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
             60
         ];
 
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('66.67%', $output);
     }
@@ -68,13 +73,14 @@ class PhpunitDiffFilterTest extends TestCase
     public function testNoCoveredLines()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpunit',
             __DIR__ . '/fixtures/removeFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
         ];
 
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpunitDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('No lines found', $output);
     }

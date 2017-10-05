@@ -1,6 +1,10 @@
 <?php
 namespace exussum12\CoverageChecker;
 
+use ReflectionFunction;
+use ReflectionMethod;
+use Reflector;
+
 /**
  * Class PhpStanLoader
  * Used for parsing phpstan standard output
@@ -11,6 +15,7 @@ class PhpStanLoader implements FileChecker
     protected $lineRegex = '/^\s+(?<lineNumber>[0-9]+)/';
 
     protected $file;
+    protected $relatedRegex = '#(function|method) (?:(?P<class>.*?)::)?(?P<function>.*?)[ \(]#';
 
     /**
      * @var array
@@ -35,12 +40,10 @@ class PhpStanLoader implements FileChecker
         while (($line = fgets($this->file)) !== false) {
             $filename = $this->checkForFileName($line, $filename);
             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
-                if (!isset($this->invalidLines[$filename][$lineNumber])) {
-                    $this->invalidLines[$filename][$lineNumber] = '';
-                }
-
                 $error = $this->getMessage($line);
-                $this->invalidLines[$filename][$lineNumber] .= $error . ' ';
+                $this->handleRelatedError($filename, $lineNumber, $error);
+
+                $this->addError($filename, $lineNumber, $error);
             }
         }
 
@@ -95,7 +98,7 @@ class PhpStanLoader implements FileChecker
 
     protected function getMessage($line)
     {
-        return trim(preg_replace($this->lineRegex, "", $line));
+        return trim(preg_replace($this->lineRegex, '', $line));
     }
 
     protected function trimLines()
@@ -113,5 +116,58 @@ class PhpStanLoader implements FileChecker
     public static function getDescription()
     {
         return 'Parses the text output of phpstan';
+    }
+
+    protected function handleRelatedError($filename, $line, $error)
+    {
+
+        $matches = [];
+        if (preg_match($this->relatedRegex, $error, $matches)) {
+            $error = sprintf(
+                '%s (used %s line %d)',
+                $error,
+                $filename,
+                $line
+            );
+
+            $reflection = $this->getReflector($matches);
+            if ($reflection && ($filename = $reflection->getFileName())) {
+                $currentLine = $reflection->getStartLine();
+                while ($currentLine < $reflection->getEndLine()) {
+                    $this->addError($filename, $currentLine++, $error);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $filename
+     * @param $lineNumber
+     * @param $error
+     */
+    protected function addError($filename, $lineNumber, $error)
+    {
+        if (!isset($this->invalidLines[$filename][$lineNumber])) {
+            $this->invalidLines[$filename][$lineNumber] = '';
+        }
+        $this->invalidLines[$filename][$lineNumber] .= $error . ' ';
+    }
+
+    /**
+     * @param $matches
+     * @return Reflector
+     */
+    protected function getReflector($matches)
+    {
+        if ($matches['class']) {
+            return new ReflectionMethod(
+                $matches['class'],
+                $matches['function']
+            );
+        }
+
+        return new ReflectionFunction(
+            $matches['function']
+        );
     }
 }

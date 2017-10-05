@@ -2,6 +2,8 @@
 namespace exussum12\CoverageChecker\Runners;
 
 use exussum12\CoverageChecker;
+use exussum12\CoverageChecker\Outputs\Json;
+use exussum12\CoverageChecker\Outputs\Text;
 
 require_once __DIR__ . "/../functions.php";
 global $argv;
@@ -17,6 +19,12 @@ $matcher = new CoverageChecker\FileMatchers\EndsWith();
 $diff = new CoverageChecker\DiffFileLoader(
     CoverageChecker\adjustForStdIn($args->getArg(1))
 );
+
+if ($autoload = $args->getArg('autoload')) {
+    if (file_exists(($autoload))) {
+        require_once $autoload;
+    }
+}
 
 $checkerArray = [
     'checkstyle' => 'CheckstyleLoader',
@@ -42,8 +50,21 @@ $fileCheck = CoverageChecker\getFileChecker(
     CoverageChecker\adjustForStdIn($args->getArg(2))
 );
 
+$outputArray = [
+    'text' => Text::class,
+    'json' => Json::class,
+];
+$report = 'text';
+$requestedReport = $args->getArg('report');
+
+if (isset($outputArray[$requestedReport])) {
+    $report = $requestedReport;
+}
+
+$report = new $outputArray[$report];
+
 $coverageCheck = new CoverageChecker\CoverageCheck($diff, $fileCheck, $matcher);
 
 $lines = $coverageCheck->getCoveredLines();
 
-CoverageChecker\handleOutput($lines, $minimumPercentCovered);
+CoverageChecker\handleOutput($lines, $minimumPercentCovered, $report);

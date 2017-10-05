@@ -10,12 +10,13 @@ class PhpmdDiffFilterTest extends TestCase
     public function testValid()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpmd',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpmd.xml'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpmdDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }
@@ -23,13 +24,14 @@ class PhpmdDiffFilterTest extends TestCase
     public function testNoValidLines()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpmd',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpmd-change.xml',
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/Runners/phpmdDiffFilter.php");
+            require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
@@ -42,14 +44,14 @@ class PhpmdDiffFilterTest extends TestCase
     public function testNoValidLinesStrict()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpmdStrict',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpmd-change.xml',
-            '--strict',
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/Runners/phpmdDiffFilter.php");
+            require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());

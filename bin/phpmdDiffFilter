@@ -2,4 +2,5 @@
 <?php
 echo "This method is calling phpmd diff filter is deprecated\n";
 echo "and will be removed soon, please use diffFilter --phpmd instead\n";
-require __DIR__ . '/../src/Runners/phpmdDiffFilter.php';
+$argv[] = '--phpmd';
+require __DIR__ . '/../src/Runners/generic.php';

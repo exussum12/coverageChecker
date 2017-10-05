@@ -103,6 +103,12 @@ The normal mode reports the error once, eg a class has too many functions, stric
 
 This will exit with code 2 if any of the new/edited code fails the code standards check. The output is kept so you can see what the offending lines are and what the error is.
 
+## phpstan
+
+phpstan also accepts an autoload function, If passed an autoload file the class will be loaded though reflection and related errors will also be reported.
+Eg, changing a function signiture will report all violations of the now incorrect uses
+
+    ./vendor/bin/diffFilter --phpstan --autoload=vendor/autoload.php diff.txt phpstan.txt
 
 # Full list of available diff filters
 

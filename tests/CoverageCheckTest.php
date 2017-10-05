@@ -30,7 +30,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function() {
+                    function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -89,7 +89,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function() {
+                    function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -144,7 +144,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function() {
+                    function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -200,7 +200,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function() {
+                    function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 
@@ -255,7 +255,7 @@ class CoverageCheckTest extends TestCase
         $xmlReport->method('isValidLine')
             ->will(
                 $this->returnCallback(
-                    function() {
+                    function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
 

@@ -9,12 +9,13 @@ class PhpcsDiffFilterTest extends TestCase
     public function testValid()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpcs',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpcs.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpcsDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }
@@ -22,12 +23,13 @@ class PhpcsDiffFilterTest extends TestCase
     public function testStrictMode()
     {
         $GLOBALS['argv'] = [
-            'phpunitDiffFilter',
+            'diffFilter',
+            '--phpcs',
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/phpcsstrict.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/phpcsDiffFilter.php");
+        require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
         $this->assertContains('100.00%', $output);
     }
