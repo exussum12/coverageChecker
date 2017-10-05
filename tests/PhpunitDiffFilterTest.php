@@ -47,6 +47,7 @@ class PhpunitDiffFilterTest extends TestCase
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
             $this->assertContains('66.67', $output);
+            $this->assertContains('Failed', $output);
             return;
         }
 
