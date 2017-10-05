@@ -9,6 +9,7 @@ namespace exussum12\CoverageChecker;
 class PhanTextLoader implements FileChecker
 {
     protected $lineMatch = '#(?:\./)?(?P<fileName>.*?):(?P<lineNumber>[0-9]+)(?P<message>.*)#';
+
     /**
      * @var string
      */
