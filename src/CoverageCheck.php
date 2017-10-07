@@ -72,15 +72,10 @@ class CoverageCheck
         $diffFiles = array_keys($this->cache->diff);
         $coveredFiles = array_keys($this->cache->coveredLines);
         foreach ($diffFiles as $file) {
-            try {
-                $matchedFile = $this->matcher->match($file, $coveredFiles);
-            } catch (Exceptions\FileNotFound $e) {
-                $this->handleFileNotFound($file);
-
-                continue;
+            $matchedFile = $this->findFile($file, $coveredFiles);
+            if ($matchedFile) {
+                $this->matchLines($file, $matchedFile);
             }
-
-            $this->matchLines($file, $matchedFile);
         }
 
         return [
@@ -189,6 +184,16 @@ class CoverageCheck
 
         if ($unMatchedFile === false) {
             $this->addUnCoveredFile($file);
+        }
+    }
+
+    protected function findFile($file, $coveredFiles)
+    {
+        try {
+            return $this->matcher->match($file, $coveredFiles);
+        } catch (Exceptions\FileNotFound $e) {
+            $this->handleFileNotFound($file);
+            return false;
         }
     }
 }
