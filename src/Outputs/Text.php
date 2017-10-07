@@ -9,9 +9,7 @@ class Text implements Output
     {
 
         printf("%.2f%% Covered\n", $percent);
-        if ($percent > $minimumPercent) {
-            return;
-        }
+
         $output = '';
         foreach ($coverage as $filename => $lines) {
             $output .= "\n\n'$filename' has no coverage for the following lines:\n";

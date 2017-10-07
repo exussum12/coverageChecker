@@ -13,5 +13,7 @@ matrix:
   allow_failures:
     - php: hhvm
   fast_finish: true
+before_script:
+  - [ -z UPDATE_COVERAGE] || phpenv config-rm xdebug.ini
 script:
   - ./build.sh

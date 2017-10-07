@@ -99,7 +99,7 @@ function handleOutput($lines, $minimumPercentCovered, Output $output)
     }
 
     throw new Exception(
-        "Failing due to coverage being lower than threshold",
+        'Failing due to coverage being lower than threshold',
         2
     );
 }
@@ -149,7 +149,7 @@ function printOptions(array $arguments)
         }
 
         error_log(sprintf(
-            "%s\t%s\n",
+            "%s\t%s",
             $argument,
             wordwrap(
                 $class::getDescription(),
