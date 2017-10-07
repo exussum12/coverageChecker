@@ -3,6 +3,7 @@ dist: trusty
 cache:
   directories:
     - $HOME/.composer/cache/files
+    - $HOME/.cache/composer/files
 matrix:
   include:
     - php: 5.6
