@@ -3,6 +3,7 @@ namespace exussum12\CoverageChecker\Runners;
 
 use exussum12\CoverageChecker;
 use exussum12\CoverageChecker\Outputs\Json;
+use exussum12\CoverageChecker\Outputs\Phpcs;
 use exussum12\CoverageChecker\Outputs\Text;
 
 require_once __DIR__ . "/../functions.php";
@@ -53,6 +54,7 @@ $fileCheck = CoverageChecker\getFileChecker(
 $outputArray = [
     'text' => Text::class,
     'json' => Json::class,
+    'phpcs' => Phpcs::class,
 ];
 $report = 'text';
 $requestedReport = $args->getArg('report');

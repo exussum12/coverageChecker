@@ -24,6 +24,6 @@ class Json implements Output
                 'Failed',
             'violations' => $violations
         ];
-        echo json_encode($output);
+        echo json_encode($output) . "\n";
     }
 }

@@ -13,17 +13,17 @@ class LoadCloverReportTest extends TestCase
         $coveredLines = $xmlReport->getLines();
         $expected = [
             '/path/to/file/changedFile.php' => [
-                10 => 4,
-                11 => 4,
-                14 => 0,
-                15 => 3,
-                18 => 3,
-                19 => 3,
-                22 => 3,
+                10 => true,
+                11 => true,
+                14 => 'No test coverage',
+                15 => true,
+                18 => true,
+                19 => true,
+                22 => true,
             ],
             '/path/to/file/otherFile.php' => [
-                9 => 4,
-                10 => 4,
+                9 => true,
+                10 => true,
             ],
         ];
         $this->assertEquals($expected, $coveredLines);

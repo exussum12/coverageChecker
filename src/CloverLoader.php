@@ -50,10 +50,12 @@ class CloverLoader implements FileChecker
                 $reader->name === "line" &&
                 $reader->getAttribute("type") == "stmt"
             )) {
+                $covered = $reader->getAttribute('count') > 0;
+
                 $this->coveredLines
                     [$currentFile]
                     [$reader->getAttribute('num')]
-                    = (int) $reader->getAttribute("count");
+                    = $covered ?: "No test coverage";
             }
         }
 
