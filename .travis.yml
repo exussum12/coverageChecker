@@ -16,6 +16,6 @@ matrix:
     - php: hhvm
   fast_finish: true
 before_script:
-  - sh -c "[ -z UPDATE_COVERAGE ] || phpenv config-rm xdebug.ini || true"
+  - sh -c "[ -z $UPDATE_COVERAGE ] || phpenv config-rm xdebug.ini || true"
 script:
   - ./build.sh
