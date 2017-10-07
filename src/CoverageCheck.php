@@ -62,13 +62,9 @@ class CoverageCheck
      */
     public function getCoveredLines()
     {
-        if (empty($this->cache->diff)) {
-            $this->cache->diff = $this->diff->getChangedLines();
-        }
+        $this->getDiff();
 
-        if (empty($this->cache->coveredLines)) {
-            $this->cache->coveredLines = $this->fileChecker->getLines();
-        }
+        $this->getCoverage();
 
         $this->uncoveredLines = [];
         $this->coveredLines = [];
@@ -79,15 +75,7 @@ class CoverageCheck
             try {
                 $matchedFile = $this->matcher->match($file, $coveredFiles);
             } catch (Exceptions\FileNotFound $e) {
-                $unMatchedFile = $this->fileChecker->handleNotFoundFile();
-
-                if ($unMatchedFile === true) {
-                    $this->addCoveredFile($file);
-                }
-
-                if ($unMatchedFile === false) {
-                    $this->addUnCoveredFile($file);
-                }
+                $this->handleFileNotFound($file);
 
                 continue;
             }
@@ -170,6 +158,37 @@ class CoverageCheck
     {
         foreach ($this->cache->diff[$file] as $line) {
             $this->addUnCoveredLine($file, $line, 0);
+        }
+    }
+
+    protected function getDiff()
+    {
+        if (empty($this->cache->diff)) {
+            $this->cache->diff = $this->diff->getChangedLines();
+        }
+
+        return $this->cache->diff;
+    }
+
+    protected function getCoverage()
+    {
+        if (empty($this->cache->coveredLines)) {
+            $this->cache->coveredLines = $this->fileChecker->getLines();
+        }
+
+        return $this->cache->coveredLines;
+    }
+
+    protected function handleFileNotFound($file)
+    {
+        $unMatchedFile = $this->fileChecker->handleNotFoundFile();
+
+        if ($unMatchedFile === true) {
+            $this->addCoveredFile($file);
+        }
+
+        if ($unMatchedFile === false) {
+            $this->addUnCoveredFile($file);
         }
     }
 }

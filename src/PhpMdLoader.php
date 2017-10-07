@@ -91,14 +91,7 @@ class PhpMdLoader implements FileChecker
                 'error' => $error,
             ];
 
-            for ($i = $start; $i <= $end; $i++) {
-                if ((
-                    !isset($this->errors[$currentFile][$i]) ||
-                    !in_array($error, $this->errors[$currentFile][$i])
-                )) {
-                    $this->errors[$currentFile][$i][] = $error;
-                }
-            }
+            $this->addForAllLines($currentFile, $start, $end, $error);
         }
     }
 
@@ -137,5 +130,17 @@ class PhpMdLoader implements FileChecker
         return 'Parses the xml report format of phpmd, this mode ' .
             'reports multi line violations once per diff, instead ' .
             'of on each line the violation occurs';
+    }
+
+    protected function addForAllLines($currentFile, $start, $end, $error)
+    {
+        for ($i = $start; $i <= $end; $i++) {
+            if ((
+                !isset($this->errors[$currentFile][$i]) ||
+                !in_array($error, $this->errors[$currentFile][$i])
+            )) {
+                $this->errors[$currentFile][$i][] = $error;
+            }
+        }
     }
 }
