@@ -1,7 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
-
 use PHPUnit\Framework\TestCase;
 
 class Output extends TestCase
