@@ -73,7 +73,7 @@ class CoverageCheck
         $coveredFiles = array_keys($this->cache->coveredLines);
         foreach ($diffFiles as $file) {
             $matchedFile = $this->findFile($file, $coveredFiles);
-            if ($matchedFile) {
+            if ($matchedFile !== false) {
                 $this->matchLines($file, $matchedFile);
             }
         }
