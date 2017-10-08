@@ -38,25 +38,9 @@ class CloverLoader implements FileChecker
         $reader->open($this->file);
         $currentFile = '';
         while ($reader->read()) {
-            if ((
-                $reader->name === "file" &&
-                $reader->nodeType == XMLReader::ELEMENT
-            )) {
-                $currentFile = $reader->getAttribute('name');
-                $this->coveredLines[$currentFile] = [];
-            }
+            $currentFile = $this->checkForNewFiles($reader, $currentFile);
 
-            if ((
-                $reader->name === "line" &&
-                $reader->getAttribute("type") == "stmt"
-            )) {
-                $covered = $reader->getAttribute('count') > 0;
-
-                $this->coveredLines
-                    [$currentFile]
-                    [$reader->getAttribute('num')]
-                    = $covered ?: "No test coverage";
-            }
+            $this->handleStatement($reader, $currentFile);
         }
 
         return $this->coveredLines;
@@ -88,5 +72,41 @@ class CloverLoader implements FileChecker
     public static function getDescription()
     {
         return 'Parses text output in clover (xml) format';
+    }
+
+    protected function checkForNewFiles($reader, $currentFile)
+    {
+        if ((
+            $reader->name === "file" &&
+            $reader->nodeType == XMLReader::ELEMENT
+        )) {
+            $currentFile = $reader->getAttribute('name');
+            $this->coveredLines[$currentFile] = [];
+        }
+        return $currentFile;
+    }
+
+    /**
+     * @param $reader
+     * @param $currentFile
+     */
+    protected function addLine($reader, $currentFile)
+    {
+        $covered = $reader->getAttribute('count') > 0;
+
+        $this->coveredLines
+        [$currentFile]
+        [$reader->getAttribute('num')]
+            = $covered ?: "No test coverage";
+    }
+
+    protected function handleStatement($reader, $currentFile)
+    {
+        if ((
+            $reader->name === "line" &&
+            $reader->getAttribute("type") == "stmt"
+        )) {
+            $this->addLine($reader, $currentFile);
+        }
     }
 }
