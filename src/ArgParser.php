@@ -58,7 +58,7 @@ class ArgParser
      * @param $name
      * @return string
      */
-    protected function getAdjustedArg($name): string
+    protected function getAdjustedArg($name)
     {
         $name = strlen($name) == 1 ?
             '-' . $name :
