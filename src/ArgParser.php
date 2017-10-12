@@ -32,14 +32,9 @@ class ArgParser
 
     protected function letterArg($name)
     {
-        $name = strlen($name) == 1 ?
-            '-' . $name :
-            '--' . $name;
+        $name = $this->getAdjustedArg($name);
         foreach ($this->args as $arg) {
-            $value = true;
-            if (strpos($arg, '=')) {
-                list($arg, $value) = explode('=', $arg, 2);
-            }
+            list($value, $arg) = $this->splitArg($arg);
 
             if ($arg{0} == '-' && $name == $arg) {
                 return $value;
@@ -47,5 +42,27 @@ class ArgParser
         }
 
         return false;
+    }
+
+    protected function splitArg($arg)
+    {
+        $value = true;
+        if (strpos($arg, '=')) {
+            list($arg, $value) = explode('=', $arg, 2);
+        }
+
+        return array($value, $arg);
+    }
+
+    /**
+     * @param $name
+     * @return string
+     */
+    protected function getAdjustedArg($name): string
+    {
+        $name = strlen($name) == 1 ?
+            '-' . $name :
+            '--' . $name;
+        return $name;
     }
 }

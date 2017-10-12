@@ -17,8 +17,8 @@ class PhpcsTest extends Output
         $this->assertJsonStringEqualsJsonString($expected, $report);
     }
 
-   public function testFailedOutput()
-   {
+    public function testFailedOutput()
+    {
         $output = new Phpcs();
         ob_start();
         $output->output($this->getFailing(), 80, 100);
@@ -59,6 +59,5 @@ class PhpcsTest extends Output
                 },
             "totals":{"errors":2,"fixable":0,"warnings":0}}';
         $this->assertJsonStringEqualsJsonString($expected, $report);
-   }
-
+    }
 }

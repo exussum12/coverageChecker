@@ -106,7 +106,7 @@ function handleOutput($lines, $minimumPercentCovered, Output $output)
 
 function calculateLines($lines)
 {
-    return count($lines, COUNT_RECURSIVE) - count($lines);
+    return array_sum(array_map('count', $lines));
 }
 
 function addExceptionHandler()
@@ -143,10 +143,7 @@ function printOptions(array $arguments)
     foreach ($arguments as $argument => $class) {
         $class = __NAMESPACE__ . '\\' . $class;
 
-        $argument = '--' . $argument;
-        if (strlen($argument) < $tabWidth) {
-            $argument .= "\t";
-        }
+        $argument = adjustArgument($argument, $tabWidth);
 
         error_log(sprintf(
             "%s\t%s",
@@ -159,4 +156,13 @@ function printOptions(array $arguments)
             )
         ));
     }
+}
+
+function adjustArgument($argument, $tabWidth)
+{
+    $argument = '--' . $argument;
+    if (strlen($argument) < $tabWidth) {
+        $argument .= "\t";
+    }
+    return $argument;
 }
