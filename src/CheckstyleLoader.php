@@ -38,22 +38,9 @@ class CheckstyleLoader implements FileChecker
         $reader->open($this->file);
         $currentFile = '';
         while ($reader->read()) {
-            if ((
-                $reader->name === "file" &&
-                $reader->nodeType == XMLReader::ELEMENT
-            )) {
-                $currentFile = $reader->getAttribute('name');
-                $trim = './';
-                $currentFile = substr($currentFile, strlen($trim));
-                $this->coveredLines[$currentFile] = [];
-            }
+            $currentFile = $this->handleFile($reader, $currentFile);
 
-            if ($reader->name === "error") {
-                $this->coveredLines
-                    [$currentFile]
-                    [$reader->getAttribute('line')]
-                    = $reader->getAttribute("message");
-            }
+            $this->handleErrors($reader, $currentFile);
         }
 
         return $this->coveredLines;
@@ -81,5 +68,38 @@ class CheckstyleLoader implements FileChecker
     public static function getDescription()
     {
         return 'Parses a report in checkstyle format';
+    }
+
+    /**
+     * @param $reader
+     * @param $currentFile
+     */
+    protected function handleErrors($reader, $currentFile)
+    {
+        if ($reader->name === "error") {
+            $this->coveredLines
+            [$currentFile]
+            [$reader->getAttribute('line')]
+                = $reader->getAttribute("message");
+        }
+    }
+
+    /**
+     * @param $reader
+     * @param $currentFile
+     * @return string
+     */
+    protected function handleFile($reader, $currentFile)
+    {
+        if ((
+            $reader->name === "file" &&
+            $reader->nodeType == XMLReader::ELEMENT
+        )) {
+            $currentFile = $reader->getAttribute('name');
+            $trim = './';
+            $currentFile = substr($currentFile, strlen($trim));
+            $this->coveredLines[$currentFile] = [];
+        }
+        return $currentFile;
     }
 }

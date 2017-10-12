@@ -1,0 +1,91 @@
+{
+  "summary": {
+    "total": 246,
+    "kills": 186,
+    "escapes": 28,
+    "errors": 0,
+    "timeouts": 10,
+    "notests": 22,
+    "covered_score": 88,
+    "combined_score": 80,
+    "mutation_coverage": 91
+  },
+  "uncovered": [
+    {
+      "file": "src\/DiffFilter.php",
+      "mutator": "\\Humbug\\Mutator\\Boolean\\LogicalNot",
+      "class": "\\exussum12\\CoverageChecker\\DiffFilter",
+      "method": "startTestSuite",
+      "line": 44
+    },
+    {
+      "file": "src\/DiffFilter.php",
+      "mutator": "\\Humbug\\Mutator\\Boolean\\LogicalAnd",
+      "class": "\\exussum12\\CoverageChecker\\DiffFilter",
+      "method": "startTestSuite",
+      "line": 58
+    }
+  ],
+  "escaped": [
+    {
+      "file": "src\/DiffLineHandle\/OldVersion\/DiffStart.php",
+      "mutator": "\\Humbug\\Mutator\\Number\\IntegerValue",
+      "class": "\\exussum12\\CoverageChecker\\DiffLineHandle\\OldVersion\\DiffStart",
+      "method": "isValid",
+      "line": 23,
+      "diff": "--- Original\n+++ New\n@@ @@\n     {\n-        return $line[0] == '@' && $line[1] == '@';\n+        return $line[0] == '@' && $line[0] == '@';\n     }\n }\n \n",
+      "tests": [
+        "exussum12\\CoverageChecker\\tests\\DiffFileLoaderOldVersionTest::testDiffResultsMatch"
+      ],
+      "stderr": "",
+      "stdout": "TAP version 13"
+    }
+  ],
+  "errored": [],
+  "timeouts": [
+    {
+      "file": "src\/PhpStanLoader.php",
+      "mutator": "\\Humbug\\Mutator\\Boolean\\FalseValue",
+      "class": "\\exussum12\\CoverageChecker\\PhpStanLoader",
+      "method": "getLines",
+      "line": 40,
+      "diff": "--- Original\n+++ New\n@@ @@\n         $lineNumber = 0;\n-        while (($line = fgets($this->file)) !== false) {\n+        while (($line = fgets($this->file)) !== true) {\n             $filename = $this->checkForFileName($line, $filename);\n             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {\n                 $error = $this->getMessage($line);\n                 $this->handleRelatedError($filename, $lineNumber, $error);\n \n                 $this->addError($filename, $lineNumber, $error);",
+      "tests": [
+        "exussum12\\CoverageChecker\\tests\\PhpStanRelatedTest::testRelatedMethods",
+        "exussum12\\CoverageChecker\\tests\\PhpStanTest::testGetOutput",
+        "exussum12\\CoverageChecker\\tests\\PhpStanTest::testInvalidLine"
+      ],
+      "stderr": "",
+      "stdout": "TAP version 13"
+    }
+  ],
+  "killed": [
+    {
+      "file": "src\/DiffFileState.php",
+      "mutator": "\\Humbug\\Mutator\\Boolean\\LogicalNot",
+      "class": "\\exussum12\\CoverageChecker\\DiffFileState",
+      "method": "addChangeLine",
+      "line": 22,
+      "diff": "--- Original\n+++ New\n@@ @@\n     {\n-        if (!isset($this->changeLines[$this->currentFile])) {\n+        if (isset($this->changeLines[$this->currentFile])) {\n             $this->changeLines[$this->currentFile] = [];\n         }\n         $this->changeLines[$this->currentFile][] = $this->currentPosition;\n     }\n \n     public function incrementCurrentPosition()",
+      "tests": {
+        "0": "exussum12\\CoverageChecker\\tests\\DiffFileLoaderOldVersionTest::testDiffResultsMatch",
+        "4": "exussum12\\CoverageChecker\\tests\\DiffFileLoaderTest::testDiffResultsMatch",
+        "7": "exussum12\\CoverageChecker\\tests\\GenericDiffFilterTest::testValid",
+        "8": "exussum12\\CoverageChecker\\tests\\PhpStanRelatedTest::testRelatedMethods",
+        "9": "exussum12\\CoverageChecker\\tests\\PhpcsDiffFilterTest::testValid",
+        "10": "exussum12\\CoverageChecker\\tests\\PhpcsDiffFilterTest::testStrictMode",
+        "11": "exussum12\\CoverageChecker\\tests\\PhpmdDiffFilterTest::testValid",
+        "12": "exussum12\\CoverageChecker\\tests\\PhpmdDiffFilterTest::testNoValidLines",
+        "13": "exussum12\\CoverageChecker\\tests\\PhpmdDiffFilterTest::testNoValidLinesStrict",
+        "14": "exussum12\\CoverageChecker\\tests\\PhpmndDiffFilterTest::testValid",
+        "15": "exussum12\\CoverageChecker\\tests\\PhpunitDiffFilterTest::testWorkingCorrectly",
+        "16": "exussum12\\CoverageChecker\\tests\\PhpunitDiffFilterTest::testFailingBuild",
+        "17": "exussum12\\CoverageChecker\\tests\\PhpunitDiffFilterTest::testPassingLowPercentage",
+        "18": "exussum12\\CoverageChecker\\tests\\PhpunitFilterTest::testOutputOfGetTests",
+        "19": "exussum12\\CoverageChecker\\tests\\PhpunitFilterTest::testUnknownDiffFiles"
+      },
+      "stderr": "",
+      "stdout": "TAP version 13"
+    }
+  ]
+}

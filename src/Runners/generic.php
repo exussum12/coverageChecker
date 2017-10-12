@@ -31,6 +31,7 @@ $checkerArray = [
     'checkstyle' => 'CheckstyleLoader',
     'clover' => 'CloverLoader',
     'codeclimate' => 'CodeClimateLoader',
+    'humbug' => 'HumbugLoader',
     'jacoco' => 'JacocoReport',
     'phan' => 'PhanTextLoader',
     'phanJson' => 'PhanJsonLoader',
