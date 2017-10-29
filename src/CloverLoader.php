@@ -31,7 +31,7 @@ class CloverLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->coveredLines = [];
         $reader = new XMLReader;
@@ -43,19 +43,21 @@ class CloverLoader implements FileChecker
             $this->handleStatement($reader, $currentFile);
         }
 
-        return $this->coveredLines;
+        return array_keys($this->coveredLines);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $line)
+    public function getErrorsOnLine($file, $line)
     {
         if (!isset($this->coveredLines[$file][$line])) {
             return null;
         }
-
-        return $this->coveredLines[$file][$line] > 0;
+        return $this->coveredLines[$file][$line] > 0 ?
+            []:
+            ['No unit test covering this line']
+        ;
     }
 
     /**

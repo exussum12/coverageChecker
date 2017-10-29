@@ -9,6 +9,7 @@ use exussum12\CoverageChecker\CloverLoader;
 
 class CoverageCheckTest extends TestCase
 {
+    private $errorMessage = ['No Cover'];
     public function testCoverage()
     {
         $diffFileState = $this->createMock(DiffFileLoader::class);
@@ -20,14 +21,14 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
-        $xmlReport->method('getLines')
+        $xmlReport->method('parseLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
-                '/full/path/to/testFile2.php' => [3 => 1, 4 => 0]
+                '/full/path/to/testFile1.php',
+                '/full/path/to/testFile2.php',
 
             ]);
 
-        $xmlReport->method('isValidLine')
+        $xmlReport->method('getErrorsOnLine')
             ->will(
                 $this->returnCallback(
                     function () {
@@ -35,13 +36,13 @@ class CoverageCheckTest extends TestCase
                         $line = func_get_arg(1);
 
                         if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return false;
+                            return $this->errorMessage;
                         }
                         if ($file == '/full/path/to/testFile2.php' && $line == 4) {
-                            return false;
+                            return $this->errorMessage;
                         }
 
-                        return true;
+                        return [];
                     }
                 )
             );
@@ -50,8 +51,8 @@ class CoverageCheckTest extends TestCase
         $coverageCheck = new CoverageCheck($diffFileState, $xmlReport, $matcher);
         $lines = $coverageCheck->getCoveredLines();
         $uncoveredLines = [
-            'testFile1.php' => [2 => 0],
-            'testFile2.php' => [4 => 0],
+            'testFile1.php' => [2 => $this->errorMessage],
+            'testFile2.php' => [4 => $this->errorMessage],
         ];
         $coveredLines = [
             'testFile1.php' => [1, 3, 4],
@@ -77,16 +78,16 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
-        $xmlReport->method('getLines')
+        $xmlReport->method('parseLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
+                '/full/path/to/testFile1.php',
 
             ]);
 
         $xmlReport->method('handleNotFoundFile')
             ->willReturn(null);
 
-        $xmlReport->method('isValidLine')
+        $xmlReport->method('getErrorsOnLine')
             ->will(
                 $this->returnCallback(
                     function () {
@@ -94,10 +95,10 @@ class CoverageCheckTest extends TestCase
                         $line = func_get_arg(1);
 
                         if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return false;
+                            return $this->errorMessage;
                         }
 
-                        return true;
+                        return [];
                     }
                 )
             );
@@ -107,7 +108,7 @@ class CoverageCheckTest extends TestCase
         $lines = $coverageCheck->getCoveredLines();
 
         $uncoveredLines = [
-            'testFile1.php' => [2 => 0],
+            'testFile1.php' => [2 => $this->errorMessage],
         ];
         $coveredLines = [
             'testFile1.php' => [1, 3, 4],
@@ -132,16 +133,16 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
-        $xmlReport->method('getLines')
+        $xmlReport->method('parseLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
+                '/full/path/to/testFile1.php',
 
             ]);
 
         $xmlReport->method('handleNotFoundFile')
             ->willReturn(true);
 
-        $xmlReport->method('isValidLine')
+        $xmlReport->method('getErrorsOnLine')
             ->will(
                 $this->returnCallback(
                     function () {
@@ -149,10 +150,10 @@ class CoverageCheckTest extends TestCase
                         $line = func_get_arg(1);
 
                         if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return false;
+                            return $this->errorMessage;
                         }
 
-                        return true;
+                        return [];
                     }
                 )
             );
@@ -162,7 +163,7 @@ class CoverageCheckTest extends TestCase
         $lines = $coverageCheck->getCoveredLines();
 
         $uncoveredLines = [
-            'testFile1.php' => [2 => 0],
+            'testFile1.php' => [2 => $this->errorMessage],
         ];
         $coveredLines = [
             'testFile1.php' => [1, 3, 4],
@@ -188,16 +189,15 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
-        $xmlReport->method('getLines')
+        $xmlReport->method('parseLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1, 2 => 0, 3 => 1, 4 => 1],
-
+                '/full/path/to/testFile1.php',
             ]);
 
         $xmlReport->method('handleNotFoundFile')
             ->willReturn(false);
 
-        $xmlReport->method('isValidLine')
+        $xmlReport->method('getErrorsOnLine')
             ->will(
                 $this->returnCallback(
                     function () {
@@ -205,10 +205,10 @@ class CoverageCheckTest extends TestCase
                         $line = func_get_arg(1);
 
                         if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return false;
+                            return $this->errorMessage;
                         }
 
-                        return true;
+                        return [];
                     }
                 )
             );
@@ -218,7 +218,7 @@ class CoverageCheckTest extends TestCase
         $lines = $coverageCheck->getCoveredLines();
 
         $uncoveredLines = [
-            'testFile1.php' => [2 => 0],
+            'testFile1.php' => [2 => $this->errorMessage],
             'testFile2.php' => [3 => 0, 4 => 0],
         ];
         $coveredLines = [
@@ -243,16 +243,16 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport = $this->createMock(CloverLoader::class);
-        $xmlReport->method('getLines')
+        $xmlReport->method('parseLines')
             ->willReturn([
-                '/full/path/to/testFile1.php' => [1 => 1, 4 => 1],
+                '/full/path/to/testFile1.php'
 
             ]);
 
         $xmlReport->method('handleNotFoundFile')
             ->willReturn(false);
 
-        $xmlReport->method('isValidLine')
+        $xmlReport->method('getErrorsOnLine')
             ->will(
                 $this->returnCallback(
                     function () {
@@ -263,7 +263,7 @@ class CoverageCheckTest extends TestCase
                             return null;
                         }
 
-                        return true;
+                        return [];
                     }
                 )
             );

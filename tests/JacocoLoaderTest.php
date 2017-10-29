@@ -10,23 +10,24 @@ class JacocoLoaderTest extends TestCase
     public function testLoadXML()
     {
         $xmlReport = new JacocoReport(__DIR__ . '/fixtures/jacoco.xml');
-        $coveredLines = $xmlReport->getLines();
+        $coveredLines = $xmlReport->parseLines();
         $expected = [
-            'org/jacoco/examples/maven/java/HelloWorld.java' => [
-                3 => true,
-                6 => true,
-                7 => false,
-                9 => true,
-            ],
-            'org/jacoco/examples/maven/java/New/HelloWorld.java' => [
-                3 => false,
-                6 => false,
-                7 => false,
-                9 => false,
-            ]
+            'org/jacoco/examples/maven/java/HelloWorld.java',
+            'org/jacoco/examples/maven/java/New/HelloWorld.java',
 
         ];
 
         $this->assertEquals($expected, $coveredLines);
+
+        $this->assertEquals(
+            [],
+            $xmlReport->getErrorsOnLine('org/jacoco/examples/maven/java/HelloWorld.java', 3)
+        );
+        $this->assertEquals(
+            ['No unit test covering this line'],
+            $xmlReport->getErrorsOnLine('org/jacoco/examples/maven/java/HelloWorld.java', 7)
+        );
+
+        $this->assertNull($xmlReport->getErrorsOnLine('doesntExist.java', 10));
     }
 }

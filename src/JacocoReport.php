@@ -13,7 +13,7 @@ class JacocoReport extends CloverLoader
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->coveredLines = [];
         $reader = new XMLReader;
@@ -29,7 +29,7 @@ class JacocoReport extends CloverLoader
             $this->addLine($reader, $currentFile);
         }
 
-        return $this->coveredLines;
+        return array_keys($this->coveredLines);
     }
 
     public static function getDescription()

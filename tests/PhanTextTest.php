@@ -16,28 +16,20 @@ class PhanTextTest extends TestCase
 
     public function testOutput()
     {
-
         $file1 = 'src/ArgParser.php';
-        $file2 = 'src/CoverageCheck.php';
-        $expected = [
-            $file1 => [
-                35 => 'Argument 1 (string) is int but \strlen() takes string',
-            ],
-            $file2 => [
-                172 => 'Argument 3 (message) is int but ' .
-                    '\exussum12\CoverageChecker\CoverageCheck::addUnCoveredLine()' .
-                    ' takes string defined at ./src/CoverageCheck.php:109'
-            ],
-        ];
 
-        $lines = $this->phan->getLines();
+        $lines = $this->phan->parseLines();
 
         $this->assertCount(2, $lines);
-        $this->assertContains($expected[$file1][35], $lines[$file1][35]);
-        $this->assertContains($expected[$file2][172], $lines[$file2][172]);
 
-        $this->assertFalse($this->phan->isValidLine($file1, 35));
-        $this->assertTrue($this->phan->isValidLine($file1, 30));
+        $this->assertContains(
+            'Argument 1 (string) is int but \strlen() takes string',
+            current($this->phan->getErrorsOnLine($file1, 35))
+        );
+        $this->assertEquals(
+            [],
+            $this->phan->getErrorsOnLine($file1, 30)
+        );
     }
 
     public function testNotFoundFile()

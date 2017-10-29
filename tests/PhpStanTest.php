@@ -6,6 +6,7 @@ use exussum12\CoverageChecker\PhpStanLoader;
 
 class PhpStanTest extends TestCase
 {
+    /** @var  PhpStanLoader */
     protected $stan;
 
     public function setUp()
@@ -17,27 +18,29 @@ class PhpStanTest extends TestCase
     public function testGetOutput()
     {
         $expected = [
-            'src/PhpStanLoader.php' => [
-                45 => 'Access to an undefined property ' .
-                    'exussum12\CoverageChecker\PhpStanLoader::$invalidLines.',
-                51 => 'Access to an undefined property ' .
-                    'exussum12\CoverageChecker\PhpStanLoader::$invalidLines.',
-            ],
-            'src/PhpCsLoader.php' => [
-                71 => 'Parameter $message of method ' .
-                    'exussum12\CoverageChecker\PhpCsLoader::addInvalidLine() has ' .
-                    'invalid typehint type exussum12\CoverageChecker\stdClass.',
-            ],
+            'src/PhpStanLoader.php',
+            'src/PhpCsLoader.php',
         ];
 
-        $this->assertSame($expected, $this->stan->getLines());
+        $this->assertSame($expected, $this->stan->parseLines());
     }
 
     public function testInvalidLine()
     {
-        $this->stan->getLines();
-        $this->assertFalse($this->stan->isValidLine("src/PhpStanLoader.php", 45));
-        $this->assertTrue($this->stan->isValidLine("src/PhpStanLoader.php", 41));
+        $this->stan->parseLines();
+        $this->assertEquals(
+            ['Access to an undefined property exussum12\CoverageChecker\PhpStanLoader::$invalidLines.'],
+            $this->stan->getErrorsOnLine("src/PhpStanLoader.php", 45)
+        );
+    }
+
+    public function testValidLine()
+    {
+        $this->stan->parseLines();
+        $this->assertEquals(
+            [],
+            $this->stan->getErrorsOnLine("src/PhpStanLoader.php", 41)
+        );
     }
 
     public function testNotFoundFile()

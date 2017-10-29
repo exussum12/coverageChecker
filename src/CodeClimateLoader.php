@@ -30,21 +30,26 @@ class CodeClimateLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         foreach ($this->file as $line) {
             $this->addError($line);
         }
 
-        return $this->errors;
+        return array_keys($this->errors);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->errors[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->errors[$file][$lineNumber])) {
+            $errors = $this->errors[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
     /**
@@ -72,7 +77,7 @@ class CodeClimateLoader implements FileChecker
         $message = $line->description;
 
         for ($lineNumber = $start; $lineNumber <= $end; $lineNumber++) {
-            $this->errors[$fileName][$lineNumber] = $message;
+            $this->errors[$fileName][$lineNumber][] = $message;
         }
     }
 

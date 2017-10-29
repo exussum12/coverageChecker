@@ -37,7 +37,7 @@ class PhpMdLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->errors = [];
         $this->errorRanges = [];
@@ -49,27 +49,26 @@ class PhpMdLoader implements FileChecker
             $this->checkForViolation($reader, $currentFile);
         }
 
-        return $this->errors;
+        return array_keys($this->errors);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        $valid = true;
-        foreach ($this->errorRanges[$file] as $number => $errors) {
+        $errors = [];
+        foreach ($this->errorRanges[$file] as $number => $error) {
             if ((
-                $errors['start'] <= $lineNumber &&
-                $errors['end'] >= $lineNumber
+                $error['start'] <= $lineNumber &&
+                $error['end'] >= $lineNumber
             )) {
-                //unset this error
+                $errors[] = $error['error'];
                 unset($this->errorRanges[$file][$number]);
-                $valid = false;
             }
         }
 
-        return $valid;
+        return $errors;
     }
 
     /**

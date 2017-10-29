@@ -47,7 +47,7 @@
       "file": "src\/PhpStanLoader.php",
       "mutator": "\\Humbug\\Mutator\\Boolean\\FalseValue",
       "class": "\\exussum12\\CoverageChecker\\PhpStanLoader",
-      "method": "getLines",
+      "method": "parseLines",
       "line": 40,
       "diff": "--- Original\n+++ New\n@@ @@\n         $lineNumber = 0;\n-        while (($line = fgets($this->file)) !== false) {\n+        while (($line = fgets($this->file)) !== true) {\n             $filename = $this->checkForFileName($line, $filename);\n             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {\n                 $error = $this->getMessage($line);\n                 $this->handleRelatedError($filename, $lineNumber, $error);\n \n                 $this->addError($filename, $lineNumber, $error);",
       "tests": [

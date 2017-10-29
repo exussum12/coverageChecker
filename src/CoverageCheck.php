@@ -64,13 +64,11 @@ class CoverageCheck
     {
         $this->getDiff();
 
-        $this->getCoverage();
-
+        $coveredFiles = $this->fileChecker->parseLines();
         $this->uncoveredLines = [];
         $this->coveredLines = [];
 
         $diffFiles = array_keys($this->cache->diff);
-        $coveredFiles = array_keys($this->cache->coveredLines);
         foreach ($diffFiles as $file) {
             $matchedFile = $this->findFile($file, $coveredFiles);
             if ($matchedFile !== false) {
@@ -118,21 +116,18 @@ class CoverageCheck
     protected function matchLines($fileName, $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
-            $validLine = $this->fileChecker->isValidLine($matchedFile, $line);
+            $validLine = $this->fileChecker->getErrorsOnLine($matchedFile, $line);
 
             if (is_null($validLine)) {
                 continue;
             }
 
-            if ($validLine) {
+            if (count($validLine) == 0) {
                 $this->addCoveredLine($fileName, $line);
                 continue;
             }
 
-            $message = isset($this->cache->coveredLines[$matchedFile][$line])
-                ? $this->cache->coveredLines[$matchedFile][$line] :
-                "No cover"
-            ;
+            $message = $validLine ?: "No cover";
 
             $this->addUnCoveredLine(
                 $fileName,
@@ -167,11 +162,6 @@ class CoverageCheck
 
     protected function getCoverage()
     {
-        if (empty($this->cache->coveredLines)) {
-            $this->cache->coveredLines = $this->fileChecker->getLines();
-        }
-
-        return $this->cache->coveredLines;
     }
 
     protected function handleFileNotFound($file)

@@ -11,33 +11,35 @@ class PhpMndLoader implements FileChecker
     {
         $this->file = fopen($filename, 'r');
     }
+
     /**
-     * @return array array containing filename and line numbers
+     * @inheritdoc
      */
-    public function getLines()
+    public function parseLines()
     {
         while (($line = fgets($this->file)) !== false) {
             $matches = [];
             if (preg_match("/^(?<filename>[^:]+):(?<lineNo>[0-9]+)\. (?<message>.+)/", $line, $matches)) {
                 $this->invalidLines
                     [$matches['filename']]
-                    [$matches['lineNo']] = $matches['message'];
+                    [$matches['lineNo']][] = $matches['message'];
             }
         }
 
-        return $this->invalidLines;
+        return array_keys($this->invalidLines);
     }
 
     /**
-     * Method to determine if the line is valid in the context
-     * null does not include the line in the stats
-     * @param $file
-     * @param $lineNumber
-     * @return bool|null
+     * @inheritdoc
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->invalidLines[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->invalidLines[$file][$lineNumber])) {
+            $errors = $this->invalidLines[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
     /**

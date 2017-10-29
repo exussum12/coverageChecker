@@ -33,7 +33,7 @@ class PhpStanLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $filename = '';
         $lineNumber = 0;
@@ -41,23 +41,31 @@ class PhpStanLoader implements FileChecker
             $filename = $this->checkForFileName($line, $filename);
             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
                 $error = $this->getMessage($line);
+                if ($this->isExtendedMessage($line)) {
+                    $this->appendError($filename, $lineNumber, $error);
+                    continue;
+                }
                 $this->handleRelatedError($filename, $lineNumber, $error);
-
                 $this->addError($filename, $lineNumber, $error);
             }
         }
 
         $this->trimLines();
 
-        return $this->invalidLines;
+        return array_keys($this->invalidLines);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->invalidLines[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->invalidLines[$file][$lineNumber])) {
+            $errors = $this->invalidLines[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
 
@@ -99,6 +107,11 @@ class PhpStanLoader implements FileChecker
     protected function getMessage($line)
     {
         return trim(preg_replace($this->lineRegex, '', $line));
+    }
+
+    protected function isExtendedMessage($line)
+    {
+        return preg_match($this->lineRegex, $line) === 0;
     }
 
     protected function trimLines()
@@ -150,7 +163,7 @@ class PhpStanLoader implements FileChecker
         if (!isset($this->invalidLines[$filename][$lineNumber])) {
             $this->invalidLines[$filename][$lineNumber] = '';
         }
-        $this->invalidLines[$filename][$lineNumber] .= $error . ' ';
+        $this->invalidLines[$filename][$lineNumber][] = $error;
     }
 
     /**
@@ -169,5 +182,12 @@ class PhpStanLoader implements FileChecker
         return new ReflectionFunction(
             $matches['function']
         );
+    }
+
+    private function appendError($filename, $lineNumber, $error)
+    {
+        end($this->invalidLines[$filename][$lineNumber]);
+        $key = key($this->invalidLines[$filename][$lineNumber]);
+        $this->invalidLines[$filename][$lineNumber][$key] .= ' ' . $error;
     }
 }

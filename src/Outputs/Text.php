@@ -25,7 +25,7 @@ class Text implements Output
     {
         $output = "Line $line:\n";
         if (!empty($message)) {
-            foreach ((array) $message as $part) {
+            foreach ($message as $part) {
                 $output .= "\t$part\n";
             }
         }

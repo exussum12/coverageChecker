@@ -32,7 +32,7 @@ class PhanTextLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $handle = fopen($this->file, 'r');
         while (($line = fgets($handle)) !== false) {
@@ -43,15 +43,20 @@ class PhanTextLoader implements FileChecker
             $this->addError($line);
         }
 
-        return $this->errors;
+        return array_keys($this->errors);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->errors[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->errors[$file][$lineNumber])) {
+            $errors = $this->errors[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
     /**
@@ -79,6 +84,6 @@ class PhanTextLoader implements FileChecker
     {
         $matches = [];
         preg_match($this->lineMatch, $line, $matches);
-        $this->errors[$matches['fileName']][$matches['lineNumber']] = trim($matches['message']);
+        $this->errors[$matches['fileName']][$matches['lineNumber']][] = trim($matches['message']);
     }
 }

@@ -10,11 +10,19 @@ class HumbugLoaderTest extends TestCase
     public function testCanMakeClass()
     {
         $humbug = new HumbugLoader(__DIR__ . '/fixtures/humbug.json');
-        $invalidLines = $humbug->getLines();
+        $invalidFiles = $humbug->parseLines();
 
-        $this->assertEquals(1, count($invalidLines));
-        $this->assertFalse($humbug->isValidLine('src/DiffLineHandle/OldVersion/DiffStart.php', 23));
-        $this->assertTrue($humbug->isValidLine('src/DiffLineHandle/OldVersion/DiffStart.php', 22));
+        $this->assertEquals(1, count($invalidFiles));
+        $file = 'src/DiffLineHandle/OldVersion/DiffStart.php';
+
+        $this->assertContains(
+            'Failed on escaped check',
+            current($humbug->getErrorsOnLine($file, 23))
+        );
+        $this->assertEquals(
+            [],
+            $humbug->getErrorsOnLine($file, 22)
+        );
     }
 
     public function testHandleFileNotFound()

@@ -59,7 +59,7 @@ class PhpCsLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->invalidLines = [];
         foreach ($this->json->files as $fileName => $file) {
@@ -68,19 +68,26 @@ class PhpCsLoader implements FileChecker
             }
         }
 
-        return $this->invalidLines;
+        return array_merge(
+            array_keys($this->invalidLines),
+            array_keys($this->invalidFiles)
+        );
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
+        $errors = [];
         if (!empty($this->invalidFiles[$file])) {
-            return false;
+            $errors = $this->invalidFiles[$file];
         }
 
-        return empty($this->invalidLines[$file][$lineNumber]);
+        if (!empty($this->invalidLines[$file][$lineNumber])) {
+            $errors = array_merge ($errors, $this->invalidLines[$file][$lineNumber]);
+        }
+        return $errors;
     }
 
     /**
@@ -101,7 +108,7 @@ class PhpCsLoader implements FileChecker
         $this->invalidLines[$file][$line][] = $message->message;
 
         if (in_array($message->source, $this->wholeFileErrors)) {
-            $this->invalidFiles[$file] = $message->message;
+            $this->invalidFiles[$file][] = $message->message;
         }
     }
 

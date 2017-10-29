@@ -9,30 +9,32 @@ class LoadPhpMdReportStrictTest extends TestCase
     public function testClassCanLoad()
     {
         $phpmd = new PhpMdLoaderStrict(__DIR__ . '/fixtures/phpmd.xml');
-        $lines = $phpmd->getLines();
+        $lines = $phpmd->parseLines();
         $file = '/full/path/to/file/src/CoverageCheck.php';
-        $expected = [
-            $file => [
-                56 => [
-                    'The method addUnCoveredLine has a boolean flag argument ' .
-                    '$message, which is a certain sign of a ' .
-                    'Single Responsibility Principle violation.'
-                ],
-                57 => [
-                    'The method addUnCoveredLine has a boolean flag argument ' .
-                    '$message, which is a certain sign of a ' .
-                    'Single Responsibility Principle violation.'
-                ],
-                58 => [
-                    'The method addUnCoveredLine has a boolean flag argument ' .
-                    '$message, which is a certain sign of a ' .
-                    'Single Responsibility Principle violation.'
-                ],
-            ],
-        ];
+        $expected = [$file];
+
         $this->assertEquals($expected, $lines);
-        $this->assertFalse($phpmd->isValidLine($file, 57));
-        $this->assertTrue($phpmd->isValidLine($file, 10));
+
+        $expectedError = [
+            'The method addUnCoveredLine has a boolean flag argument ' .
+            '$message, which is a certain sign of a ' .
+            'Single Responsibility Principle violation.'
+        ];
+
+        $this->assertEquals(
+            $expectedError,
+            $phpmd->getErrorsOnLine($file, 57)
+        );
+
+        $this->assertEquals(
+            $expectedError,
+            $phpmd->getErrorsOnLine($file, 58)
+        );
+
+        $this->assertEquals(
+            [],
+            $phpmd->getErrorsOnLine($file, 10)
+        );
     }
 
     public function testCorrectMissingFile()
