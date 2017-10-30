@@ -219,7 +219,10 @@ class CoverageCheckTest extends TestCase
 
         $uncoveredLines = [
             'testFile1.php' => [2 => $this->errorMessage],
-            'testFile2.php' => [3 => 0, 4 => 0],
+            'testFile2.php' => [
+                3 => ['No Cover'],
+                4 => ['No Cover'],
+            ],
         ];
         $coveredLines = [
             'testFile1.php' => [1, 3, 4],

@@ -90,7 +90,7 @@ class CoverageCheck
     /**
      * @param string $file the filename containing the uncovered line
      * @param int $line the number of the uncovered line
-     * @param string $message the message showing why its uncovered
+     * @param array $message a list of messages showing why its uncovered
      */
     protected function addUnCoveredLine($file, $line, $message)
     {
@@ -121,23 +121,22 @@ class CoverageCheck
     protected function matchLines($fileName, $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
-            $validLine = $this->fileChecker->getErrorsOnLine($matchedFile, $line);
+            $messages = $this->fileChecker->getErrorsOnLine($matchedFile, $line);
 
-            if (is_null($validLine)) {
+            if (is_null($messages)) {
                 continue;
             }
 
-            if (count($validLine) == 0) {
+            if (count($messages) == 0) {
                 $this->addCoveredLine($fileName, $line);
                 continue;
             }
 
-            $message = $validLine ?: "No cover";
 
             $this->addUnCoveredLine(
                 $fileName,
                 $line,
-                $message
+                $messages
             );
         }
     }
@@ -152,7 +151,7 @@ class CoverageCheck
     protected function addUnCoveredFile($file)
     {
         foreach ($this->cache->diff[$file] as $line) {
-            $this->addUnCoveredLine($file, $line, 0);
+            $this->addUnCoveredLine($file, $line, ['No Cover']);
         }
     }
 
