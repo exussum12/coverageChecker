@@ -4,7 +4,9 @@ namespace exussum12\CoverageChecker;
 class Phpcpd implements FileChecker
 {
     protected $file;
+
     protected $duplicateCode = [];
+
     public function __construct($file)
     {
         $this->file = fopen($file, 'r');
@@ -35,7 +37,7 @@ class Phpcpd implements FileChecker
     {
         $errors = [];
         if (isset($this->duplicateCode[$file][$lineNumber])) {
-           $errors = $this->duplicateCode[$file][$lineNumber];
+            $errors = $this->duplicateCode[$file][$lineNumber];
         }
 
         return $errors;

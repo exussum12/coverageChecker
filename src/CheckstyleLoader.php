@@ -53,7 +53,7 @@ class CheckstyleLoader implements FileChecker
     {
         $errors = [];
         if (isset($this->coveredLines[$file][$line])) {
-           $errors = $this->coveredLines[$file][$line];
+            $errors = $this->coveredLines[$file][$line];
         }
 
         return $errors;

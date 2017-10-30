@@ -85,8 +85,9 @@ class PhpCsLoader implements FileChecker
         }
 
         if (!empty($this->invalidLines[$file][$lineNumber])) {
-            $errors = array_merge ($errors, $this->invalidLines[$file][$lineNumber]);
+             $errors = array_merge($errors, $this->invalidLines[$file][$lineNumber]);
         }
+
         return $errors;
     }
 

@@ -14,7 +14,7 @@ class PhpMdLoaderStrict extends PhpMdLoader
     public function getErrorsOnLine($file, $lineNumber)
     {
         $errors = [];
-        foreach ($this->errorRanges[$file] as $number => $error) {
+        foreach ($this->errorRanges[$file] as $error) {
             if ((
                 $error['start'] <= $lineNumber &&
                 $error['end'] >= $lineNumber
