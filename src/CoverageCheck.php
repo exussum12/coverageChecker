@@ -13,22 +13,27 @@ class CoverageCheck
      * @var DiffFileLoader
      */
     protected $diff;
+
     /**
      * @var FileChecker
      */
     protected $fileChecker;
+
     /**
      * @var FileMatcher
      */
     protected $matcher;
+
     /**
      * @var stdClass
      */
     protected $cache;
+
     /**
      * @var array
      */
     protected $uncoveredLines = [];
+
     /**
      * @var array
      */
@@ -158,10 +163,6 @@ class CoverageCheck
         }
 
         return $this->cache->diff;
-    }
-
-    protected function getCoverage()
-    {
     }
 
     protected function handleFileNotFound($file)
