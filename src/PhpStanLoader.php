@@ -161,7 +161,7 @@ class PhpStanLoader implements FileChecker
     protected function addError($filename, $lineNumber, $error)
     {
         if (!isset($this->invalidLines[$filename][$lineNumber])) {
-            $this->invalidLines[$filename][$lineNumber] = '';
+            $this->invalidLines[$filename][$lineNumber] = [];
         }
         $this->invalidLines[$filename][$lineNumber][] = $error;
     }
