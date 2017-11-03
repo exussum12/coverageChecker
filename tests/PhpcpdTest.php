@@ -12,6 +12,7 @@ class PhpcpdTest extends TestCase
     {
         parent::setUp();
         $this->cpd = new Phpcpd(__DIR__ . '/fixtures/phpcpd.txt');
+        $this->cpd->parseLines();
     }
 
     public function testOutput()
@@ -19,22 +20,15 @@ class PhpcpdTest extends TestCase
 
         $file1 = '/home/user/code/coverageChecker/vendor/symfony/console/Tests/Helper/SymfonyQuestionHelperTest.php';
         $file2 = '/home/user/code/coverageChecker/vendor/symfony/console/Tests/Helper/QuestionHelperTest.php';
-        $expected = [
-            $file1 => [
-                45 => ["Duplicate of $file2:58-60"],
-                46 => ["Duplicate of $file2:58-60"],
-                47 => ["Duplicate of $file2:58-60"],
-            ],
-            $file2 => [
-                58 => ["Duplicate of $file1:45-47"],
-                59 => ["Duplicate of $file1:45-47"],
-                60 => ["Duplicate of $file1:45-47"],
-            ],
-        ];
 
-        $this->assertEquals($expected, $this->cpd->getLines());
-        $this->assertFalse($this->cpd->isValidLine($file1, 45));
-        $this->assertTrue($this->cpd->isValidLine($file1, 49));
+        $this->assertEquals(
+            ["Duplicate of $file2:58-60"],
+            $this->cpd->getErrorsOnLine($file1, 45)
+        );
+        $this->assertEquals(
+            [],
+            $this->cpd->getErrorsOnLine($file1, 49)
+        );
     }
 
     public function testNotFoundFile()

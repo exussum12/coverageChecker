@@ -10,17 +10,16 @@ class LoadPhpcsReportTest extends TestCase
     public function testCanMakeClass()
     {
         $phpcs = new PhpCsLoader(__DIR__ . '/fixtures/phpcs.json');
-        $invalidLines = $phpcs->getLines();
-        $expected = [
-            '/full/path/to/file/src/XMLReport.php' => [
-                11 => ['Opening brace should be on the line after the declaration; found 1 blank line(s)'],
-                12 => ['Line indented incorrectly; expected at least 8 spaces, found 4'],
-            ],
-        ];
+        $phpcs->parseLines();
 
-        $this->assertEquals($expected, $invalidLines);
-        $this->assertFalse($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 11));
-        $this->assertTrue($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 10));
+        $this->assertEquals(
+            ['Opening brace should be on the line after the declaration; found 1 blank line(s)'],
+            $phpcs->getErrorsOnLine('/full/path/to/file/src/XMLReport.php', 11)
+        );
+        $this->assertEquals(
+            [],
+            $phpcs->getErrorsOnLine('/full/path/to/file/src/XMLReport.php', 10)
+        );
     }
 
     /**
@@ -41,24 +40,33 @@ class LoadPhpcsReportTest extends TestCase
     public function testStrictMode()
     {
         $phpcs = new PhpCsLoaderStrict(__DIR__ . '/fixtures/phpcsstrict.json');
-        $invalidLines = $phpcs->getLines();
-        $expected = [
-            '/full/path/to/file/src/XMLReport.php' => [
-                11 => ['Opening brace should be on the line after the declaration; found 1 blank line(s)'],
-                12 => ['Line indented incorrectly; expected at least 8 spaces, found 4'],
-            ],
-        ];
+        $phpcs->parseLines();
 
-        $this->assertEquals($expected, $invalidLines);
-        $this->assertFalse($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 11));
-        $this->assertTrue($phpcs->isValidLine('/full/path/to/file/src/XMLReport.php', 10));
+        $this->assertEquals(
+            ['Opening brace should be on the line after the declaration; found 1 blank line(s)'],
+            $phpcs->getErrorsOnLine('/full/path/to/file/src/XMLReport.php', 11)
+        );
+
+        $this->assertEquals(
+            [],
+            $phpcs->getErrorsOnLine('/full/path/to/file/src/XMLReport.php', 10)
+        );
     }
 
     public function testWholeFileError()
     {
         $phpcs = new PhpCsLoaderStrict(__DIR__ . '/fixtures/wholeFileErrorPhpcs.json');
-        $phpcs->getLines();
+        $phpcs->parseLines();
 
-        $this->assertFalse($phpcs->isValidLine('/tmp/test/test.php', 100));
+        $this->assertEquals(
+            [
+                'A file should declare new symbols (classes, functions, constants, etc.) and cause no other side' .
+                ' effects, or it should execute logic with side effects, but should not do both. The first symbol is' .
+                ' defined on line 2 and the first side effect is on line 7.',
+
+                'End of line character is invalid; expected "\n" but found "\r\n"',
+            ],
+            $phpcs->getErrorsOnLine('/tmp/test/test.php', 100)
+        );
     }
 }

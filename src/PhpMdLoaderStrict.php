@@ -11,13 +11,19 @@ use XMLReader;
  */
 class PhpMdLoaderStrict extends PhpMdLoader
 {
-    /**
-     * {@inheritdoc}
-     * Strict reports every offending line not just the first
-     */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->errors[$file][$lineNumber]);
+        $errors = [];
+        foreach ($this->errorRanges[$file] as $error) {
+            if ((
+                $error['start'] <= $lineNumber &&
+                $error['end'] >= $lineNumber
+            )) {
+                $errors[] = $error['error'];
+            }
+        }
+
+        return $errors;
     }
 
     /**

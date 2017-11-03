@@ -4,13 +4,15 @@ namespace exussum12\CoverageChecker;
 class Phpcpd implements FileChecker
 {
     protected $file;
+
     protected $duplicateCode = [];
+
     public function __construct($file)
     {
         $this->file = fopen($file, 'r');
     }
 
-    public function getLines()
+    public function parseLines()
     {
         $block = [];
         $this->duplicateCode = [];
@@ -27,13 +29,18 @@ class Phpcpd implements FileChecker
             $block += $this->addFoundBlock($line);
         }
 
-        return $this->duplicateCode;
+        return array_keys($this->duplicateCode);
     }
 
 
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->duplicateCode[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->duplicateCode[$file][$lineNumber])) {
+            $errors = $this->duplicateCode[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
     public function handleNotFoundFile()

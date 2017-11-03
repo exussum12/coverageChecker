@@ -8,18 +8,19 @@ namespace exussum12\CoverageChecker;
 interface FileChecker
 {
     /**
-     * @return array array containing filename and line numbers
+     * @return array the list of files from this change
      */
-    public function getLines();
+    public function parseLines();
 
     /**
      * Method to determine if the line is valid in the context
-     * null does not include the line in the stats
+     * returning null does not include the line in the stats
+     * Returns an array containing errors on a certain line - empty array means no errors
      * @param $file
      * @param $lineNumber
-     * @return bool|null
+     * @return array|null
      */
-    public function isValidLine($file, $lineNumber);
+    public function getErrorsOnLine($file, $lineNumber);
 
     /**
      * Method to determine what happens to files which have not been found

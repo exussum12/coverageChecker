@@ -31,7 +31,7 @@ class CheckstyleLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->coveredLines = [];
         $reader = new XMLReader;
@@ -43,15 +43,20 @@ class CheckstyleLoader implements FileChecker
             $this->handleErrors($reader, $currentFile);
         }
 
-        return $this->coveredLines;
+        return array_keys($this->coveredLines);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $line)
+    public function getErrorsOnLine($file, $line)
     {
-        return empty($this->coveredLines[$file][$line]);
+        $errors = [];
+        if (isset($this->coveredLines[$file][$line])) {
+            $errors = $this->coveredLines[$file][$line];
+        }
+
+        return $errors;
     }
 
     /**
@@ -79,7 +84,7 @@ class CheckstyleLoader implements FileChecker
         if ($reader->name === "error") {
             $this->coveredLines
             [$currentFile]
-            [$reader->getAttribute('line')]
+            [$reader->getAttribute('line')][]
                 = $reader->getAttribute("message");
         }
     }

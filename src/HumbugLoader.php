@@ -42,7 +42,7 @@ class HumbugLoader implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getLines()
+    public function parseLines()
     {
         $this->invalidLines = [];
         foreach ($this->errorMethods as $failures) {
@@ -58,15 +58,20 @@ class HumbugLoader implements FileChecker
             }
         }
 
-        return $this->invalidLines;
+        return array_keys($this->invalidLines);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function isValidLine($file, $lineNumber)
+    public function getErrorsOnLine($file, $lineNumber)
     {
-        return empty($this->invalidLines[$file][$lineNumber]);
+        $errors = [];
+        if (isset($this->invalidLines[$file][$lineNumber])) {
+            $errors = (array) $this->invalidLines[$file][$lineNumber];
+        }
+
+        return $errors;
     }
 
     /**
