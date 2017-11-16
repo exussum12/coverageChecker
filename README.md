@@ -167,3 +167,6 @@ Adding the following code to your phpunit.xml, and adding a diff and the phpunit
       </listener>
     </listeners>
 
+A basic webserver for storing the coverage file between runs is https://gist.github.com/exussum12/5af41e6de404c9ab293093c24ca8ce81
+
+This should allow you to save output from a completed run and get it back in the future, There is no clean up process in the script so that should be implemented seperatly
