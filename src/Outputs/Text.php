@@ -18,7 +18,7 @@ class Text implements Output
             }
         }
 
-        echo trim($output);
+        echo trim($output) . "\n";
     }
 
     private function generateOutputLine($line, $message)
