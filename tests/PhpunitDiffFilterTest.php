@@ -4,6 +4,10 @@ namespace exussum12\CoverageChecker\tests;
 use PHPUnit\Framework\TestCase;
 use Exception;
 
+/**
+ * Ignored due to acceptance test needing to write values
+ * @SuppressWarnings(PHPMD.Superglobals)
+ */
 class PhpunitDiffFilterTest extends TestCase
 {
     /**

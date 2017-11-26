@@ -1,5 +1,10 @@
 <?php
-// @codingStandardsIgnoreStart
+/**
+ * Ignored due to being intentionally bad
+ * @codingStandardsIgnoreStart
+ *
+ * @SuppressWarnings(PHPMD)
+ */
 class A {
     /**
      * @param int $c
@@ -12,7 +17,9 @@ class A {
 
 $a = new A;
 $a->B("C");
-
+/**
+ * @SuppressWarnings(PHPMD)
+ */
 function testing (int $a) {
 }
 
