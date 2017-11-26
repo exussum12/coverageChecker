@@ -9,7 +9,10 @@ use PHPUnit_Framework_TestListener as TestListener;
 use PHPUnit_Framework_TestSuite as TestSuite;
 
 /**
+ * Coverage ignored due to not being able to run this
  * @codeCoverageIgnore
+ * PHPMD suppressed due to having to implement TestListener
+ * @SuppressWarnings(PHPMD)
  */
 class DiffFilter implements TestListener
 {
