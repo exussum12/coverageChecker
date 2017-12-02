@@ -28,17 +28,23 @@ Then call the script you need
 # Usage
 
 First of all a diff is needed 
+
     git diff origin/master... > diff.txt
+     
 See [here](https://github.com/exussum12/coverageChecker/wiki/Generating-a-diff) for a more in depth examples of what diff you should generate
 
 Then the outut for the tool you wish to check (such as phpcs, PHPUnit, phpmd etc) for example
-    phpcs --standard=psr2 --report=json || true > phpcs.json
+
+     phpcs --standard=psr2 --report=json || true > phpcs.json
+     
 Here the `|| true` ensures that the while build will not fail if phpcs fails.
 
 Then call diffFilter
-    ./vendor/bin/diffFilter --phpcs diff.txt phpcs.json 100
+
+     ./vendor/bin/diffFilter --phpcs diff.txt phpcs.json 100
 
 The last argument (100 in this case) is optional, the default is 100. This can be lowered to 90 for example to ensure that at least 90% of the changed code conforms to the standard.
+diffFilter will exit with a `0` status if the changed code passes the minimum coverage. `2` otherwise
 
 ## Extended guide
 A more in depth guide can be [found on the wiki](https://github.com/exussum12/coverageChecker/wiki) also some tips for speeding up the build.
