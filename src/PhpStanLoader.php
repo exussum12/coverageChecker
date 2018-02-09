@@ -168,20 +168,15 @@ class PhpStanLoader implements FileChecker
 
     /**
      * @param $matches
-     * @return Reflector
+     * @return Reflector|false
      */
     protected function getReflector($matches)
     {
         if ($matches['class']) {
-            return new ReflectionMethod(
-                $matches['class'],
-                $matches['function']
-            );
+            return $this->getClassReflector($matches);
         }
 
-        return new ReflectionFunction(
-            $matches['function']
-        );
+        return $this->getFunctionReflector($matches);
     }
 
     private function appendError($filename, $lineNumber, $error)
@@ -189,5 +184,34 @@ class PhpStanLoader implements FileChecker
         end($this->invalidLines[$filename][$lineNumber]);
         $key = key($this->invalidLines[$filename][$lineNumber]);
         $this->invalidLines[$filename][$lineNumber][$key] .= ' ' . $error;
+    }
+
+    /**
+     * @param $matches
+     * @return bool|ReflectionMethod
+     */
+    protected function getClassReflector($matches)
+    {
+        if (!method_exists($matches['class'], $matches['function'])) {
+            return false;
+        }
+        return new ReflectionMethod(
+            $matches['class'],
+            $matches['function']
+        );
+    }
+
+    /**
+     * @param $matches
+     * @return bool|ReflectionFunction
+     */
+    protected function getFunctionReflector($matches)
+    {
+        if (!function_exists($matches['function'])) {
+            return false;
+        }
+        return new ReflectionFunction(
+            $matches['function']
+        );
     }
 }

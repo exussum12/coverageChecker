@@ -10,6 +10,21 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpStanRelatedTest extends TestCase
 {
+    public function testRelatedMethodsWithoutAutoload()
+    {
+        $GLOBALS['argv'] = [
+            'diffFilter',
+            '--phpstan',
+            __DIR__ . '/fixtures/addTypeError.txt',
+            __DIR__ . '/fixtures/phpstanTypeError.txt'
+        ];
+
+        ob_start();
+        require(__DIR__ . "/../src/Runners/generic.php");
+        $output = ob_get_clean();
+        $this->assertContains('100.00%', $output);
+    }
+
     public function testRelatedMethods()
     {
         $GLOBALS['argv'] = [
