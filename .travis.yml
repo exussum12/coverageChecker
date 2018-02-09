@@ -17,8 +17,8 @@ matrix:
     - php: hhvm
   fast_finish: true
 before_script:
-  - composer global install squizlabs/php_codesniffer
-  - composer global install phpmd/phpmd
+  - composer global require squizlabs/php_codesniffer
+  - composer global require phpmd/phpmd
   - sh -c "[ -z $UPDATE_COVERAGE ] && phpenv config-rm xdebug.ini || true"
 script:
-  - $PATH=$HOME/.cache/composer/bin:$PATH ./build.sh
+  - PATH=$HOME/.cache/composer/bin:$PATH ./build.sh
