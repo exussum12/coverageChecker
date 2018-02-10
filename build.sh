@@ -10,8 +10,8 @@ git diff $(git merge-base origin/master HEAD) > diff.txt
 phpcs --standard=psr2 src
 phpcs --standard=psr2 --ignore=bootstrap.php,fixtures/* tests
 
-phpmd src xml cleancode,codesize,controversial,unusedcode
-phpmd tests xml cleancode,codesize,controversial,unusedcode
+phpmd src text cleancode,codesize,controversial,unusedcode
+phpmd tests text cleancode,codesize,controversial,unusedcode --exclude fixtures
 
 ./vendor/bin/phpunit
 
