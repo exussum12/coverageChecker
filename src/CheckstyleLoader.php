@@ -76,8 +76,8 @@ class CheckstyleLoader implements FileChecker
     }
 
     /**
-     * @param $reader
-     * @param $currentFile
+     * @param XMLReader $reader
+     * @param string $currentFile
      */
     protected function handleErrors($reader, $currentFile)
     {
@@ -90,8 +90,8 @@ class CheckstyleLoader implements FileChecker
     }
 
     /**
-     * @param $reader
-     * @param $currentFile
+     * @param XMLReader $reader
+     * @param string $currentFile
      * @return string
      */
     protected function handleFile($reader, $currentFile)

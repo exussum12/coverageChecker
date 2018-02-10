@@ -5,7 +5,7 @@ abstract class DiffLineHandle
 {
     protected $diffFileState;
 
-    public function __construct(diffFileState $diff)
+    public function __construct(DiffFileState $diff)
     {
         $this->diffFileState = $diff;
     }
