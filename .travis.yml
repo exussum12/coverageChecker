@@ -21,4 +21,4 @@ before_script:
   - composer global require phpmd/phpmd
   - sh -c "[ -z $UPDATE_COVERAGE ] && phpenv config-rm xdebug.ini || true"
 script:
-  - PATH=$HOME/.cache/composer/bin:$PATH ./build.sh
+  - PATH=$HOME/.composer/vendor/bin:$PATH ./build.sh
