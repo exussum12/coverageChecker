@@ -77,7 +77,7 @@ class CheckstyleLoader implements FileChecker
 
     /**
      * @param $reader
-     * @param $currentFile
+     * @param string $currentFile
      */
     protected function handleErrors($reader, $currentFile)
     {

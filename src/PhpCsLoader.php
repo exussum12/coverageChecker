@@ -4,6 +4,7 @@ namespace exussum12\CoverageChecker;
 use InvalidArgumentException;
 use PhpParser\Error;
 use PhpParser\ParserFactory;
+use exussum12\CoverageChecker\Exceptions\FileNotFound;
 use stdClass;
 
 /**
@@ -168,15 +169,23 @@ class PhpCsLoader implements FileChecker
         if ($error == 'Squiz.Commenting.FileComment') {
             $this->invalidFiles[$file][] = $message->message;
         }
-        $fileParser = $this->getFileParser($file);
-        $lookup = $this->getMessageRanges($error, $fileParser);
+        try {
+            $fileParser = $this->getFileParser($file);
+            $lookup = $this->getMessageRanges($error, $fileParser);
 
-        $this->addRangeError($file, $lookup, $message);
+            $this->addRangeError($file, $lookup, $message);
+        } catch (FileNotFound $exception) {
+            error_log("Can't find file, may have missed an error");
+        }
     }
 
     protected function getFileParser($filename)
     {
         if (!isset($this->parsedFiles[$filename])) {
+            if (!file_exists($filename)) {
+                throw new FileNotFound();
+            }
+
             $this->parsedFiles[$filename] = new FileParser(
                 file_get_contents($filename)
             );

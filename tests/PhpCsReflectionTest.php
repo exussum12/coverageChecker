@@ -25,10 +25,40 @@ class PhpCsReflectionTest extends TestCase
             require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $exception) {
             $output = json_decode(ob_get_clean());
+            $file = $output->violations->{'DocBlocks.php'};
             $this->assertEquals(
                 14,
-                count($output->violations->{'DocBlocks.php'})
+                count($file)
             );
+
+            $this->assertEquals(
+                5,
+                count($file[12]->message)
+            );
+
+            return true;
+        }
+
+        $this->fail('Exception not thrown when Expected');
+    }
+
+    public function testRelatedMethodsFileNotFound()
+    {
+        $GLOBALS['argv'] = [
+            'diffFilter',
+            '--phpcs',
+            '--report=json',
+            __DIR__ . '/fixtures/DocBlocks.txt',
+            __DIR__ . '/fixtures/DocBlocksNotFound.json'
+        ];
+
+        try {
+            ob_start();
+            require(__DIR__ . "/../src/Runners/generic.php");
+        } catch (Exception $exception) {
+            var_dump($exception);
+            $output = ob_get_clean();
+            $this->assertContains("Can't find file", $output);
 
             return true;
         }
