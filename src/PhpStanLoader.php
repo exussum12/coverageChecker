@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker;
 
 use ReflectionFunction;
+use ReflectionFunctionAbstract;
 use ReflectionMethod;
 use Reflector;
 
@@ -38,7 +39,7 @@ class PhpStanLoader implements FileChecker
         $filename = '';
         $lineNumber = 0;
         while (($line = fgets($this->file)) !== false) {
-            $filename = $this->checkForFileName($line, $filename);
+            $filename = $this->checkForFilename($line, $filename);
             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
                 $error = $this->getMessage($line);
                 if ($this->isExtendedMessage($line)) {
@@ -154,9 +155,9 @@ class PhpStanLoader implements FileChecker
     }
 
     /**
-     * @param $filename
-     * @param $lineNumber
-     * @param $error
+     * @param string $filename
+     * @param int $lineNumber
+     * @param string $error
      */
     protected function addError($filename, $lineNumber, $error)
     {
@@ -167,8 +168,8 @@ class PhpStanLoader implements FileChecker
     }
 
     /**
-     * @param $matches
-     * @return Reflector
+     * @param array $matches
+     * @return ReflectionFunctionAbstract
      */
     protected function getReflector($matches)
     {

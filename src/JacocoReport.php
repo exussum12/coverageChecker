@@ -38,8 +38,8 @@ class JacocoReport extends CloverLoader
     }
 
     /**
-     * @param $reader
-     * @param $currentFile
+     * @param XMLReader $reader
+     * @param string $currentFile
      */
     protected function addLine($reader, $currentFile)
     {

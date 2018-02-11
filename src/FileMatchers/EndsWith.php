@@ -27,8 +27,8 @@ class EndsWith implements FileMatcher
 
     /**
      * Find if two strings end in the same way
-     * @param $haystack
-     * @param $needle
+     * @param string $haystack
+     * @param string $needle
      * @return bool
      */
     protected function fileEndsWith($haystack, $needle)

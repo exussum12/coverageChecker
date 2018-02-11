@@ -55,7 +55,7 @@ class ArgParser
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return string
      */
     protected function getAdjustedArg($name)
