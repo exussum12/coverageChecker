@@ -89,8 +89,8 @@ class CloverLoader implements FileChecker
     }
 
     /**
-     * @param $reader
-     * @param $currentFile
+     * @param XMLReader $reader
+     * @param string $currentFile
      */
     protected function addLine($reader, $currentFile)
     {
@@ -102,6 +102,10 @@ class CloverLoader implements FileChecker
             = $covered ?: "No test coverage";
     }
 
+    /**
+     * @param XMLReader $reader
+     * @param string $currentFile
+     */
     protected function handleStatement($reader, $currentFile)
     {
         if ((

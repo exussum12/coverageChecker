@@ -15,7 +15,7 @@ use stdClass;
 class PhpCsLoader implements FileChecker
 {
     /**
-     * @var string
+     * @var stdClass
      */
     protected $json;
     /**

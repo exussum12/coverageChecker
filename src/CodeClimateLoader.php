@@ -9,7 +9,7 @@ namespace exussum12\CoverageChecker;
 class CodeClimateLoader implements FileChecker
 {
     /**
-     * @var string
+     * @var array
      */
     protected $file;
 

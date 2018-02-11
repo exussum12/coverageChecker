@@ -16,8 +16,8 @@ interface FileChecker
      * Method to determine if the line is valid in the context
      * returning null does not include the line in the stats
      * Returns an array containing errors on a certain line - empty array means no errors
-     * @param $file
-     * @param $lineNumber
+     * @param string $file
+     * @param int $lineNumber
      * @return array|null
      */
     public function getErrorsOnLine($file, $lineNumber);

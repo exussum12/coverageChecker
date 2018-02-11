@@ -1,5 +1,5 @@
 <?php
-namespace exussum12\coverageChecker;
+namespace exussum12\CoverageChecker;
 
 use Exception;
 
