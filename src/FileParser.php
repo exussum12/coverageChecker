@@ -40,7 +40,7 @@ class FileParser
     protected function parse(Parser $parser)
     {
         $ast = $parser->parse($this->sourceCode);
-        if(!is_array($ast)) {
+        if (!is_array($ast)) {
             return;
         }
 
