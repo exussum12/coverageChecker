@@ -109,15 +109,7 @@ class PhpCsLoader implements FileChecker
              $errors = array_merge($errors, $this->invalidLines[$file][$lineNumber]);
         }
 
-        if (!empty($this->invalidRanges[$file])) {
-            foreach ($this->invalidRanges[$file] as $invalidRange) {
-                $inRange = $lineNumber >= $invalidRange['from'] &&
-                    $lineNumber <= $invalidRange['to'];
-                if ($inRange) {
-                    $errors[] = $invalidRange['message'];
-                }
-            }
-        }
+        $errors = array_merge($errors, $this->getRangeErrors($file, $lineNumber));
 
         return $errors;
     }
@@ -131,6 +123,7 @@ class PhpCsLoader implements FileChecker
         if (!in_array($message->type, $this->failOnTypes)) {
             return;
         }
+
         $line = $message->line;
 
         if ($error = $this->messageStartsWith($message->source, $this->lookupErrorPrefix)) {
@@ -232,5 +225,27 @@ class PhpCsLoader implements FileChecker
         }
 
         return $fileParser->getFunctionLimits();
+    }
+
+    /**
+     * @param string $file
+     * @param int $lineNumber
+     * @return array errors on the line
+     */
+    protected function getRangeErrors($file, $lineNumber)
+    {
+        $errors = [];
+
+        if (!empty($this->invalidRanges[$file])) {
+            foreach ($this->invalidRanges[$file] as $invalidRange) {
+                $inRange = $lineNumber >= $invalidRange['from'] &&
+                    $lineNumber <= $invalidRange['to'];
+                if ($inRange) {
+                    $errors[] = $invalidRange['message'];
+                }
+            }
+        }
+
+        return $errors;
     }
 }

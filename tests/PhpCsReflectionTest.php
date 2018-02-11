@@ -56,7 +56,6 @@ class PhpCsReflectionTest extends TestCase
             ob_start();
             require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $exception) {
-            var_dump($exception);
             $output = ob_get_clean();
             $this->assertContains("Can't find file", $output);
 
