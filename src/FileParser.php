@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker;
 
+use PhpParser\Error;
 use PhpParser\Node;
 use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassLike;
@@ -39,8 +40,9 @@ class FileParser
 
     protected function parse(Parser $parser)
     {
-        $ast = $parser->parse($this->sourceCode);
-        if (!is_array($ast)) {
+        try {
+            $ast = $parser->parse($this->sourceCode);
+        } catch (Error $exception) {
             return;
         }
 
