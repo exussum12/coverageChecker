@@ -2,6 +2,9 @@
 namespace exussum12\CoverageChecker;
 
 use PhpParser\Node;
+use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\ClassLike;
+use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Parser;
 use PhpParser\ParserFactory;
 
@@ -37,6 +40,10 @@ class FileParser
     protected function parse(Parser $parser)
     {
         $ast = $parser->parse($this->sourceCode);
+        if(!is_array($ast)) {
+            return;
+        }
+
         foreach ($ast as $node) {
             $this->handleNode($node);
         }
@@ -63,7 +70,7 @@ class FileParser
         $this->functions[] = $classLimits;
     }
 
-    protected function handleClass(Node $node)
+    protected function handleClass(ClassLike $node)
     {
         $this->addClass($this->getCodeLimits($node));
 
@@ -72,12 +79,12 @@ class FileParser
         }
     }
 
-    protected function handleFunction(Node $node)
+    protected function handleFunction(FunctionLike $node)
     {
         $this->addFunction($this->getCodeLimits($node));
     }
 
-    private function handleNamespace(Node $node)
+    private function handleNamespace(Namespace_ $node)
     {
         foreach ($node->stmts as $part) {
             $this->handleNode($part);

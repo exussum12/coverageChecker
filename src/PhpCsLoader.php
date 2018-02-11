@@ -204,6 +204,11 @@ class PhpCsLoader implements FileChecker
             'only reports errors as violations';
     }
 
+    /**
+     * @param string $file
+     * @param CodeLimits[] $lookup
+     * @param stdClass $message
+     */
     protected function addRangeError($file, $lookup, $message)
     {
         $line = $message->line;
@@ -218,6 +223,11 @@ class PhpCsLoader implements FileChecker
         }
     }
 
+    /**
+     * @param string $error
+     * @param FileParser $fileParser
+     * @return mixed
+     */
     protected function getMessageRanges($error, $fileParser)
     {
         if ($error == 'Squiz.Commenting.ClassComment') {
