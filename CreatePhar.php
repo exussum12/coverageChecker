@@ -12,7 +12,7 @@ $phar = new Phar($pharFile, 0, $pharName);
 $phar->addFile('autoload.php');
 $phar->addFile('bin/diffFilter');
 
-$code = realpath(__DIR__.'/src');
+$code = realpath(__DIR__ . '/src');
 $codeLength = strlen($code);
 $directory = new RecursiveDirectoryIterator(
     $code,

@@ -1,0 +1,26 @@
+commit 64f9e39f7eadc2d1f13157c620dd8ac02e18431a
+Author: Scott Dutton <scott@exussum.co.uk>
+Date:   Wed Jan 4 07:58:36 2017 +0000
+
+    Test editing function
+
+diff --git a/DocBlocks.php b/DocBlocks.php
+new file mode 100644
+index 0000000..102e3a3
+--- /dev/null
++++ b/DocBlocks.php
+@@ -0,0 +1,3 @@
++<?php
++namespace exussum12\coverageChecker\tests\fixtures;
++
++class DocBlocks
++{
++    /**
++     */
++    public function testFunction (
++        $param1,
++        $param2
++    ) {
++
++    }
++}

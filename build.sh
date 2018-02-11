@@ -7,11 +7,11 @@ git log origin/master... | grep -q SKIP_BUILD && exit 0
 
 composer install --dev
 git diff $(git merge-base origin/master HEAD) > diff.txt
-./vendor/bin/phpcs --standard=psr2 src
-./vendor/bin/phpcs --standard=psr2 --ignore=bootstrap.php,fixtures/* tests
+phpcs --standard=psr2 src
+phpcs --standard=psr2 --ignore=bootstrap.php,fixtures/* tests
 
-./vendor/bin/phpmd src xml cleancode,codesize,controversial,unusedcode
-./vendor/bin/phpmd tests xml cleancode,codesize,controversial,unusedcode
+phpmd src text cleancode,codesize,controversial,unusedcode
+phpmd tests text cleancode,codesize,controversial,unusedcode --exclude fixtures
 
 ./vendor/bin/phpunit
 
