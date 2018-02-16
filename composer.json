@@ -19,6 +19,7 @@
     },
     "bin": ["bin/phpunitDiffFilter","bin/phpcsDiffFilter", "bin/phpmdDiffFilter", "bin/diffFilter"],
     "require": {
+        "php": ">=5.5",
         "nikic/php-parser": "^3.1"
     }
 }
