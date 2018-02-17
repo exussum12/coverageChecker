@@ -12,28 +12,42 @@ $phar = new Phar($pharFile, 0, $pharName);
 $phar->addFile('autoload.php');
 $phar->addFile('bin/diffFilter');
 
-$code = realpath(__DIR__ . '/src');
-$codeLength = strlen($code);
-$directory = new RecursiveDirectoryIterator(
-    $code,
-    RecursiveDirectoryIterator::FOLLOW_SYMLINKS
-);
-$iterator = new RecursiveIteratorIterator(
-    $directory,
-    0,
-    RecursiveIteratorIterator::CATCH_GET_CHILD
-);
 
-foreach ($iterator as $file) {
-    $fullPath = $file->getPathname();
-    $path = 'src' . substr($fullPath, $codeLength);
+$dirs = [
+    'src',
+    'vendor',
+];
 
-    $phar->addFile($path);
+foreach($dirs as $dir) {
+    addDir($dir, $phar);
 }
 
 $phar->setStub(
     "#!/usr/bin/env php
     <?php
-    require 'src/Runners/generic.php';
+    require 'phar://$pharName/src/Runners/generic.php';
     __HALT_COMPILER();"
 );
+
+function addDir($dir, $phar)
+{
+    $code = realpath(__DIR__ . "/$dir/");
+    $codeLength = strlen($code);
+    $directory = new RecursiveDirectoryIterator(
+        $code,
+        RecursiveDirectoryIterator::FOLLOW_SYMLINKS
+    );
+    $iterator = new RecursiveIteratorIterator(
+        $directory,
+        0,
+        RecursiveIteratorIterator::CATCH_GET_CHILD
+    );
+
+    foreach ($iterator as $file) {
+        $fullPath = $file->getPathname();
+        $path = $dir . substr($fullPath, $codeLength);
+        if (is_file($path)) {
+            $phar->addFile($path);
+        }
+    }
+}
