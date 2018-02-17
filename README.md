@@ -20,8 +20,13 @@ With composer simply
     
 then call the script you need
 
+## Using Phar
+Phar is a packaged format which should be a single download. The latest Phar can be found [Here](https://github.com/exussum12/coverageChecker/releases).
+
+After downloading run `chmod +x diffFilter.phar` and then call as `./diffFilter.phar` followed by the normal options
+
 ## Manually
-Clone this repository somewhere your your build plan can be accessed, composer install is prefered but there is a non composer class loader which will be used if composer is not installed.
+Clone this repository somewhere your your build plan can be accessed, composer install is prefered but there is a non composer class loader which will be used if composer is not installed. If composer is not used some PHP specific features will not work as expected.
 Then call the script you need
 
 
