@@ -7,8 +7,11 @@ use exussum12\CoverageChecker\Outputs\Text;
 function findAutoLoader()
 {
     $locations = [
+        // Vendor directory locally
         __DIR__ . '/../vendor/autoload.php',
+        // Vendor directory when installed with composer
         __DIR__ . '/../../../vendor/autoload.php',
+        // Local install (without composer)
         __DIR__ . '/../autoload.php'
     ];
 

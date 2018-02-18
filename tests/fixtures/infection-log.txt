@@ -1,0 +1,264 @@
+Escaped mutants:
+================
+
+
+1) /home/scott/code/coverageChecker/src/JacocoReport.php:56    [M] ProtectedVisibility
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.ea50fd0df1a734c3fc37c08bb5682923.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+     }
+-    protected function findFile($reader, $currentNamespace, $currentFile)
++    private function findFile($reader, $currentNamespace, $currentFile)
+     {
+         if ($reader->name === "sourcefile" && $reader->nodeType == XMLReader::ELEMENT) {
+             $currentFile = $currentNamespace . '/' . $reader->getAttribute('name');
+             $this->coveredLines[$currentFile] = [];
+         }
+         return $currentFile;
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.ea50fd0df1a734c3fc37c08bb5682923.infection.xml
+
+.                                                                   1 / 1 (100%)
+
+Time: 20 ms, Memory: 4.00MB
+
+OK (1 test, 4 assertions)
+
+
+2) /home/scott/code/coverageChecker/src/JacocoReport.php:69    [M] ProtectedVisibility
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.042f312db8cfcb1766330b0e7e22dd6c.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+     }
+-    protected function findNamespace($reader, $currentNamespace)
++    private function findNamespace($reader, $currentNamespace)
+     {
+         if ($reader->name === "package" && $reader->nodeType == XMLReader::ELEMENT) {
+             $currentNamespace = $reader->getAttribute('name');
+         }
+         return $currentNamespace;
+     }
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.042f312db8cfcb1766330b0e7e22dd6c.infection.xml
+
+.                                                                   1 / 1 (100%)
+
+Time: 20 ms, Memory: 4.00MB
+
+OK (1 test, 4 assertions)
+
+
+Timeout mutants:
+================
+
+
+1) /home/scott/code/coverageChecker/src/PhpStanLoader.php:41    [M] FalseValue
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.1dfadbb2193fe23b1b4174dadea60c3f.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+         $lineNumber = 0;
+-        while (($line = fgets($this->file)) !== false) {
++        while (($line = fgets($this->file)) !== true) {
+             $filename = $this->checkForFilename($line, $filename);
+             if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
+                 $error = $this->getMessage($line);
+                 if ($this->isExtendedMessage($line)) {
+                     $this->appendError($filename, $lineNumber, $error);
+                     continue;
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.1dfadbb2193fe23b1b4174dadea60c3f.infection.xml
+
+
+
+2) /home/scott/code/coverageChecker/src/PhpStanLoader.php:151    [M] Increment
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.e8d0c2f3b44b0c7793f5c57be7534386.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+                 while ($currentLine < $reflection->getEndLine()) {
+-                    $this->addError($filename, $currentLine++, $error);
++                    $this->addError($filename, $currentLine--, $error);
+                 }
+             }
+         }
+     }
+     /**
+      * @param string $filename
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.e8d0c2f3b44b0c7793f5c57be7534386.infection.xml
+
+.
+
+Killed mutants:
+===============
+
+
+1) /home/scott/code/coverageChecker/src/JacocoReport.php:32    [M] FunctionCall
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.c8ff3ac554d6e0658112acb7d1216f98.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+         }
+-        return array_keys($this->coveredLines);
++        array_keys($this->coveredLines);
++        return null;
+     }
+     public static function getDescription()
+     {
+         return 'Parses xml coverage report produced by Jacoco';
+     }
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.c8ff3ac554d6e0658112acb7d1216f98.infection.xml
+
+F                                                                   1 / 1 (100%)
+
+Time: 27 ms, Memory: 4.00MB
+
+There was 1 failure:
+
+1) exussum12\CoverageChecker\tests\JacocoLoaderTest::testLoadXML
+null does not match expected type "array".
+
+/home/scott/code/coverageChecker/tests/JacocoLoaderTest.php:20
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
+
+
+2) /home/scott/code/coverageChecker/src/JacocoReport.php:47    [M] Identical
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.ad7ae93ee5df7e4acbd103268585bd0b.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+     {
+-        if ($reader->name === "line") {
++        if ($reader->name !== "line") {
+             $this->coveredLines[$currentFile][$reader->getAttribute('nr')] = $reader->getAttribute("mi") == 0;
+         }
+     }
+     protected function findFile($reader, $currentNamespace, $currentFile)
+     {
+         if ($reader->name === "sourcefile" && $reader->nodeType == XMLReader::ELEMENT) {
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.ad7ae93ee5df7e4acbd103268585bd0b.infection.xml
+
+F                                                                   1 / 1 (100%)
+
+Time: 22 ms, Memory: 4.00MB
+
+There was 1 failure:
+
+1) exussum12\CoverageChecker\tests\JacocoLoaderTest::testLoadXML
+Failed asserting that two arrays are equal.
+--- Expected
++++ Actual
+@@ @@
+ Array (
+-    0 => 'org/jacoco/examples/maven/java/HelloWorld.java'
+-    1 => 'org/jacoco/examples/maven/java/New/HelloWorld.java'
++    0 => ''
++    1 => 'org/jacoco/examples/maven/java/HelloWorld.java'
++    2 => 'org/jacoco/examples/maven/jav...d.java'
+ )
+
+/home/scott/code/coverageChecker/tests/JacocoLoaderTest.php:20
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
+
+
+Errors mutants:
+===============
+
+
+1) /home/scott/code/coverageChecker/src/JacocoReport.php:16    [M] PublicVisibility
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.fc9f56895a640439f4943c7796c23942.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+      */
+-    public function parseLines()
++    protected function parseLines()
+     {
+         $this->coveredLines = [];
+         $reader = new XMLReader();
+         $reader->open($this->file);
+         $currentNamespace = '';
+         $currentFile = '';
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.fc9f56895a640439f4943c7796c23942.infection.xml
+
+
+
+2) /home/scott/code/coverageChecker/src/JacocoReport.php:35    [M] PublicVisibility
+exec /usr/bin/php7.1 -c /tmp/infectionOf50pF /home/scott/code/coverageChecker/vendor/phpunit/phpunit/phpunit --configuration /tmp/infection/phpunitConfiguration.2b1a00a97a71f451e77dd977074e693e.infection.xml --stop-on-failure 
+--- Original
++++ New
+@@ @@
+     }
+-    public static function getDescription()
++    protected static function getDescription()
+     {
+         return 'Parses xml coverage report produced by Jacoco';
+     }
+     /**
+      * @param XMLReader $reader
+      * @param string $currentFile
+PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 7.1.11-1+ubuntu17.04.1+deb.sury.org+1
+Configuration: /tmp/infection/phpunitConfiguration.2b1a00a97a71f451e77dd977074e693e.infection.xml
+
+.
+
+Not covered mutants:
+====================
+
+
+1) /home/scott/code/coverageChecker/src/PhpStanLoader.php:118    [M] ProtectedVisibility
+
+--- Original
++++ New
+@@ @@
+     }
+-    protected function trimLines()
++    private function trimLines()
+     {
+         array_walk_recursive($this->invalidLines, function (&$item) {
+             if (is_string($item)) {
+                 $item = trim($item);
+             }
+         });
+
+2) /home/scott/code/coverageChecker/src/DiffFilter.php:21    [M] OneZeroInteger
+
+--- Original
++++ New
+@@ @@
+     protected $modifiedSuites = null;
+-    public function __construct($old, $diff, $fuzziness = 0)
++    public function __construct($old, $diff, $fuzziness = 1)
+     {
+         try {
+             $diff = new DiffFileLoaderOldVersion($diff);
+             $matcher = new FileMatchers\EndsWith();
+             $coverage = new PhpunitFilter($diff, $matcher, $old);
+             $this->modifiedTests = $coverage->getTestsForRunning($fuzziness);
+
