@@ -32,6 +32,7 @@ $checkerArray = [
     'clover' => 'CloverLoader',
     'codeclimate' => 'CodeClimateLoader',
     'humbug' => 'HumbugLoader',
+    'infecton' => 'InfectionLoader',
     'jacoco' => 'JacocoReport',
     'phan' => 'PhanTextLoader',
     'phanJson' => 'PhanJsonLoader',
