@@ -80,7 +80,7 @@ abstract class Generic implements FileChecker
     private function addError($line)
     {
         $matches = [];
-        if(preg_match($this->lineMatch, $line, $matches)) {
+        if (preg_match($this->lineMatch, $line, $matches)) {
             $this->errors
                 [$matches['fileName']]
                 [$matches['lineNumber']][] = trim($matches['message']);
