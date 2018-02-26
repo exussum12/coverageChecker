@@ -6,7 +6,7 @@ namespace exussum12\CoverageChecker;
  * Used for parsing reports in Pylint format
  * @package exussum12\CoverageChecker
  */
-class PylintLoader extends Generic
+class PylintLoader extends Generic implements FileChecker
 {
     protected $lineMatch = '#\./(?P<fileName>.*?):(?P<lineNumber>[0-9]+): \[.*?\](?P<message>.*)#';
 

@@ -6,7 +6,7 @@ namespace exussum12\CoverageChecker;
  * Used for parsing output on a single line
  * @package exussum12\CoverageChecker
  */
-abstract class Generic implements FileChecker
+abstract class Generic
 {
     protected $lineMatch = '';
 
@@ -67,10 +67,6 @@ abstract class Generic implements FileChecker
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public static function getDescription();
 
     private function checkForFile($line)
     {
