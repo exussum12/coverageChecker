@@ -28,6 +28,7 @@ if ($autoload = $args->getArg('autoload')) {
 }
 
 $checkerArray = [
+    'buddy' => 'BuddyLoader',
     'checkstyle' => 'CheckstyleLoader',
     'clover' => 'CloverLoader',
     'codeclimate' => 'CodeClimateLoader',
