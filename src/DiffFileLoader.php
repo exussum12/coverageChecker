@@ -28,7 +28,7 @@ class DiffFileLoader
             !is_readable($this->fileLocation) &&
             strpos($this->fileLocation, "php://") !== 0
         )) {
-            throw new InvalidArgumentException("Can't read file");
+            throw new InvalidArgumentException("Can't read file", 1);
         }
 
         $handle = fopen($this->fileLocation, 'r');

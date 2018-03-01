@@ -22,6 +22,7 @@ class DiffFileLoaderTest extends TestCase
     public function testNonExistantFile()
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionCode(1);
         $this->getChangedLines('ufhbubfusdf');
     }
 
