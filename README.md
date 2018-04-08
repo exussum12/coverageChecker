@@ -60,22 +60,25 @@ A more in depth guide can be [found on the wiki](https://github.com/exussum12/co
 Below is a list of all tools and a breif description
 
 ```
---checkstyle    Parses a report in checkstyle format
---clover        Parses text output in clover (xml) format
---codeclimate   Parse codeclimate output
---jacoco        Parses xml coverage report produced by Jacoco
---phan          Parse the default phan(static analysis) output
---phanJson      Parses phan (static analysis) in json format
---phpcpd        Parses the text output from phpcpd (Copy Paste Detect)
---phpcs         Parses the json report format of phpcs, this mode only reports errors as violations
---phpcsStrict   Parses the json report format of phpcs, this mode only reporst errors and warnings as violations
---phpmd         Parses the xml report format of phpmd, this mode reports multi line violations once per diff, instead of on each line the violation occurs
---phpmdStrict   Parses the xml report format of phpmd, this mode reports multi line violations once per line they occur 
---phpmnd        Parses the text output of phpmnd (Magic Number Detection)
---phpstan       Parses the text output of phpstan
---phpunit       Parses text output in clover (xml) format generated with coverage-clover=file.xml
---pylint        Parses PyLint output
-
+--buddy		Parses buddy (magic number detection) output
+--checkstyle	Parses a report in checkstyle format
+--clover	Parses text output in clover (xml) format
+--codeclimate	Parse codeclimate output
+--humbug	Parses the json report format of humbug (mutation testing)
+--infecton	Parses the infection text log format
+--jacoco	Parses xml coverage report produced by Jacoco
+--phan		Parse the default phan(static analysis) output
+--phanJson	Parses phan (static analysis) in json format
+--phpcpd	Parses the text output from phpcpd (Copy Paste Detect)
+--phpcs		Parses the json report format of phpcs, this mode only reports errors as violations
+--phpcsStrict	Parses the json report format of phpcs, this mode reports errors and warnings as violations
+--phpmd		Parses the xml report format of phpmd, this mode reports multi line violations once per diff, instead of on each line
+		the violation occurs
+--phpmdStrict	Parses the xml report format of phpmd, this mode reports multi line violations once per line they occur 
+--phpmnd	Parses the text output of phpmnd (Magic Number Detection)
+--phpstan	Parses the text output of phpstan
+--phpunit	Parses text output in clover (xml) format generated with coverage-clover=file.xml
+--pylint	Parses PyLint output
 ```
 
 
