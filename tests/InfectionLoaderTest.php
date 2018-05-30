@@ -11,7 +11,8 @@ class InfectionLoaderTest extends TestCase
     {
 
         $infection = new InfectionLoader(__DIR__ . '/fixtures/infection-log.txt');
-        $infection->parseLines();
+        $files = $infection->parseLines();
+
         $file = '/home/scott/code/coverageChecker/src/DiffFilter.php';
 
         $this->assertFalse(
@@ -25,6 +26,11 @@ class InfectionLoaderTest extends TestCase
                 $file,
                 21
             )
+        );
+
+        $this->assertSame(
+            array_values($files),
+            $files
         );
     }
 
