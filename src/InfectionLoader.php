@@ -42,7 +42,7 @@ class InfectionLoader implements FileChecker
         // the last error in the file
         $this->addError();
 
-        return $this->errors;
+        return array_keys($this->errors);
     }
 
     /**
