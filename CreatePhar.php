@@ -25,6 +25,7 @@ foreach($dirs as $dir) {
 $phar->setStub(
     "#!/usr/bin/env php
     <?php
+    Phar::mapPhar('$pharName');
     require 'phar://$pharName/src/Runners/generic.php';
     __HALT_COMPILER();"
 );
