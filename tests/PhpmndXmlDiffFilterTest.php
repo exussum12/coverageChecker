@@ -6,12 +6,19 @@ use exussum12\CoverageChecker\PhpMndXmlLoader;
 
 class PhpmndXmlDiffFilterTest extends TestCase
 {
+    /** @var PhpMndXmlLoader */
+    private $mnd;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $file = __DIR__ . "/fixtures/phpmnd.xml";
+        $this->mnd = new PhpMndXmlLoader($file);
+    }
 
     public function testValidFiles()
     {
-        $file = __DIR__ . "/fixtures/phpmnd.xml";
-        $mnd = new PhpMndXmlLoader($file);
-        $files = $mnd->parseLines();
+        $files = $this->mnd->parseLines();
         $expected = [
             'bin/test/test.php',
             'bin/test/test2.php',
@@ -23,15 +30,18 @@ class PhpmndXmlDiffFilterTest extends TestCase
 
     public function testShowsErrorOnLine()
     {
-        $file = __DIR__ . "/fixtures/phpmnd.xml";
-        $mnd = new PhpMndXmlLoader($file);
-        $mnd->parseLines();
+        $this->mnd->parseLines();
 
         $this->assertNotEmpty(
-            $mnd->getErrorsOnLine('bin/test/test.php', 3)
+            $this->mnd->getErrorsOnLine('bin/test/test.php', 3)
         );
         $this->assertEmpty(
-            $mnd->getErrorsOnLine('bin/test/test.php', 1)
+            $this->mnd->getErrorsOnLine('bin/test/test.php', 1)
         );
+    }
+
+    public function testFileNotFound()
+    {
+        $this->assertTrue($this->mnd->handleNotFoundFile());
     }
 }
