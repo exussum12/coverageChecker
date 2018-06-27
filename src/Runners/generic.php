@@ -43,6 +43,7 @@ $checkerArray = [
     'phpmd' => 'PhpMdLoader',
     'phpmdStrict' => 'PhpMdLoaderStrict',
     'phpmnd' => 'PhpMndLoader',
+    'phpmndXml' => 'PhpMndXmlLoader',
     'phpstan' => 'PhpStanLoader',
     'phpunit' => 'PhpUnitLoader',
     'pylint' => 'PylintLoader',
