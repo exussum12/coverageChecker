@@ -12,6 +12,7 @@ global $argv;
 CoverageChecker\addExceptionHandler();
 CoverageChecker\findAutoLoader();
 $args = new CoverageChecker\ArgParser($argv);
+CoverageChecker\checkForVersion($args);
 CoverageChecker\checkCallIsCorrect($args);
 $minimumPercentCovered = CoverageChecker\getMinPercent($args->getArg(3));
 

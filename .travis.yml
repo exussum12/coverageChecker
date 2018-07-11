@@ -15,6 +15,7 @@ matrix:
     - php: hhvm
   allow_failures:
     - php: hhvm
+    - php: nightly
   fast_finish: true
 before_script:
   - composer global require squizlabs/php_codesniffer
