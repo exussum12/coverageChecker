@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker\Runners;
 
 use exussum12\CoverageChecker;
+use exussum12\CoverageChecker\Exceptions\ArgumentNotFound;
 use exussum12\CoverageChecker\Outputs\Json;
 use exussum12\CoverageChecker\Outputs\Phpcs;
 use exussum12\CoverageChecker\Outputs\Text;
@@ -13,7 +14,12 @@ CoverageChecker\addExceptionHandler();
 CoverageChecker\findAutoLoader();
 $args = new CoverageChecker\ArgParser($argv);
 CoverageChecker\checkCallIsCorrect($args);
-$minimumPercentCovered = CoverageChecker\getMinPercent($args->getArg(3));
+
+try {
+    $minimumPercentCovered = CoverageChecker\getMinPercent($args->getArg(3));
+} catch (ArgumentNotFound $exception) {
+    $minimumPercentCovered = 100;
+}
 
 $matcher = new CoverageChecker\FileMatchers\EndsWith();
 
@@ -21,31 +27,34 @@ $diff = new CoverageChecker\DiffFileLoader(
     CoverageChecker\adjustForStdIn($args->getArg(1))
 );
 
-if ($autoload = $args->getArg('autoload')) {
+try {
+    $autoload = $args->getArg('autoload');
     if (file_exists(($autoload))) {
         require_once $autoload;
     }
+} catch (ArgumentNotFound $exception) {
+    // do nothing, its not a required argument
 }
 
 $checkerArray = [
-    'buddy' => 'BuddyLoader',
-    'checkstyle' => 'CheckstyleLoader',
-    'clover' => 'CloverLoader',
-    'codeclimate' => 'CodeClimateLoader',
-    'humbug' => 'HumbugLoader',
-    'infecton' => 'InfectionLoader',
-    'jacoco' => 'JacocoReport',
-    'phan' => 'PhanTextLoader',
-    'phanJson' => 'PhanJsonLoader',
+    'buddy' => 'Buddy',
+    'checkstyle' => 'Checkstyle',
+    'clover' => 'Clover',
+    'codeclimate' => 'CodeClimate',
+    'humbug' => 'Humbug',
+    'infecton' => 'Infection',
+    'jacoco' => 'Jacoco',
+    'phan' => 'PhanText',
+    'phanJson' => 'PhanJson',
     'phpcpd' => 'Phpcpd',
-    'phpcs' => 'PhpCsLoader',
-    'phpcsStrict' => 'PhpCsLoaderStrict',
-    'phpmd' => 'PhpMdLoader',
-    'phpmdStrict' => 'PhpMdLoaderStrict',
-    'phpmnd' => 'PhpMndLoader',
-    'phpstan' => 'PhpStanLoader',
-    'phpunit' => 'PhpUnitLoader',
-    'pylint' => 'PylintLoader',
+    'phpcs' => 'PhpCs',
+    'phpcsStrict' => 'PhpCsStrict',
+    'phpmd' => 'PhpMd',
+    'phpmdStrict' => 'PhpMdStrict',
+    'phpmnd' => 'PhpMnd',
+    'phpstan' => 'PhpStan',
+    'phpunit' => 'PhpUnit',
+    'pylint' => 'Pylint',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(
@@ -59,11 +68,10 @@ $outputArray = [
     'json' => Json::class,
     'phpcs' => Phpcs::class,
 ];
-$report = 'text';
-$requestedReport = $args->getArg('report');
-
-if (isset($outputArray[$requestedReport])) {
-    $report = $requestedReport;
+try {
+    $report = $args->getArg('report');
+} catch (ArgumentNotFound $exception) {
+    $report = 'text';
 }
 
 $report = new $outputArray[$report];

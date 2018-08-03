@@ -19,12 +19,7 @@ class FileMapper implements FileMatcher
      */
     protected $newPath;
 
-    /**
-     * FileMapper constructor.
-     * @param string $originalPath
-     * @param string $newPath
-     */
-    public function __construct($originalPath, $newPath)
+    public function __construct(string $originalPath, string $newPath)
     {
         $this->originalPath = $originalPath;
         $this->newPath = $newPath;
@@ -33,7 +28,7 @@ class FileMapper implements FileMatcher
     /**
      * {@inheritdoc}
      */
-    public function match($needle, array $haystack)
+    public function match(string $needle, array $haystack): string
     {
         foreach ($haystack as $file) {
             if ($this->checkMapping($file, $needle)) {
@@ -44,12 +39,7 @@ class FileMapper implements FileMatcher
         throw new FileNotFound();
     }
 
-    /**
-     * @param string $file
-     * @param string $needle
-     * @return bool
-     */
-    private function checkMapping($file, $needle)
+    private function checkMapping(string $file, string $needle): bool
     {
         return $file == str_replace(
             $this->originalPath,

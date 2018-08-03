@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\CoverageCheck;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
-use exussum12\CoverageChecker\CloverLoader;
+use exussum12\CoverageChecker\Loaders\Clover;
 
 class CoverageCheckTest extends TestCase
 {
@@ -20,12 +20,11 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(CloverLoader::class);
+        $xmlReport = $this->createMock(Clover::class);
         $xmlReport->method('parseLines')
             ->willReturn([
                 '/full/path/to/testFile1.php',
                 '/full/path/to/testFile2.php',
-
             ]);
 
         $xmlReport->method('getErrorsOnLine')
@@ -77,7 +76,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(CloverLoader::class);
+        $xmlReport = $this->createMock(Clover::class);
         $xmlReport->method('parseLines')
             ->willReturn([
                 '/full/path/to/testFile1.php',
@@ -132,11 +131,10 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(CloverLoader::class);
+        $xmlReport = $this->createMock(Clover::class);
         $xmlReport->method('parseLines')
             ->willReturn([
                 '/full/path/to/testFile1.php',
-
             ]);
 
         $xmlReport->method('handleNotFoundFile')
@@ -188,7 +186,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(CloverLoader::class);
+        $xmlReport = $this->createMock(Clover::class);
         $xmlReport->method('parseLines')
             ->willReturn([
                 '/full/path/to/testFile1.php',
@@ -245,7 +243,7 @@ class CoverageCheckTest extends TestCase
 
             ]);
 
-        $xmlReport = $this->createMock(CloverLoader::class);
+        $xmlReport = $this->createMock(Clover::class);
         $xmlReport->method('parseLines')
             ->willReturn([
                 '/full/path/to/testFile1.php'

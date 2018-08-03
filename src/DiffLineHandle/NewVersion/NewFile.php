@@ -5,8 +5,7 @@ use exussum12\CoverageChecker\DiffLineHandle;
 
 class NewFile extends DiffLineHandle
 {
-
-    public function handle($line)
+    public function handle(string $line)
     {
         $parsedLine = sscanf($line, '+++ %1s/%s');
 
@@ -20,7 +19,7 @@ class NewFile extends DiffLineHandle
         }
     }
 
-    public function isValid($line)
+    public function isValid(string $line): bool
     {
         return $line[0] == '+' && $line[1] == '+';
     }

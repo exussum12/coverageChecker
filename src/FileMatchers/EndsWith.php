@@ -14,7 +14,7 @@ class EndsWith implements FileMatcher
     /**
      * {@inheritdoc}
      */
-    public function match($needle, array $haystack)
+    public function match(string $needle, array $haystack): string
     {
         foreach ($haystack as $file) {
             if ($this->fileEndsWith($file, $needle)) {
@@ -27,11 +27,8 @@ class EndsWith implements FileMatcher
 
     /**
      * Find if two strings end in the same way
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
-    protected function fileEndsWith($haystack, $needle)
+    protected function fileEndsWith(string $haystack, string $needle): bool
     {
         $length = strlen($needle);
         if (strlen($haystack) < $length) {

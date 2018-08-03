@@ -6,18 +6,18 @@ class CodeLimits
     protected $startLine;
     protected $endLine;
 
-    public function __construct($startLine, $endLine)
+    public function __construct(int $startLine, int $endLine)
     {
         $this->startLine = $startLine;
         $this->endLine = $endLine;
     }
 
-    public function getStartLine()
+    public function getStartLine(): int
     {
         return $this->startLine;
     }
 
-    public function getEndLine()
+    public function getEndLine(): int
     {
         return $this->endLine;
     }

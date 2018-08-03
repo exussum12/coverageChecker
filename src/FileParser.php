@@ -51,7 +51,7 @@ class FileParser
         }
     }
 
-    protected function getCodeLimits(Node $node)
+    protected function getCodeLimits(Node $node): CodeLimits
     {
         $startLine = $node->getAttribute('startLine');
         $endLine = $node->getAttribute('endLine');

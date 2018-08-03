@@ -10,7 +10,13 @@ abstract class DiffLineHandle
         $this->diffFileState = $diff;
     }
 
-    abstract public function handle($line);
+    /**
+     * If the line is valid, this function will run on that file
+     */
+    abstract public function handle(string $line);
 
-    abstract public function isValid($line);
+    /**
+     * Check if the line is valid in the current context
+     */
+    abstract public function isValid(string $line);
 }
