@@ -13,6 +13,7 @@ global $argv;
 CoverageChecker\addExceptionHandler();
 CoverageChecker\findAutoLoader();
 $args = new CoverageChecker\ArgParser($argv);
+CoverageChecker\checkForVersion($args);
 CoverageChecker\checkCallIsCorrect($args);
 
 try {
@@ -52,6 +53,7 @@ $checkerArray = [
     'phpmd' => 'PhpMd',
     'phpmdStrict' => 'PhpMdStrict',
     'phpmnd' => 'PhpMnd',
+    'phpmndXml' => 'PhpMndXml',
     'phpstan' => 'PhpStan',
     'phpunit' => 'PhpUnit',
     'pylint' => 'Pylint',

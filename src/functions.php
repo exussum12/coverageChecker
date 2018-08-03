@@ -180,3 +180,14 @@ function adjustArgument($argument, $tabWidth)
     }
     return $argument;
 }
+
+function checkForVersion(ArgParser $args)
+{
+    try {
+        $args->getArg("v");
+    } catch (ArgumentNotFound $e) {
+        return;
+    }
+
+    throw new Exception('Version: 0.10.3-dev', 0);
+}
