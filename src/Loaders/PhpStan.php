@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\Loaders;
 
+use Exception;
 use exussum12\CoverageChecker\FileChecker;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
@@ -144,12 +145,16 @@ class PhpStan implements FileChecker
                 $line
             );
 
-            $reflection = $this->getReflector($matches);
-            if ($reflection && ($filename = $reflection->getFileName())) {
+            try {
+                $reflection = $this->getReflector($matches);
+                $filename = $reflection->getFileName();
                 $currentLine = $reflection->getStartLine();
+
                 while ($currentLine < $reflection->getEndLine()) {
                     $this->addError($filename, $currentLine++, $error);
                 }
+            } catch (Exception $exception) {
+                // can't find any more info about this method, so just carry on
             }
         }
     }
@@ -167,7 +172,7 @@ class PhpStan implements FileChecker
         $this->invalidLines[$filename][$lineNumber][] = $error;
     }
 
-    protected function getReflector(array $matches):  ReflectionFunctionAbstract
+    protected function getReflector(array $matches): ReflectionFunctionAbstract
     {
         if ($matches['class']) {
             return $this->getClassReflector($matches);
@@ -176,17 +181,17 @@ class PhpStan implements FileChecker
         return $this->getFunctionReflector($matches);
     }
 
-    private function appendError($filename, $lineNumber, $error)
+    private function appendError(string $filename, int $lineNumber, string $error)
     {
         end($this->invalidLines[$filename][$lineNumber]);
         $key = key($this->invalidLines[$filename][$lineNumber]);
         $this->invalidLines[$filename][$lineNumber][$key] .= ' ' . $error;
     }
 
-    protected function getClassReflector(array $matches)
+    protected function getClassReflector(array $matches): ReflectionMethod
     {
         if (!method_exists($matches['class'], $matches['function'])) {
-            return false;
+            throw new Exception("Missing class function");
         }
         return new ReflectionMethod(
             $matches['class'],
@@ -194,13 +199,10 @@ class PhpStan implements FileChecker
         );
     }
 
-    /**
-     * @return bool|ReflectionFunction
-     */
-    protected function getFunctionReflector(array $matches)
+    protected function getFunctionReflector(array $matches): ReflectionFunction
     {
         if (!function_exists($matches['function'])) {
-            return false;
+            throw new Exception("Missing function reflector");
         }
         return new ReflectionFunction(
             $matches['function']
