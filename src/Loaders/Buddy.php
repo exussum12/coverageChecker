@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker\Loaders;
 
 use exussum12\CoverageChecker\FileChecker;
+
 /**
  * Class Buddy
  * Used for parsing magic number reports from buddy

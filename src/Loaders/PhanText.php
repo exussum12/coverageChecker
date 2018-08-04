@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker\Loaders;
 
 use exussum12\CoverageChecker\FileChecker;
+
 /**
  * Class PhanText
  * Used for parsing phan text output

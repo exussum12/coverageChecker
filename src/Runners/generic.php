@@ -17,7 +17,7 @@ CoverageChecker\checkForVersion($args);
 CoverageChecker\checkCallIsCorrect($args);
 
 try {
-    $minimumPercentCovered = CoverageChecker\getMinPercent($args->getArg(3));
+    $minimumPercentCovered = CoverageChecker\getMinPercent($args->getArg('3'));
 } catch (ArgumentNotFound $exception) {
     $minimumPercentCovered = 100;
 }
@@ -25,7 +25,7 @@ try {
 $matcher = new CoverageChecker\FileMatchers\EndsWith();
 
 $diff = new CoverageChecker\DiffFileLoader(
-    CoverageChecker\adjustForStdIn($args->getArg(1))
+    CoverageChecker\adjustForStdIn($args->getArg('1'))
 );
 
 try {
@@ -62,7 +62,7 @@ $checkerArray = [
 $fileCheck = CoverageChecker\getFileChecker(
     $args,
     $checkerArray,
-    CoverageChecker\adjustForStdIn($args->getArg(2))
+    CoverageChecker\adjustForStdIn($args->getArg('2'))
 );
 
 $outputArray = [

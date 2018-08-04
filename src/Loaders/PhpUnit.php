@@ -1,7 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker\Loaders;
 
-
 /**
  * Class PhpUnit
  * Used for reading in a phpunit clover XML file

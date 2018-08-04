@@ -93,10 +93,7 @@ class FileParser
         }
     }
 
-    /**
-     * @param $node
-     */
-    protected function handleNode($node)
+    protected function handleNode(Node $node)
     {
         $type = $node->getType();
         if ($type == 'Stmt_Namespace') {

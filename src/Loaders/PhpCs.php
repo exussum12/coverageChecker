@@ -138,11 +138,9 @@ class PhpCs implements FileChecker
     }
 
     /**
-     * @param $message
-     * @param array $list
      * @return bool|string
      */
-    protected function messageStartsWith($message, array $list)
+    protected function messageStartsWith(string $message, array $list)
     {
         foreach ($list as $item) {
             if (strpos($message, $item) === 0) {
@@ -154,10 +152,6 @@ class PhpCs implements FileChecker
 
     protected function handleLookupError($file, $message, $error)
     {
-        if ($file == '') {
-            return;
-        }
-
         if ($error == 'Squiz.Commenting.FileComment') {
             $this->invalidFiles[$file][] = $message->message;
         }
@@ -167,7 +161,6 @@ class PhpCs implements FileChecker
 
             $this->addRangeError($file, $lookup, $message);
         } catch (FileNotFound $exception) {
-            var_dump($file);
             error_log("Can't find file, may have missed an error");
         }
     }

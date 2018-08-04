@@ -40,8 +40,8 @@ function findAutoLoader()
 function checkCallIsCorrect(ArgParser $args)
 {
     try {
-        $args->getArg(1);
-        $args->getArg(2);
+        $args->getArg('1');
+        $args->getArg('2');
     } catch (ArgumentNotFound $exception) {
         throw new Exception(
             "Missing arguments, please call with diff and check file\n" .

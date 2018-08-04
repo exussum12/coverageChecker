@@ -1,7 +1,6 @@
 <?php
 namespace exussum12\CoverageChecker\Loaders;
 
-
 /**
  * Class PhpMdLoaderStrict
  * Used for parsing phpmd xml output

@@ -96,13 +96,13 @@ class PhpStan implements FileChecker
         $matches = [];
         if (!preg_match($this->lineRegex, $line, $matches)) {
             if (preg_match('#^\s{3,}#', $line)) {
-                return (int) $currentLineNumber;
+                return $currentLineNumber;
             }
 
             return false;
         }
 
-        return $matches['lineNumber'];
+        return (int) $matches['lineNumber'];
     }
 
     protected function getMessage($line)
@@ -167,11 +167,7 @@ class PhpStan implements FileChecker
         $this->invalidLines[$filename][$lineNumber][] = $error;
     }
 
-    /**
-     * @param array $matches
-     * @return ReflectionFunctionAbstract
-     */
-    protected function getReflector($matches)
+    protected function getReflector(array $matches):  ReflectionFunctionAbstract
     {
         if ($matches['class']) {
             return $this->getClassReflector($matches);
@@ -187,11 +183,7 @@ class PhpStan implements FileChecker
         $this->invalidLines[$filename][$lineNumber][$key] .= ' ' . $error;
     }
 
-    /**
-     * @param $matches
-     * @return bool|ReflectionMethod
-     */
-    protected function getClassReflector($matches)
+    protected function getClassReflector(array $matches)
     {
         if (!method_exists($matches['class'], $matches['function'])) {
             return false;
@@ -203,10 +195,9 @@ class PhpStan implements FileChecker
     }
 
     /**
-     * @param $matches
      * @return bool|ReflectionFunction
      */
-    protected function getFunctionReflector($matches)
+    protected function getFunctionReflector(array $matches)
     {
         if (!function_exists($matches['function'])) {
             return false;

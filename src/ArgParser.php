@@ -18,6 +18,7 @@ class ArgParser
     public function getArg(string $name): string
     {
         if (is_numeric($name)) {
+            $name = (int) $name;
             return $this->numericArg($name);
         }
 
