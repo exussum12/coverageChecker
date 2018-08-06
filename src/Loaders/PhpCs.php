@@ -97,7 +97,7 @@ class PhpCs implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getErrorsOnLine(string $file, $lineNumber)
+    public function getErrorsOnLine(string $file, int $lineNumber)
     {
         $errors = [];
         if (!empty($this->invalidFiles[$file])) {

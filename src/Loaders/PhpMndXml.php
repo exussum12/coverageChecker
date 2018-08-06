@@ -69,7 +69,7 @@ class PhpMndXml implements FileChecker
     /**
      * @inheritdoc
      */
-    public function getErrorsOnLine($file, $lineNumber)
+    public function getErrorsOnLine(string $file, int $lineNumber)
     {
         $errors = [];
         if (isset($this->invalidLines[$file][$lineNumber])) {
