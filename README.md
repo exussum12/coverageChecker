@@ -26,7 +26,7 @@ Phar is a packaged format which should be a single download. The latest Phar can
 After downloading run `chmod +x diffFilter.phar` and then call as `./diffFilter.phar` followed by the normal options
 
 ## Manually
-Clone this repository somewhere your your build plan can be accessed, composer install is prefered but there is a non composer class loader which will be used if composer is not installed. If composer is not used some PHP specific features will not work as expected.
+Clone this repository somewhere your your build plan can be accessed, composer install is preferred but there is a non composer class loader which will be used if composer is not installed. If composer is not used some PHP specific features will not work as expected.
 Then call the script you need
 
 
@@ -38,7 +38,7 @@ First of all a diff is needed
      
 See [here](https://github.com/exussum12/coverageChecker/wiki/Generating-a-diff) for a more in depth examples of what diff you should generate
 
-Then the outut for the tool you wish to check (such as phpcs, PHPUnit, phpmd etc) for example
+Then the output for the tool you wish to check (such as phpcs, PHPUnit, phpmd etc) for example
 
      phpcs --standard=psr2 --report=json || true > phpcs.json
      
@@ -57,7 +57,7 @@ A more in depth guide can be [found on the wiki](https://github.com/exussum12/co
 
 # Full list of available diff filters
 
-Below is a list of all tools and a breif description
+Below is a list of all tools and a brief description
 
 ```
 --buddy		Parses buddy (magic number detection) output
