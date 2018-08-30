@@ -66,8 +66,7 @@ class PsalmLoader implements FileChecker
             if ((
                 $error['start'] <= $lineNumber
                 && $error['end'] >= $lineNumber
-            )
-            ) {
+            )) {
                 $errors[] = $error['error'];
                 unset($this->errorRanges[$file][$number]);
             }
@@ -78,7 +77,6 @@ class PsalmLoader implements FileChecker
 
     /**
      * @param XMLReader $reader
-     * @param string $currentFile
      */
     protected function parseItem(XMLReader $reader)
     {
