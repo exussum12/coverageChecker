@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <item>
+        <severity>info</severity>
+        <line_from>11</line_from>
+        <line_to>11</line_to>
+        <type>MissingPropertyType</type>
+        <message>Violation message</message>
+        <file_name>full/path/to/file/src/CoverageCheck.php</file_name>
+        <file_path>/full/path/to/file/src/CoverageCheck.php</file_path>
+        <snippet>    protected $foo;</snippet>
+        <selected_text>protected $foo;</selected_text>
+        <from>192</from>
+        <to>222</to>
+        <snippet_from>188</snippet_from>
+        <snippet_to>222</snippet_to>
+        <column_from>5</column_from>
+        <column_to>35</column_to>
+    </item>
+</report>
