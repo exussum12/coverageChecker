@@ -79,6 +79,7 @@ Below is a list of all tools and a brief description
 --phpstan	Parses the text output of phpstan
 --phpunit	Parses text output in clover (xml) format generated with coverage-clover=file.xml
 --pylint	Parses PyLint output
+--psalm		Parses Psalm output
 ```
 
 
