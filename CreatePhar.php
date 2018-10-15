@@ -1,6 +1,11 @@
 <?php
 
+chdir(__DIR__);
+
 $pharName = 'diffFilter.phar';
+
+cleanUp($pharName);
+
 $pharFile = getcwd() . '/diffFilter.phar';
 
 if (file_exists($pharFile)) {
@@ -47,8 +52,20 @@ function addDir($dir, $phar)
     foreach ($iterator as $file) {
         $fullPath = $file->getPathname();
         $path = $dir . substr($fullPath, $codeLength);
+
+        if (strpos($path, '/test/') !== false) {
+            continue;
+        }
+
         if (is_file($path)) {
-            $phar->addFile($path);
+            $phar->addFromString($path, php_strip_whitespace($path));
         }
     }
+}
+
+function cleanUp($pharName)
+{
+    shell_exec("rm -rf vendor");
+    shell_exec("rm $pharName");
+    shell_exec("composer install --no-dev -o");
 }
