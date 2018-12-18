@@ -5,8 +5,7 @@ use exussum12\CoverageChecker\DiffLineHandle;
 
 class DiffStart extends DiffLineHandle
 {
-
-    public function handle($line)
+    public function handle(string $line)
     {
         $foundVariables = sscanf(
             $line,
@@ -18,7 +17,7 @@ class DiffStart extends DiffLineHandle
         $this->diffFileState->setCurrentPosition($newFrom - 1);
     }
 
-    public function isValid($line)
+    public function isValid(string $line): bool
     {
         return $line[0] == '@' && $line[1] == '@';
     }

@@ -19,7 +19,7 @@ class Prefix implements FileMatcher
      * Prefix constructor.
      * @param string $prefix
      */
-    public function __construct($prefix)
+    public function __construct(string $prefix)
     {
         $this->prefix = $prefix;
     }
@@ -27,7 +27,7 @@ class Prefix implements FileMatcher
     /**
      * {@inheritdoc}
      */
-    public function match($needle, array $haystack)
+    public function match(string $needle, array $haystack): string
     {
         foreach ($haystack as $file) {
             if ($file == $this->prefix . $needle) {

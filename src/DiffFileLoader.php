@@ -22,7 +22,7 @@ class DiffFileLoader
         $this->diff = new DiffFileState();
     }
 
-    public function getChangedLines()
+    public function getChangedLines(): array
     {
         if ((
             !is_readable($this->fileLocation) &&
@@ -45,7 +45,7 @@ class DiffFileLoader
         return $this->diff->getChangedLines();
     }
 
-    private function getLineHandle($line)
+    private function getLineHandle(string $line): DiffLineHandle
     {
         foreach ($this->diffLines as $lineType) {
             $lineType = $this->getClass($lineType);
@@ -53,11 +53,11 @@ class DiffFileLoader
                 return $lineType;
             }
         }
-        //not found, Class it as context
+        // the line doesn't have a special meaning, its probably context
         return $this->getClass(DiffLineHandle\ContextLine::class);
     }
 
-    private function getClass($className)
+    private function getClass(string $className): DiffLineHandle
     {
         if (!isset($this->handles[$this->getFileHandleName($className)])) {
             $this->handles[
@@ -68,7 +68,7 @@ class DiffFileLoader
         return $this->handles[$this->getFileHandleName($className)];
     }
 
-    private function getFileHandleName($namespace)
+    private function getFileHandleName(string $namespace): string
     {
         $namespace = explode('\\', $namespace);
         return end($namespace);

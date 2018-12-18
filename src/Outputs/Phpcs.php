@@ -8,7 +8,7 @@ class Phpcs implements Output
 
     private $violations;
 
-    public function output($coverage, $percent, $minimumPercent)
+    public function output(array $coverage, float $percent, float $minimumPercent)
     {
         $this->violations = ['files' => []];
         $total = 0;
@@ -24,7 +24,7 @@ class Phpcs implements Output
         echo json_encode($this->violations) . "\n";
     }
 
-    protected function displayErrors($errors, $file, $line)
+    protected function displayErrors(array $errors, string $file, int $line)
     {
         foreach ($errors as $error) {
             $current = &$this->violations['files'][$file];
@@ -45,7 +45,7 @@ class Phpcs implements Output
         }
     }
 
-    protected function addTotal($total)
+    protected function addTotal(int $total)
     {
         $this->violations['totals'] = [
             'errors' => $total,

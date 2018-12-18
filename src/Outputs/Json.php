@@ -6,7 +6,7 @@ use exussum12\CoverageChecker\Output;
 class Json implements Output
 {
 
-    public function output($coverage, $percent, $minimumPercent)
+    public function output(array $coverage, float $percent, float $minimumPercent)
     {
         $violations = [];
         foreach ($coverage as $file => $lines) {

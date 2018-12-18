@@ -51,7 +51,7 @@ class FileParser
         }
     }
 
-    protected function getCodeLimits(Node $node)
+    protected function getCodeLimits(Node $node): CodeLimits
     {
         $startLine = $node->getAttribute('startLine');
         $endLine = $node->getAttribute('endLine');
@@ -93,10 +93,7 @@ class FileParser
         }
     }
 
-    /**
-     * @param $node
-     */
-    protected function handleNode($node)
+    protected function handleNode(Node $node)
     {
         $type = $node->getType();
         if ($type == 'Stmt_Namespace') {

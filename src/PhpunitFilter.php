@@ -40,19 +40,19 @@ class PhpunitFilter
         return $this->groupTestsBySuite($runTests);
     }
 
-    protected function endsWith($haystack, $needle)
+    protected function endsWith(string $haystack, string $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, -$length) === $needle);
     }
 
-    protected function stripFileExtension($file)
+    protected function stripFileExtension(string $file)
     {
         $ext = ".php";
         return str_replace('/', '\\', substr($file, 0, -strlen($ext)));
     }
 
-    protected function groupTestsBySuite($tests)
+    protected function groupTestsBySuite(array $tests)
     {
         $groupedTests = [];
         foreach ($tests as $test) {
@@ -67,8 +67,13 @@ class PhpunitFilter
         return $groupedTests;
     }
 
-    public function matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests)
-    {
+    public function matchFuzzyLines(
+        int $fuzziness,
+        array $testData,
+        string $found,
+        int $line,
+        array $runTests
+    ) {
         $index = -$fuzziness;
         do {
             if (isset($testData[$found][$line + $index])) {

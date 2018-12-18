@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker;
 
 use Exception;
+use exussum12\CoverageChecker\Exceptions\ArgumentNotFound;
 use exussum12\CoverageChecker\Outputs\Text;
 
 function findAutoLoader()
@@ -38,7 +39,10 @@ function findAutoLoader()
 
 function checkCallIsCorrect(ArgParser $args)
 {
-    if (!$args->getArg(1) || !$args->getArg(2)) {
+    try {
+        $args->getArg('1');
+        $args->getArg('2');
+    } catch (ArgumentNotFound $exception) {
         throw new Exception(
             "Missing arguments, please call with diff and check file\n" .
             "e.g. vendor/bin/diffFilter --phpcs diff.txt phpcs.json",
@@ -50,7 +54,7 @@ function checkCallIsCorrect(ArgParser $args)
 /**
  * @codeCoverageIgnore
  */
-function adjustForStdIn($argument)
+function adjustForStdIn(string $argument)
 {
     if ($argument == "-") {
         return "php://stdin";
@@ -79,7 +83,7 @@ function getMinPercent($percent)
     return $minimumPercentCovered;
 }
 
-function handleOutput($lines, $minimumPercentCovered, Output $output)
+function handleOutput(array $lines, float $minimumPercentCovered, Output $output)
 {
     $coveredLines = calculateLines($lines['coveredLines']);
     $uncoveredLines = calculateLines($lines['uncoveredLines']);
@@ -108,7 +112,7 @@ function handleOutput($lines, $minimumPercentCovered, Output $output)
     );
 }
 
-function calculateLines($lines)
+function calculateLines(array $lines)
 {
     return array_sum(array_map('count', $lines));
 }
@@ -125,12 +129,18 @@ function addExceptionHandler()
     );
 }
 
-function getFileChecker(ArgParser $args, array $argMapper, $filename)
-{
+function getFileChecker(
+    ArgParser $args,
+    array $argMapper,
+    string $filename
+): FileChecker {
     foreach ($argMapper as $arg => $class) {
-        if ($args->getArg($arg)) {
-            $class = __NAMESPACE__ . '\\' . $class;
+        try {
+            $args->getArg($arg);
+            $class = __NAMESPACE__ . '\\Loaders\\' . $class;
             return new $class($filename);
+        } catch (ArgumentNotFound $exception) {
+            continue;
         }
     }
     printOptions($argMapper);
@@ -145,7 +155,7 @@ function printOptions(array $arguments)
     $width = (int) (`tput cols` ?: $defaultWidth);
     $width -= 2 * $tabWidth;
     foreach ($arguments as $argument => $class) {
-        $class = __NAMESPACE__ . '\\' . $class;
+        $class = __NAMESPACE__ . '\\Loaders\\' . $class;
 
         $argument = adjustArgument($argument, $tabWidth);
 
@@ -173,7 +183,11 @@ function adjustArgument($argument, $tabWidth)
 
 function checkForVersion(ArgParser $args)
 {
-    if ($args->getArg("v")) {
-        throw new Exception('Version: 0.10.3-dev', 0);
+    try {
+        $args->getArg("v");
+    } catch (ArgumentNotFound $e) {
+        return;
     }
+
+    throw new Exception('Version: 0.10.3-dev', 0);
 }

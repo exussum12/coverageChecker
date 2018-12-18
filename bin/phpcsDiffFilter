@@ -1,6 +1,0 @@
-#!/usr/bin/env php
-<?php
-echo "This method is calling phpcs diff filter is deprecated\n";
-echo "and will be removed soon, please use diffFilter --phpcs instead\n";
-$argv[] = '--phpcs';
-require __DIR__ . '/../src/Runners/generic.php';

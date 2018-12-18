@@ -1,6 +1,8 @@
 <?php
 namespace exussum12\CoverageChecker;
 
+use exussum12\CoverageChecker\Exceptions\FileNotFound;
+
 interface FileMatcher
 {
     /**
@@ -10,5 +12,5 @@ interface FileMatcher
      * @return string the matched file
      * @throws FileNotFound
      */
-    public function match($needle, array $haystack);
+    public function match(string $needle, array $haystack): string;
 }

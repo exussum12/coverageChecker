@@ -6,14 +6,14 @@ use exussum12\CoverageChecker\DiffLineHandle;
 class NewFile extends DiffLineHandle
 {
 
-    public function handle($line)
+    public function handle(string $line)
     {
         if (preg_match('#--- a?/(?<filename>.*)#', $line, $match)) {
             $this->diffFileState->setCurrentFile($match['filename']);
         }
     }
 
-    public function isValid($line)
+    public function isValid(string $line): bool
     {
         return $line[0] == '-' && $line[1] == '-';
     }

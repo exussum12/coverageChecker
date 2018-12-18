@@ -5,7 +5,7 @@ use exussum12\CoverageChecker\Output;
 
 class Text implements Output
 {
-    public function output($coverage, $percent, $minimumPercent)
+    public function output(array $coverage, float $percent, float $minimumPercent)
     {
 
         printf("%.2f%% Covered\n", $percent);

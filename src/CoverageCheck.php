@@ -45,10 +45,6 @@ class CoverageCheck
      * For example if the checker is phpunit, this class filters the phpunit
      * output by the diff of the pull request. giving only the common lines in
      * each
-     *
-     * @param DiffFileLoader $diff
-     * @param FileChecker $fileChecker
-     * @param FileMatcher $matcher
      */
     public function __construct(
         DiffFileLoader $diff,
@@ -63,9 +59,8 @@ class CoverageCheck
 
     /**
      * array of uncoveredLines and coveredLines
-     * @return array
      */
-    public function getCoveredLines()
+    public function getCoveredLines(): array
     {
         $this->getDiff();
 
@@ -76,7 +71,7 @@ class CoverageCheck
         $diffFiles = array_keys($this->cache->diff);
         foreach ($diffFiles as $file) {
             $matchedFile = $this->findFile($file, $coveredFiles);
-            if ($matchedFile !== false) {
+            if ($matchedFile !== '') {
                 $this->matchLines($file, $matchedFile);
             }
         }
@@ -87,12 +82,7 @@ class CoverageCheck
         ];
     }
 
-    /**
-     * @param string $file the filename containing the uncovered line
-     * @param int $line the number of the uncovered line
-     * @param array $message a list of messages showing why its uncovered
-     */
-    protected function addUnCoveredLine($file, $line, $message)
+    protected function addUnCoveredLine(string $file, int $line, array $message)
     {
         if (!isset($this->uncoveredLines[$file])) {
             $this->uncoveredLines[$file] = [];
@@ -101,11 +91,7 @@ class CoverageCheck
         $this->uncoveredLines[$file][$line] = $message;
     }
 
-    /**
-     * @param string $file the filename containing the covered line
-     * @param int $line the number of the covered line
-     */
-    protected function addCoveredLine($file, $line)
+    protected function addCoveredLine(string $file, int $line)
     {
         if (!isset($this->coveredLines[$file])) {
             $this->coveredLines[$file] = [];
@@ -114,11 +100,7 @@ class CoverageCheck
         $this->coveredLines[$file][] = $line;
     }
 
-    /**
-     * @param string $fileName the file name in the diff
-     * @param string $matchedFile the file name of the matched file
-     */
-    protected function matchLines($fileName, $matchedFile)
+    protected function matchLines(string $fileName, string $matchedFile)
     {
         foreach ($this->cache->diff[$fileName] as $line) {
             $messages = $this->fileChecker->getErrorsOnLine($matchedFile, $line);
@@ -141,21 +123,21 @@ class CoverageCheck
         }
     }
 
-    protected function addCoveredFile($file)
+    protected function addCoveredFile(string $file)
     {
         foreach ($this->cache->diff[$file] as $line) {
             $this->addCoveredLine($file, $line);
         }
     }
 
-    protected function addUnCoveredFile($file)
+    protected function addUnCoveredFile(string $file)
     {
         foreach ($this->cache->diff[$file] as $line) {
             $this->addUnCoveredLine($file, $line, ['No Cover']);
         }
     }
 
-    protected function getDiff()
+    protected function getDiff(): array
     {
         if (empty($this->cache->diff)) {
             $this->cache->diff = $this->diff->getChangedLines();
@@ -164,7 +146,7 @@ class CoverageCheck
         return $this->cache->diff;
     }
 
-    protected function handleFileNotFound($file)
+    protected function handleFileNotFound(string $file)
     {
         $unMatchedFile = $this->fileChecker->handleNotFoundFile();
 
@@ -177,13 +159,13 @@ class CoverageCheck
         }
     }
 
-    protected function findFile($file, $coveredFiles)
+    protected function findFile(string $file, array $coveredFiles): string
     {
         try {
             return $this->matcher->match($file, $coveredFiles);
         } catch (Exceptions\FileNotFound $e) {
             $this->handleFileNotFound($file);
-            return false;
+            return '';
         }
     }
 }
