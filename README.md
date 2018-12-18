@@ -9,6 +9,8 @@ Coverage checker allows new standards to be implemented incrementally, by only e
 
 Tools like phpcs and phpmd are an all or nothing approach, coverage checker allows this to work with the diff i.e. enforce all of the pull request / change request.
 
+This is sometimes called "Baselining"
+
 Also working with PHPunit to allow, for example 90% of new/edited code to be covered. which will increase the overall coverage over time.
 
 # Installing
@@ -54,6 +56,12 @@ diffFilter will exit with a `0` status if the changed code passes the minimum co
 ## Extended guide
 A more in depth guide can be [found on the wiki](https://github.com/exussum12/coverageChecker/wiki) also some tips for speeding up the build.
 
+## Installing as a git hook
+
+There are 2 examples hooks in the GitHooks directory, if you symlink to these diffFilter will run locally.
+
+pre-commit is before the commit happens
+pre-receive will prevent you pushing
 
 # Full list of available diff filters
 
