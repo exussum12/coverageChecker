@@ -76,11 +76,7 @@ class Checkstyle implements FileChecker
         return 'Parses a report in checkstyle format';
     }
 
-    /**
-     * @param XMLReader $reader
-     * @param string $currentFile
-     */
-    protected function handleErrors($reader, $currentFile)
+    protected function handleErrors(XMLReader $reader, string $currentFile)
     {
         if ($reader->name === "error") {
             $this->coveredLines
@@ -90,12 +86,7 @@ class Checkstyle implements FileChecker
         }
     }
 
-    /**
-     * @param XMLReader $reader
-     * @param string $currentFile
-     * @return string
-     */
-    protected function handleFile($reader, $currentFile)
+    protected function handleFile(XMLReader $reader, string $currentFile): string
     {
         if ((
             $reader->name === "file" &&
