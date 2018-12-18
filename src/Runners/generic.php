@@ -57,6 +57,7 @@ $checkerArray = [
     'phpstan' => 'PhpStan',
     'phpunit' => 'PhpUnit',
     'pylint' => 'Pylint',
+    'psalm' => 'Psalm',
 ];
 
 $fileCheck = CoverageChecker\getFileChecker(
