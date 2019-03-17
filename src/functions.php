@@ -19,6 +19,7 @@ function findAutoLoader()
 
     foreach ($locations as $file) {
         if (file_exists($file)) {
+            echo "Using auto loader $file";
             require_once($file);
             $found = true;
             break;
