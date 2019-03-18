@@ -11,6 +11,7 @@ function findAutoLoader()
         __DIR__ . '/../vendor/autoload.php',
         // Vendor directory when installed with composer
         __DIR__ . '/../../../vendor/autoload.php',
+        __DIR__ . '/../../../../vendor/autoload.php',
         // Local install (without composer)
         __DIR__ . '/../autoload.php'
     ];
