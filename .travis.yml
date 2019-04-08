@@ -11,7 +11,7 @@ matrix:
     - php: 7.2
       env: UPDATE_COVERAGE=1
     - php: 7.3
-    - php: nightly
+    - php: 7.4
   fast_finish: true
 before_script:
   - composer global require squizlabs/php_codesniffer
