@@ -35,6 +35,9 @@ class EndsWith implements FileMatcher
             return $this->fileEndsWith($needle, $haystack);
         }
 
+        $haystack = str_replace('\\', '/', $haystack);
+        $needle = str_replace('\\', '/', $needle);
+        
         return (substr($haystack, -$length) === $needle);
     }
 }
