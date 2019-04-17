@@ -40,7 +40,7 @@ class EndsWith implements FileMatcher
 
         $haystack = str_replace('\\', '/', $haystack);
         $needle = str_replace('\\', '/', $needle);
-        
+
         return (substr($haystack, -$length) === $needle);
     }
 }
