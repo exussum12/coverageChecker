@@ -42,7 +42,7 @@ See [here](https://github.com/exussum12/coverageChecker/wiki/Generating-a-diff) 
 
 Then the output for the tool you wish to check (such as phpcs, PHPUnit, phpmd etc) for example
 
-     phpcs --standard=psr2 --report=json || true > phpcs.json
+     phpcs --standard=psr2 --report=json > phpcs.json || true 
      
 Here the `|| true` ensures that the while build will not fail if phpcs fails.
 
