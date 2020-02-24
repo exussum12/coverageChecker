@@ -26,7 +26,8 @@ class PhpunitFilter
         $runTests = [];
         foreach ($changes as $file => $lines) {
             try {
-                if ($found = $this->matcher->match($file, $fileNames)) {
+                $found = $this->matcher->match($file, $fileNames);
+                if ($found) {
                     foreach ($lines as $line) {
                         $runTests = $this->matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests);
                     }

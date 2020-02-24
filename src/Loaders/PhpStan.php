@@ -41,7 +41,9 @@ class PhpStan implements FileChecker
         $lineNumber = 0;
         while (($line = fgets($this->file)) !== false) {
             $filename = $this->checkForFilename($line, $filename);
-            if ($lineNumber = $this->getLineNumber($line, $lineNumber)) {
+            $lineNumber = $this->getLineNumber($line, $lineNumber);
+
+            if ($lineNumber) {
                 $error = $this->getMessage($line);
                 if ($this->isExtendedMessage($line)) {
                     $this->appendError($filename, $lineNumber, $error);

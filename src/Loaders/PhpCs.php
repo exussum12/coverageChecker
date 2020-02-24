@@ -121,7 +121,9 @@ class PhpCs implements FileChecker
 
         $line = $message->line;
 
-        if ($error = $this->messageStartsWith($message->source, $this->lookupErrorPrefix)) {
+        $error = $this->messageStartsWith($message->source, $this->lookupErrorPrefix);
+
+        if ($error) {
             $this->handleLookupError($file, $message, $error);
             return;
         }
