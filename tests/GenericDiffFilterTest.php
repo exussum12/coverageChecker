@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class GenericDiffFilterTest extends TestCase
 {
+    use TestShim;
 
     public function testValid()
     {
@@ -22,7 +23,7 @@ class GenericDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertStringContainsString('100.00%', $output);
+        $this->assertContainsString('100.00%', $output);
     }
 
     public function testMissingHandler()
@@ -37,7 +38,7 @@ class GenericDiffFilterTest extends TestCase
             require(__DIR__ . '/../src/Runners/generic.php');
         } catch (Exception $exception) {
             $output = ob_get_clean();
-            $this->assertStringContainsString('--phpcs', $output);
+            $this->assertContainsString('--phpcs', $output);
             return true;
         }
 

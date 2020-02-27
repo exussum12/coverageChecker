@@ -10,6 +10,7 @@ use Exception;
  */
 class PhpunitDiffFilterTest extends TestCase
 {
+    use TestShim;
     public function testWrongArgs()
     {
         $this->expectException(Exception::class);
@@ -30,7 +31,7 @@ class PhpunitDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertStringContainsString('No lines found', $output);
+        $this->assertContainsString('No lines found', $output);
     }
 
     public function testFailingBuild()
@@ -49,8 +50,8 @@ class PhpunitDiffFilterTest extends TestCase
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertStringContainsString('66.67', $output);
-            $this->assertStringContainsString('Failed', $output);
+            $this->assertContainsString('66.67', $output);
+            $this->assertContainsString('Failed', $output);
             return;
         }
 
@@ -70,7 +71,7 @@ class PhpunitDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertStringContainsString('66.67%', $output);
+        $this->assertContainsString('66.67%', $output);
     }
 
     public function testNoCoveredLines()
@@ -85,6 +86,6 @@ class PhpunitDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertStringContainsString('No lines found', $output);
+        $this->assertContainsString('No lines found', $output);
     }
 }

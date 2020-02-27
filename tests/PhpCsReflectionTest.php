@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpCsReflectionTest extends TestCase
 {
+    use TestShim;
     public function testRelatedMethods()
     {
         $GLOBALS['argv'] = [
@@ -57,7 +58,7 @@ class PhpCsReflectionTest extends TestCase
             require(__DIR__ . '/../src/Runners/generic.php');
         } catch (Exception $exception) {
             $output = ob_get_clean();
-            $this->assertStringContainsString("Can't find file", $output);
+            $this->assertContainsString("Can't find file", $output);
 
             return true;
         }

@@ -10,7 +10,7 @@ use Exception;
  */
 class PsalmDiffFilterTest extends TestCase
 {
-
+    use TestShim;
     public function testValid()
     {
         $GLOBALS['argv'] = [
@@ -22,7 +22,7 @@ class PsalmDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertStringContainsString('100.00% Covered', $output);
+        $this->assertContainsString('100.00% Covered', $output);
     }
 
     public function testNoValidLines()
@@ -39,7 +39,7 @@ class PsalmDiffFilterTest extends TestCase
         } catch (Exception $exception) {
             $output = ob_get_clean();
             $this->assertEquals(2, $exception->getCode());
-            $this->assertStringContainsString('0.00%', $output);
+            $this->assertContainsString('0.00%', $output);
             return;
         }
         $this->fail('no exception thrown');

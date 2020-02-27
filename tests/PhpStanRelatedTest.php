@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpStanRelatedTest extends TestCase
 {
+    use TestShim;
     public function testRelatedMethodsWithoutAutoload()
     {
         $GLOBALS['argv'] = [
@@ -22,7 +23,7 @@ class PhpStanRelatedTest extends TestCase
         ob_start();
         require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertStringContainsString('100.00%', $output);
+        $this->assertContainsString('100.00%', $output);
     }
 
     public function testRelatedMethods()
@@ -40,7 +41,7 @@ class PhpStanRelatedTest extends TestCase
             require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $exception) {
             $output = ob_get_clean();
-            $this->assertStringContainsString('used test.php', $output);
+            $this->assertContainsString('used test.php', $output);
             return true;
         }
 
