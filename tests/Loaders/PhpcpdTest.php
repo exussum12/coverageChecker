@@ -8,9 +8,12 @@ class PhpcpdTest extends TestCase
 {
     /** @var  Phpcpd */
     protected $cpd;
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->cpd = new Phpcpd(__DIR__ . '/../fixtures/phpcpd.txt');
 
         $this->cpd->parseLines();

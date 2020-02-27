@@ -9,7 +9,10 @@ class PhpStanTest extends TestCase
     /** @var  PhpStan */
     protected $stan;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpTest()
     {
         $file = __DIR__ . '/../fixtures/phpstan.txt';
         $this->stan = new PhpStan($file);

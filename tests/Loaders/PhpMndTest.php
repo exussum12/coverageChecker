@@ -8,7 +8,10 @@ class PhpMndTest extends TestCase
 {
     private $mnd;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpTest()
     {
         $file = __DIR__ . '/../fixtures/phpmnd.txt';
         $this->mnd = new PhpMnd($file);

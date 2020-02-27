@@ -20,9 +20,9 @@ class PhpStanRelatedTest extends TestCase
         ];
 
         ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
+        require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertStringContainsString('100.00%', $output);
     }
 
     public function testRelatedMethods()
@@ -40,7 +40,7 @@ class PhpStanRelatedTest extends TestCase
             require(__DIR__ . "/../src/Runners/generic.php");
         } catch (Exception $exception) {
             $output = ob_get_clean();
-            $this->assertContains('used test.php', $output);
+            $this->assertStringContainsString('used test.php', $output);
             return true;
         }
 

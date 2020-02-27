@@ -8,9 +8,12 @@ class CheckstyleTest extends PhanTextTest
     /** @var  Checkstyle */
     protected $phan;
     protected $prefix = '';
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new Checkstyle(__DIR__ . '/../fixtures/checkstyle.xml');
     }
 }

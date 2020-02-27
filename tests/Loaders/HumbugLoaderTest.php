@@ -15,7 +15,7 @@ class HumbugLoaderTest extends TestCase
         $this->assertEquals(1, count($invalidFiles));
         $file = 'src/DiffLineHandle/OldVersion/DiffStart.php';
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Failed on escaped check',
             current($humbug->getErrorsOnLine($file, 23))
         );

@@ -19,9 +19,9 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcs.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
+        require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertStringContainsString('100.00%', $output);
     }
 
     public function testStrictMode()
@@ -33,8 +33,8 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcsstrict.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
+        require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertStringContainsString('100.00%', $output);
     }
 }

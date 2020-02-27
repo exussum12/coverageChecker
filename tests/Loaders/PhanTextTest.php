@@ -8,9 +8,12 @@ class PhanTextTest extends TestCase
 {
     /** @var  PhanText */
     protected $phan;
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new PhanText(__DIR__ . '/../fixtures/phan.txt');
     }
 
@@ -22,7 +25,7 @@ class PhanTextTest extends TestCase
 
         $this->assertCount(2, $lines);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             'Argument 1 (string) is int but \strlen() takes string',
             current($this->phan->getErrorsOnLine($file1, 35))
         );

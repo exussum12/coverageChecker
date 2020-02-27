@@ -23,9 +23,6 @@ class LoadPhpcsReportTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testRejectsInvalidData()
     {
         $this->expectException(InvalidArgumentException::class);

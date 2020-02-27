@@ -23,8 +23,8 @@ class PhpmdDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertContains('100.00', $output);
-        $this->assertContains('Passed', $output);
+        $this->assertStringContainsString('100.00', $output);
+        $this->assertStringContainsString('Passed', $output);
     }
 
     public function testNoValidLines()
@@ -37,11 +37,11 @@ class PhpmdDiffFilterTest extends TestCase
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/Runners/generic.php");
+            require(__DIR__ . '/../src/Runners/generic.php');
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertContains('0.00%', $output);
+            $this->assertStringContainsString('0.00%', $output);
             return;
         }
         $this->fail("no exception thrown");
@@ -61,10 +61,10 @@ class PhpmdDiffFilterTest extends TestCase
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertContains('0%', $output);
+            $this->assertStringContainsString('0%', $output);
             return;
         }
 
-        $this->fail("no exception thrown");
+        $this->fail('no exception thrown');
     }
 }
