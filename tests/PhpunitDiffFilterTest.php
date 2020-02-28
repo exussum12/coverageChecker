@@ -42,7 +42,7 @@ class PhpunitDiffFilterTest extends TestCase
             '--report=json',
             __DIR__ . '/fixtures/newFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
-            70
+            '70',
         ];
         try {
             ob_start();
@@ -65,7 +65,7 @@ class PhpunitDiffFilterTest extends TestCase
             '--phpunit',
             __DIR__ . '/fixtures/newFile.txt',
             __DIR__ . '/fixtures/coverage-change.xml',
-            60
+            '60',
         ];
 
         ob_start();

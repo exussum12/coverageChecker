@@ -12,7 +12,8 @@ namespace exussum12\CoverageChecker {
 
 }
 namespace exussum12\CoverageChecker\Loaders {
-    function error_log($message) {
+    function error_log($message)
+    {
         \exussum12\CoverageChecker\error_log($message);
     }
 }
