@@ -7,9 +7,12 @@ class PylintTest extends PhanTextTest
 {
     /** @var  Pylint */
     protected $phan;
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new Pylint(__DIR__ . '/../fixtures/pylint.txt');
     }
 }

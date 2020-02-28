@@ -7,9 +7,12 @@ class PhanJsonTest extends PhanTextTest
 {
     /** @var  PhanJsonTest */
     protected $phan;
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new PhanJson(__DIR__ . '/../fixtures/phan.json');
     }
 }

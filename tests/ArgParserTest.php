@@ -9,7 +9,10 @@ class ArgParserTest extends TestCase
 {
     protected $parser;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpTest()
     {
         $args = [
             'file.php',
@@ -20,6 +23,7 @@ class ArgParserTest extends TestCase
         ];
         $this->parser = new ArgParser($args);
     }
+
     public function testNumericArgs()
     {
         $this->assertSame("file", $this->parser->getArg(1));

@@ -3,14 +3,19 @@ namespace exussum12\CoverageChecker\tests\Loaders;
 
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\PhanText;
+use exussum12\CoverageChecker\tests\TestShim;
 
 class PhanTextTest extends TestCase
 {
+    use TestShim;
     /** @var  PhanText */
     protected $phan;
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new PhanText(__DIR__ . '/../fixtures/phan.txt');
     }
 
@@ -22,7 +27,7 @@ class PhanTextTest extends TestCase
 
         $this->assertCount(2, $lines);
 
-        $this->assertContains(
+        $this->assertContainsString(
             'Argument 1 (string) is int but \strlen() takes string',
             current($this->phan->getErrorsOnLine($file1, 35))
         );

@@ -16,7 +16,10 @@ class PhpunitFilterTest extends TestCase
     protected $diff;
     protected $matcher;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setUpTest()
     {
         $this->coverage = __DIR__ . '/fixtures/php-coverage.php';
         $this->diff = new DiffFileLoader(__DIR__ . '/fixtures/change.txt');

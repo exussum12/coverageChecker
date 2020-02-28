@@ -9,9 +9,11 @@ class PhpmndXmlDiffFilterTest extends TestCase
     /** @var PhpMndXmlLoader */
     private $mnd;
 
-    public function setUp()
+    /**
+     * @before
+     */
+    public function setupTest()
     {
-        parent::setUp();
         $file = __DIR__ . "/../fixtures/phpmnd.xml";
         $this->mnd = new PhpMndXml($file);
     }

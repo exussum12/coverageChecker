@@ -8,7 +8,7 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutTodoAnnotatedTests="true"
          verbose="true">
-    <testsuite>
+    <testsuite name="coverageChecker">
         <directory suffix="Test.php">tests</directory>
     </testsuite>
 
@@ -21,8 +21,8 @@
         <log
             type="coverage-html"
             target="report"
-            lowUpperBound="35"
-            highLowerBound="70"/>
+            lowUpperBound="90"
+            highLowerBound="95"/>
         <log type="coverage-clover" target="report/coverage.xml"/>
     </logging>
 </phpunit>

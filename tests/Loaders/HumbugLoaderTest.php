@@ -4,9 +4,12 @@ namespace exussum12\CoverageChecker\tests\Loaders;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\Humbug;
+use exussum12\CoverageChecker\tests\TestShim;
 
 class HumbugLoaderTest extends TestCase
 {
+    use TestShim;
+
     public function testCanMakeClass()
     {
         $humbug = new Humbug(__DIR__ . '/../fixtures/humbug.json');
@@ -15,7 +18,7 @@ class HumbugLoaderTest extends TestCase
         $this->assertEquals(1, count($invalidFiles));
         $file = 'src/DiffLineHandle/OldVersion/DiffStart.php';
 
-        $this->assertContains(
+        $this->assertContainsString(
             'Failed on escaped check',
             current($humbug->getErrorsOnLine($file, 23))
         );

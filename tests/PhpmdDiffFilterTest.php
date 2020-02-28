@@ -11,6 +11,7 @@ use Exception;
 class PhpmdDiffFilterTest extends TestCase
 {
 
+    use TestShim;
     public function testValid()
     {
         $GLOBALS['argv'] = [
@@ -23,8 +24,8 @@ class PhpmdDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertContains('100.00', $output);
-        $this->assertContains('Passed', $output);
+        $this->assertContainsString('100.00', $output);
+        $this->assertContainsString('Passed', $output);
     }
 
     public function testNoValidLines()
@@ -37,11 +38,11 @@ class PhpmdDiffFilterTest extends TestCase
         ];
         try {
             ob_start();
-            require(__DIR__ . "/../src/Runners/generic.php");
+            require(__DIR__ . '/../src/Runners/generic.php');
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertContains('0.00%', $output);
+            $this->assertContainsString('0.00%', $output);
             return;
         }
         $this->fail("no exception thrown");
@@ -61,10 +62,10 @@ class PhpmdDiffFilterTest extends TestCase
         } catch (Exception $e) {
             $output = ob_get_clean();
             $this->assertEquals(2, $e->getCode());
-            $this->assertContains('0%', $output);
+            $this->assertContainsString('0%', $output);
             return;
         }
 
-        $this->fail("no exception thrown");
+        $this->fail('no exception thrown');
     }
 }

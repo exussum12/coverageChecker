@@ -10,7 +10,7 @@ use Exception;
  */
 class PhpmndDiffFilterTest extends TestCase
 {
-
+    use TestShim;
     public function testValid()
     {
         $GLOBALS['argv'] = [
@@ -22,6 +22,6 @@ class PhpmndDiffFilterTest extends TestCase
         ob_start();
         require(__DIR__ . "/../src/Runners/generic.php");
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertContainsString('100.00%', $output);
     }
 }

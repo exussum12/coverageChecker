@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpcsDiffFilterTest extends TestCase
 {
+    use TestShim;
 
     public function testValid()
     {
@@ -19,9 +20,9 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcs.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
+        require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertContainsString('100.00%', $output);
     }
 
     public function testStrictMode()
@@ -33,8 +34,8 @@ class PhpcsDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/phpcsstrict.json'
         ];
         ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
+        require(__DIR__ . '/../src/Runners/generic.php');
         $output = ob_get_clean();
-        $this->assertContains('100.00%', $output);
+        $this->assertContainsString('100.00%', $output);
     }
 }

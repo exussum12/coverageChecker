@@ -8,9 +8,12 @@ class CodeClimateTest extends PhanTextTest
     /** @var  CodeClimate */
     protected $phan;
     protected $prefix = '';
-    protected function setUp()
+
+    /**
+     * @before
+     */
+    protected function setUpTest()
     {
-        parent::setUp();
         $this->phan = new CodeClimate(__DIR__ . '/../fixtures/codeclimate.json');
     }
 }
