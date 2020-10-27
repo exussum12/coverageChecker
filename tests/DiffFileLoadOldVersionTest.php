@@ -4,7 +4,7 @@ namespace exussum12\CoverageChecker\tests;
 use exussum12\CoverageChecker\DiffFileLoaderOldVersion;
 use PHPUnit\Framework\TestCase;
 
-class DiffFileLoaderOldVersionTest extends TestCase
+class DiffFileLoadOldVersionTest extends TestCase
 {
     /**
      * @dataProvider getResults

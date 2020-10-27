@@ -7,7 +7,7 @@ use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\DiffFileState;
 use exussum12\CoverageChecker\DiffLineHandle\ContextLine;
 
-class DiffFileLoaderTest extends TestCase
+class DiffFileLoadTest extends TestCase
 {
     /**
      * @dataProvider getResults
