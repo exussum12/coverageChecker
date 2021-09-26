@@ -21,6 +21,9 @@ class PhpunitFilterTest extends TestCase
      */
     public function setUpTest()
     {
+        if(PHP_VERSION > 7.2) {
+            $this->markTestSkipped("Not currently supported");
+        }
         $this->coverage = __DIR__ . '/fixtures/php-coverage.php';
         $this->diff = new DiffFileLoader(__DIR__ . '/fixtures/change.txt');
         $this->matcher = new FileMatchers\EndsWith();
