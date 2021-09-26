@@ -38,6 +38,10 @@ class PhpCs implements FileChecker
         'Squiz.Commenting.FunctionComment',
     ];
 
+    protected $functionIgnoreComments = [
+        'Squiz.Commenting.FunctionComment.ParamCommentFullStop'
+    ];
+
     /**
      * @var array
      */
@@ -123,7 +127,7 @@ class PhpCs implements FileChecker
 
         $error = $this->messageStartsWith($message->source, $this->lookupErrorPrefix);
 
-        if ($error) {
+        if ($error && !in_array($message->source, $this->functionIgnoreComments, true)) {
             $this->handleLookupError($file, $message, $error);
             return;
         }

@@ -50,12 +50,12 @@ class Clover implements FileChecker
     /**
      * {@inheritdoc}
      */
-    public function getErrorsOnLine(string $file, int $line)
+    public function getErrorsOnLine(string $file, int $lineNumber)
     {
-        if (!isset($this->coveredLines[$file][$line])) {
+        if (!isset($this->coveredLines[$file][$lineNumber])) {
             return null;
         }
-        return $this->coveredLines[$file][$line] > 0 ?
+        return $this->coveredLines[$file][$lineNumber] > 0 ?
             []:
             ['No unit test covering this line']
         ;
@@ -92,11 +92,13 @@ class Clover implements FileChecker
     protected function addLine(XMLReader $reader, string $currentFile)
     {
         $covered = $reader->getAttribute('count') > 0;
+        $line = $this->coveredLines
+        [$currentFile]
+        [$reader->getAttribute('num')] ?? 0;
 
         $this->coveredLines
         [$currentFile]
-        [$reader->getAttribute('num')]
-            = $covered ?: "No test coverage";
+        [$reader->getAttribute('num')] = $line + $covered;
     }
 
     protected function handleStatement(XMLReader $reader, string $currentFile)
