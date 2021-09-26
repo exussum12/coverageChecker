@@ -26,8 +26,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Install phpcs
-        run: composer global require phpcs
+        run: composer global require squizlabs/php_codesniffer
       - name: Install phpmd
-        run: composer global require phpmd
+        run: composer global require phpmd/phpmd
       - name: Run the build
         run: ./build.sh
