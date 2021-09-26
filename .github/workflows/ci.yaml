@@ -26,8 +26,8 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Install phpcs
-        run: composer global install phpcs
+        run: composer global require phpcs
       - name: Install phpmd
-        run: composer global install phpmd
+        run: composer global require phpmd
       - name: Run the build
         run: ./build.sh
