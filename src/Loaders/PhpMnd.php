@@ -21,7 +21,7 @@ class PhpMnd implements FileChecker
     {
         while (($line = fgets($this->file)) !== false) {
             $matches = [];
-            $pattern = "/^(?<filename>[^:]+):(?<lineNo>[0-9]+)\. (?<message>.+)/";
+            $pattern = "/^(?<filename>[^:]+):(?<lineNo>[0-9]+)\.? (?<message>.+)/";
             if (preg_match($pattern, $line, $matches)) {
                 $this->invalidLines
                     [$matches['filename']]
