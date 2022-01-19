@@ -19,7 +19,7 @@ class PhpMndLoader implements FileChecker
     {
         while (($line = fgets($this->file)) !== false) {
             $matches = [];
-            if (preg_match("/^(?<filename>[^:]+):(?<lineNo>[0-9]+)\. (?<message>.+)/", $line, $matches)) {
+            if (preg_match("/^(?<filename>[^:]+):(?<lineNo>[0-9]+)\.? (?<message>.+)/", $line, $matches)) {
                 $this->invalidLines
                     [$matches['filename']]
                     [$matches['lineNo']][] = $matches['message'];
