@@ -2,6 +2,9 @@
 namespace exussum12\CoverageChecker;
 
 use Exception;
+use exussum12\CoverageChecker\DiffFileLoader;
+use exussum12\CoverageChecker\FileMatcher;
+use SebastianBergmann\CodeCoverage\ProcessedCodeCoverageData;
 
 class PhpunitFilter
 {
@@ -21,15 +24,16 @@ class PhpunitFilter
     public function getTestsForRunning($fuzziness = 0)
     {
         $changes = $this->diff->getChangedLines();
+        /** @var ProcessedCodeCoverageData $testData */
         $testData = $this->coverage->getData();
-        $fileNames = array_keys($testData);
+        $fileNames = $testData->coveredFiles();
         $runTests = [];
         foreach ($changes as $file => $lines) {
             try {
                 $found = $this->matcher->match($file, $fileNames);
                 if ($found) {
                     foreach ($lines as $line) {
-                        $runTests = $this->matchFuzzyLines($fuzziness, $testData, $found, $line, $runTests);
+                        $runTests = $this->matchFuzzyLines($fuzziness, $testData->lineCoverage(), $found, $line, $runTests);
                     }
                 }
             } catch (Exception $e) {
@@ -81,7 +85,7 @@ class PhpunitFilter
                 $runTests = array_unique(
                     array_merge(
                         $runTests,
-                        $testData[$found][$line]
+                        $testData[$found][$line + $index]
                     )
                 );
             }
