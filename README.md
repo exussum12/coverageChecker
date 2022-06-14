@@ -44,7 +44,7 @@ Then the output for the tool you wish to check (such as phpcs, PHPUnit, phpmd et
 
      phpcs --standard=psr2 --report=json > phpcs.json || true 
      
-Here the `|| true` ensures that the while build will not fail if phpcs fails.
+Here the `|| true` ensures that the whole build will not fail if phpcs fails.
 
 Then call diffFilter
 
