@@ -83,9 +83,16 @@ class PhpunitDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/coverage-change.xml',
         ];
 
-        ob_start();
-        require(__DIR__ . '/../src/Runners/generic.php');
-        $output = ob_get_clean();
-        $this->assertContainsString('No lines found', $output);
+
+        try {
+            ob_start();
+            require(__DIR__ . '/../src/Runners/generic.php');
+        } catch (Exception $e) {
+            $output = ob_get_clean();
+            $this->assertEquals(3, $e->getCode());
+            return;
+        }
+
+        $this->fail("no exception thrown");
     }
 }
