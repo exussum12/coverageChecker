@@ -92,6 +92,12 @@ function handleOutput(array $lines, float $minimumPercentCovered, Output $output
 
     if ($coveredLines + $uncoveredLines == 0) {
         error_log('No lines found!');
+        
+        $output->output(
+            $lines['uncoveredLines'],
+            100,
+            $minimumPercentCovered
+        );
         return;
     }
 
