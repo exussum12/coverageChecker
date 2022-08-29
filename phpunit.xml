@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/5.4/phpunit.xsd"
-         bootstrap="tests/bootstrap.php"
-         backupGlobals="false"
-         beStrictAboutCoversAnnotation="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutTestsThatDoNotTestAnything="true"
-         beStrictAboutTodoAnnotatedTests="true"
-         verbose="true">
-    <testsuite name="coverageChecker">
-        <directory suffix="Test.php">tests</directory>
-    </testsuite>
-
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
-    <logging>
-        <log
-            type="coverage-html"
-            target="report"
-            lowUpperBound="90"
-            highLowerBound="95"/>
-        <log type="coverage-clover" target="report/coverage.xml"/>
-    </logging>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="tests/bootstrap.php" backupGlobals="false" beStrictAboutCoversAnnotation="true" beStrictAboutOutputDuringTests="true" beStrictAboutTestsThatDoNotTestAnything="true" beStrictAboutTodoAnnotatedTests="true" verbose="true">
+  <coverage includeUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src</directory>
+    </include>
+    <report>
+      <clover outputFile="report/coverage.xml"/>
+      <html outputDirectory="report" lowUpperBound="90" highLowerBound="95"/>
+    </report>
+  </coverage>
+  <testsuite name="coverageChecker">
+    <directory suffix="Test.php">tests</directory>
+  </testsuite>
+  <logging/>
 </phpunit>
