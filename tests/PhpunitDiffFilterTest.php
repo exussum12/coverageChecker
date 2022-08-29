@@ -88,7 +88,7 @@ class PhpunitDiffFilterTest extends TestCase
             ob_start();
             require(__DIR__ . '/../src/Runners/generic.php');
         } catch (Exception $e) {
-            $output = ob_get_clean();
+            ob_clean();
             $this->assertEquals(3, $e->getCode());
             return;
         }
