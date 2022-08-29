@@ -91,10 +91,18 @@ function handleOutput(array $lines, float $minimumPercentCovered, Output $output
 
 
     if ($coveredLines + $uncoveredLines == 0) {
+
+        $output->output(
+            $lines['uncoveredLines'],
+            100,
+            $minimumPercentCovered
+        );
+ 
         throw new Exception(
             'No lines found!',
             3
         );
+        
     }
 
     $percentCovered = 100 * ($coveredLines / ($coveredLines + $uncoveredLines));
