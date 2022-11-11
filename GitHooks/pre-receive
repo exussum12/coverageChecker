@@ -13,5 +13,5 @@ git diff $1...$2 > ${diff}
 phpcs=$(mktemp)
 ./vendor/bin/phpcs --file-list=${files} --parallel=2 --standard=psr2 --report=json > ${phpcs} || true
 
-check for differences
+# check for differences
 ./vendor/bin/diffFilter --phpcs ${diff} ${phpcs}
