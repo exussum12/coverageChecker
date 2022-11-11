@@ -20,7 +20,7 @@ class PhpunitDiffFilterTest extends TestCase
         require(__DIR__ . "/../src/Runners/generic.php");
     }
 
-    public function testWorkingCorrectly()
+    public function testInvalidFileReturnsNoLinesFound()
     {
         $GLOBALS['argv'] = [
             'diffFilter',
@@ -28,10 +28,16 @@ class PhpunitDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/change.txt',
             __DIR__ . '/fixtures/coverage.xml'
         ];
-        ob_start();
-        require(__DIR__ . "/../src/Runners/generic.php");
-        $output = ob_get_clean();
-        $this->assertContainsString('No lines found', $output);
+
+        try {
+            ob_start();
+            require(__DIR__ . "/../src/Runners/generic.php");
+        } catch (Exception $e) {
+            ob_end_clean();
+            $this->assertContainsString('No lines found', $e->getMessage());
+            return;
+        }
+        $this->fail("No Exception thrown");
     }
 
     public function testFailingBuild()
@@ -83,9 +89,16 @@ class PhpunitDiffFilterTest extends TestCase
             __DIR__ . '/fixtures/coverage-change.xml',
         ];
 
-        ob_start();
-        require(__DIR__ . '/../src/Runners/generic.php');
-        $output = ob_get_clean();
-        $this->assertContainsString('No lines found', $output);
+
+        try {
+            ob_start();
+            require(__DIR__ . '/../src/Runners/generic.php');
+        } catch (Exception $e) {
+            ob_end_clean();
+            $this->assertEquals(3, $e->getCode());
+            return;
+        }
+
+        $this->fail("no exception thrown");
     }
 }
