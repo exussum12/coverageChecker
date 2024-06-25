@@ -2,6 +2,7 @@
 namespace exussum12\CoverageChecker\tests;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\DiffFileState;
@@ -9,9 +10,7 @@ use exussum12\CoverageChecker\DiffLineHandle\ContextLine;
 
 class DiffFileLoadTest extends TestCase
 {
-    /**
-     * @dataProvider getResults
-     */
+    #[DataProvider('getResults')]
     public function testDiffResultsMatch($file, $expected)
     {
         $changed = $this->getChangedLines($file);
@@ -26,7 +25,7 @@ class DiffFileLoadTest extends TestCase
         $this->getChangedLines('ufhbubfusdf');
     }
 
-    public function getResults()
+    public static function getResults()
     {
         return [
             'newFile' => [

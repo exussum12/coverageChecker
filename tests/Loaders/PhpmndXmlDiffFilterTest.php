@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\PhpMndXml;
 
@@ -9,9 +10,7 @@ class PhpmndXmlDiffFilterTest extends TestCase
     /** @var PhpMndXmlLoader */
     private $mnd;
 
-    /**
-     * @before
-     */
+    #[Before]
     public function setupTest()
     {
         $file = __DIR__ . "/../fixtures/phpmnd.xml";

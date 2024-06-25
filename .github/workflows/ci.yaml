@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         operating-system: ['ubuntu-latest', 'windows-latest', 'macOS-latest']
-        php-version: ['7.1', '7.2', '7.3', '7.4', '8.0', '8.1', '8.2', '8.3']
+        php-version: ['8.1', '8.2', '8.3']
     name: PHP ${{ matrix.php-version }} Test on ${{ matrix.operating-system }}
     steps:
       - name: Checkout code
@@ -23,6 +23,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
+          coverage: xdebug
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Install phpcs

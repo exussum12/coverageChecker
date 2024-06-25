@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests\Loaders;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\PhanText;
 use exussum12\CoverageChecker\tests\TestShim;
@@ -11,9 +12,7 @@ class PhanTextTest extends TestCase
     /** @var  PhanText */
     protected $phan;
 
-    /**
-     * @before
-     */
+    #[Before]
     protected function setUpTest()
     {
         $this->phan = new PhanText(__DIR__ . '/../fixtures/phan.txt');
