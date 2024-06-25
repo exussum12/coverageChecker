@@ -5,7 +5,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoaderOldVersion;
 
-
 class DiffFileLoadOldVersionTest extends TestCase
 {
     #[DataProvider('getResults')]

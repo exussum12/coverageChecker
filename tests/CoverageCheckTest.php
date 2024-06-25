@@ -247,16 +247,16 @@ class CoverageCheckTest extends TestCase
 
         $xmlReport->method('getErrorsOnLine')
             ->willReturnCallback(
-                    function () {
-                        $file = func_get_arg(0);
-                        $line = func_get_arg(1);
+                function () {
+                    $file = func_get_arg(0);
+                    $line = func_get_arg(1);
 
-                        if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return null;
-                        }
-
-                        return [];
+                    if ($file == '/full/path/to/testFile1.php' && $line == 2) {
+                        return null;
                     }
+
+                    return [];
+                }
             );
 
         $matcher = new FileMatchers\EndsWith;
