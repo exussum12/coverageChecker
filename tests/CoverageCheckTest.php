@@ -28,22 +28,20 @@ class CoverageCheckTest extends TestCase
             ]);
 
         $xmlReport->method('getErrorsOnLine')
-            ->will(
-                $this->returnCallback(
-                    function () {
-                        $file = func_get_arg(0);
-                        $line = func_get_arg(1);
+            ->willReturnCallback(
+                function () {
+                    $file = func_get_arg(0);
+                    $line = func_get_arg(1);
 
-                        if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return $this->errorMessage;
-                        }
-                        if ($file == '/full/path/to/testFile2.php' && $line == 4) {
-                            return $this->errorMessage;
-                        }
-
-                        return [];
+                    if ($file == '/full/path/to/testFile1.php' && $line == 2) {
+                        return $this->errorMessage;
                     }
-                )
+                    if ($file == '/full/path/to/testFile2.php' && $line == 4) {
+                        return $this->errorMessage;
+                    }
+
+                    return [];
+                }
             );
 
         $matcher = new FileMatchers\EndsWith;
@@ -87,19 +85,17 @@ class CoverageCheckTest extends TestCase
             ->willReturn(null);
 
         $xmlReport->method('getErrorsOnLine')
-            ->will(
-                $this->returnCallback(
-                    function () {
-                        $file = func_get_arg(0);
-                        $line = func_get_arg(1);
+            ->willReturnCallback(
+                function () {
+                    $file = func_get_arg(0);
+                    $line = func_get_arg(1);
 
-                        if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return $this->errorMessage;
-                        }
-
-                        return [];
+                    if ($file == '/full/path/to/testFile1.php' && $line == 2) {
+                        return $this->errorMessage;
                     }
-                )
+
+                    return [];
+                }
             );
 
         $matcher = new FileMatchers\EndsWith;
@@ -141,19 +137,17 @@ class CoverageCheckTest extends TestCase
             ->willReturn(true);
 
         $xmlReport->method('getErrorsOnLine')
-            ->will(
-                $this->returnCallback(
-                    function () {
-                        $file = func_get_arg(0);
-                        $line = func_get_arg(1);
+            ->willReturnCallback(
+                function () {
+                    $file = func_get_arg(0);
+                    $line = func_get_arg(1);
 
-                        if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return $this->errorMessage;
-                        }
-
-                        return [];
+                    if ($file == '/full/path/to/testFile1.php' && $line == 2) {
+                        return $this->errorMessage;
                     }
-                )
+
+                    return [];
+                }
             );
 
         $matcher = new FileMatchers\EndsWith;
@@ -196,19 +190,17 @@ class CoverageCheckTest extends TestCase
             ->willReturn(false);
 
         $xmlReport->method('getErrorsOnLine')
-            ->will(
-                $this->returnCallback(
-                    function () {
-                        $file = func_get_arg(0);
-                        $line = func_get_arg(1);
+            ->willReturnCallback(
+                function () {
+                    $file = func_get_arg(0);
+                    $line = func_get_arg(1);
 
-                        if ($file == '/full/path/to/testFile1.php' && $line == 2) {
-                            return $this->errorMessage;
-                        }
-
-                        return [];
+                    if ($file == '/full/path/to/testFile1.php' && $line == 2) {
+                        return $this->errorMessage;
                     }
-                )
+
+                    return [];
+                }
             );
 
         $matcher = new FileMatchers\EndsWith;
@@ -254,8 +246,7 @@ class CoverageCheckTest extends TestCase
             ->willReturn(false);
 
         $xmlReport->method('getErrorsOnLine')
-            ->will(
-                $this->returnCallback(
+            ->willReturnCallback(
                     function () {
                         $file = func_get_arg(0);
                         $line = func_get_arg(1);
@@ -266,7 +257,6 @@ class CoverageCheckTest extends TestCase
 
                         return [];
                     }
-                )
             );
 
         $matcher = new FileMatchers\EndsWith;

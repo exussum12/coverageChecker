@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\PhpStan;
 
@@ -9,9 +10,7 @@ class PhpStanTest extends TestCase
     /** @var  PhpStan */
     protected $stan;
 
-    /**
-     * @before
-     */
+    #[Before]
     public function setUpTest()
     {
         $file = __DIR__ . '/../fixtures/phpstan.txt';

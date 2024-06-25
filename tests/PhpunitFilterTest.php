@@ -2,23 +2,21 @@
 namespace exussum12\CoverageChecker\tests;
 
 use exussum12\CoverageChecker\PhpunitFilter;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\DiffFileLoader;
 use exussum12\CoverageChecker\FileMatchers;
 use Exception;
 
-/**
- * @requires extension xdebug
- */
+#[RequiresPhpExtension('xdebug')]
 class PhpunitFilterTest extends TestCase
 {
     protected $coverage;
     protected $diff;
     protected $matcher;
 
-    /**
-     * @before
-     */
+    #[Before]
     public function setUpTest()
     {
         if (PHP_VERSION > 7.2) {

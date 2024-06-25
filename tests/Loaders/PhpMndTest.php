@@ -1,6 +1,8 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\PhpMnd;
 
@@ -8,9 +10,7 @@ class PhpMndTest extends TestCase
 {
     private $mnd;
 
-    /**
-     * @before
-     */
+    #[Before]
     public function setUpTest()
     {
         $file = __DIR__ . '/../fixtures/phpmnd.txt';
@@ -29,9 +29,7 @@ class PhpMndTest extends TestCase
         $this->assertSame($expected, $this->mnd->parseLines());
     }
 
-    /**
-     * @dataProvider fileInputs
-     */
+    #[DataProvider('fileInputs')]
     public function testLinesReturnCorrect($filename, $lineNo, $expected)
     {
         $this->mnd->parseLines();
@@ -44,7 +42,7 @@ class PhpMndTest extends TestCase
         $this->assertTrue($this->mnd->handleNotFoundFile());
     }
 
-    public function fileInputs()
+    public static function fileInputs()
     {
         return [
             'found file, valid line' => ['test.php', 2, []],

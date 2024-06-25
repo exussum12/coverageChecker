@@ -92,7 +92,7 @@ function handleOutput(array $lines, float $minimumPercentCovered, Output $output
 
     if ($coveredLines + $uncoveredLines == 0) {
         error_log('No lines found!');
-        
+
         $output->output(
             $lines['uncoveredLines'],
             100,
@@ -126,14 +126,19 @@ function calculateLines(array $lines)
 
 function addExceptionHandler()
 {
-    set_exception_handler(
-        function ($exception) {
-            // @codeCoverageIgnoreStart
-            error_log($exception->getMessage());
-            exit($exception->getCode());
-            // @codeCoverageIgnoreEnd
-        }
-    );
+    if (
+        !defined('PHPUNIT_COMPOSER_INSTALL') &&
+        !defined('__PHPUNIT_PHAR__')
+    ) {
+        set_exception_handler(
+            function ($exception) {
+                // @codeCoverageIgnoreStart
+                error_log($exception->getMessage());
+                exit($exception->getCode());
+                // @codeCoverageIgnoreEnd
+            }
+        );
+    }
 }
 
 function getFileChecker(

@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\ArgParser;
 use exussum12\CoverageChecker\Exceptions\ArgumentNotFound;
@@ -9,9 +10,7 @@ class ArgParserTest extends TestCase
 {
     protected $parser;
 
-    /**
-     * @before
-     */
+    #[Before]
     public function setUpTest()
     {
         $args = [

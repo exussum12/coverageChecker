@@ -1,14 +1,14 @@
 <?php
 namespace exussum12\CoverageChecker\tests;
 
-use exussum12\CoverageChecker\DiffFileLoaderOldVersion;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use exussum12\CoverageChecker\DiffFileLoaderOldVersion;
+
 
 class DiffFileLoadOldVersionTest extends TestCase
 {
-    /**
-     * @dataProvider getResults
-     */
+    #[DataProvider('getResults')]
     public function testDiffResultsMatch($file, $expected)
     {
         $changed = $this->getChangedLines($file);

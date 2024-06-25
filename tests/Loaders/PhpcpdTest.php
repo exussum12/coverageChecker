@@ -1,6 +1,7 @@
 <?php
 namespace exussum12\CoverageChecker\tests\Loaders;
 
+use PHPUnit\Framework\Attributes\Before;
 use PHPUnit\Framework\TestCase;
 use exussum12\CoverageChecker\Loaders\Phpcpd;
 
@@ -9,10 +10,8 @@ class PhpcpdTest extends TestCase
     /** @var  Phpcpd */
     protected $cpd;
 
-    /**
-     * @before
-     */
-    protected function setUpTest()
+    #[Before]
+    protected function setUpTest(): void
     {
         $this->cpd = new Phpcpd(__DIR__ . '/../fixtures/phpcpd.txt');
 
