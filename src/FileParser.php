@@ -18,7 +18,7 @@ class FileParser
     public function __construct($sourceCode)
     {
         $this->sourceCode = $sourceCode;
-        $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+        $parser = (new ParserFactory)->createForHostVersion();
         $this->parse($parser);
     }
 
@@ -56,7 +56,7 @@ class FileParser
         $startLine = $node->getAttribute('startLine');
         $endLine = $node->getAttribute('endLine');
         if ($node->getDocComment()) {
-            $startLine = $node->getDocComment()->getLine();
+            $startLine = $node->getDocComment()->getStartLine();
         }
 
         return new CodeLimits($startLine, $endLine);

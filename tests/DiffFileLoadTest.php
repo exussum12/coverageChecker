@@ -26,7 +26,7 @@ class DiffFileLoadTest extends TestCase
         $this->getChangedLines('ufhbubfusdf');
     }
 
-    public function getResults()
+    public static function getResults()
     {
         return [
             'newFile' => [

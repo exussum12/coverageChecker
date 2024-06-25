@@ -16,7 +16,7 @@ class DiffFileLoadOldVersionTest extends TestCase
         $this->assertEquals($expected, $changed);
     }
 
-    public function getResults()
+    public static function getResults()
     {
         return [
             'newFile' => [
