@@ -23,6 +23,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
+          coverage: xdebug
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-interaction --no-suggest
       - name: Install phpcs
