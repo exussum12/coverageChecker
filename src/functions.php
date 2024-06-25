@@ -126,10 +126,10 @@ function calculateLines(array $lines)
 
 function addExceptionHandler()
 {
-    if (
+    if ((
         !defined('PHPUNIT_COMPOSER_INSTALL') &&
         !defined('__PHPUNIT_PHAR__')
-    ) {
+    )) {
         set_exception_handler(
             function ($exception) {
                 // @codeCoverageIgnoreStart
