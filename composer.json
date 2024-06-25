@@ -2,7 +2,7 @@
     "name": "exussum12/coverage-checker",
     "description": "Allows checking the code coverage of a single pull request",
     "require-dev": {
-        "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
+        "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0"
     },
     "license": "MIT",
     "authors": [
